@@ -69,7 +69,7 @@ export default function Home() {
           {["Бесплатная диагностика", "Скидка 50% на протезирование", "Скидка 50% на прием терапевта", "Скидка до 53% на художественные виниры"].map((text, i) => (
             <div key={i} className="bg-white p-3 rounded shadow">
               <div className="bg-gray-300 h-24 rounded mb-2"></div>
-              <p className="font-medium">Стоматологическая клиника "Demokrat"</p>
+              <p className="font-medium">Стоматологическая клиника "Demokrat&quot;</p>
               <p className="text-gray-700 mt-1">{text}</p>
             </div>
           ))}
