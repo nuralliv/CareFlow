@@ -17,6 +17,7 @@ export default function Home() {
         </div>
         <div className="flex gap-4 items-center">
           <span>KZ</span>
+          
           <span className="font-semibold">Nurzhan Sagyndy</span>
         </div>
       </header>
