@@ -1,7 +1,7 @@
 import Image from "next/image";
-import Doctor from "../../../images/Doctor.png";
+import Patient from "@/app/images/Patient-login-img.png";
 import { FaFacebook, FaTwitter, FaGoogle } from "react-icons/fa";
-import "../../../styles/registeDoctor.css";
+import "./loginPatient.css";
 import BtnBorder from "@/app/components/atoms/btnBorder/btnBorder";
 import Button from "@/app/components/atoms/Button/Button";
 
@@ -9,17 +9,8 @@ export default function RegisterPage() {
     return (
         <div className="container">
             <div className="left">
-                <h1 className="heading">Я здесь, чтобы помогать</h1>
-                <Image
-                    src={Doctor}
-                    alt="Doctor"
-                    width={300}
-                    className="image"
-                />
-            </div>
-
-            <div className="right">
-                <h1 className="heading">Добро пожаловать! Давайте начнём.</h1>
+                
+                <h1 className="heading">Пожалуйста, войдите в систему, <br /> чтобы продолжить.</h1>
 
                 <form className="form">
                     <label htmlFor="email">Email</label>
@@ -37,12 +28,6 @@ export default function RegisterPage() {
                         placeholder="Введите ваш пароль"
                     />
 
-                    <label htmlFor="confirm">Пароль</label>
-                    <input
-                        type="password"
-                        id="confirm"
-                        placeholder="Введите пароль повторно"
-                    />
                 </form>
 
                 <div className="socialIcons">
@@ -59,15 +44,27 @@ export default function RegisterPage() {
 
                 <div className="buttons">
                     <Button
-                        label="Зарегистрироваться"
-                        className="btnRegister"
+                        label="Войти"
+                        className="patientBtn"
                     />
                     <BtnBorder label="Отмена" />
                 </div>
 
                 <p className="loginText">
-                    Уже есть аккаунт? <a href="/login">Войти</a>
+                    Нет аккаунта? <a href="">Зарегистрироваться</a>
                 </p>
+            </div>
+
+            <div className="right">
+
+                <h1 className="heading">Я ищу медицинскую помощь</h1>
+                <Image
+                    src={Patient}
+                    alt="Doctor"
+                    width={300}
+                    className="image"
+                />
+
             </div>
         </div>
     );

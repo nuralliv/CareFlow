@@ -31,19 +31,6 @@
     font-weight: 600;
 }
 
-.btn-register{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 250px;
-    height: 48px;
-    font-weight: 500;
-    font-size: 17px;
-    border-radius: 500px;
-    color: white;
-    background-color: #236ADB;
-}
-
 .has-acc{
     font-weight: 15px;
     font-weight: 600;
@@ -51,4 +38,9 @@
 
 .login{
     color: #236ADB;
+}
+
+.to-top{
+    position: relative;
+    top: 6px;
 }

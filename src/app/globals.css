@@ -24,4 +24,5 @@
 @font-face {
     font-family: "Gilroy";
     src: url("/src/app/fonts/Gilroy/Gilroy-Light.otf") format("woff2");
+    font-weight: normal;
 }
