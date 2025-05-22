@@ -1,0 +1,26 @@
+.custom-button {
+    background-color: #236ADB;
+    color: white;
+    padding: 10px 28px;
+    height: 50px;
+    border: none;
+    border-radius: 9999px; 
+    font-weight: 500;
+    font-size: 17px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.custom-button:hover {
+    background-color: #003487;
+}
+
+.custom-button:focus {
+    outline: 3px solid #DBE9FF;
+}
+
+.custom-button:disabled {
+    background-color: #C1C1C1;
+    color: #8E8E8E;
+    cursor: not-allowed;
+}

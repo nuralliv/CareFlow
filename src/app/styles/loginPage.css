@@ -1,0 +1,46 @@
+
+.section{
+    display: flex;
+    width: 100%;
+}
+
+.container-one{
+    height: 100vh;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #F0F6FF;
+    gap: 15px;
+}
+
+.container-two{
+    height: 100vh;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #DBE9FF;
+    gap: 15px;
+}
+
+.main-txt{
+    font-size: 26px;
+    font-weight: 600;
+}
+
+.has-acc{
+    font-weight: 15px;
+    font-weight: 600;
+}
+
+.login{
+    color: #236ADB;
+}
+
+.to-top{
+    position: relative;
+    top: 6px;
+}

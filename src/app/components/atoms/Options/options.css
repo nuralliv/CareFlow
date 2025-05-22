@@ -1,0 +1,20 @@
+.options {
+    height: 50px;
+    width: 600px;
+    border-radius: 999px;
+    font-weight: 500;
+    font-size: 18px;
+    background-color: #DBE9FF;
+    color: black;
+    text-align: start;
+    padding: 0 20px;
+}
+
+.options:hover {
+    border: 1px solid #4484EB;
+}
+
+.options:focus {
+    background-color: #A1C5FF;
+    color: #003487;
+}
