@@ -17,7 +17,7 @@ export default function Home() {
                     className="first-img"
                 />
 
-                <Button label="Регистрация как Доктор" />
+                <Button label="Регистрация как Доктор" className="btnLogin"/>
                 <p className="has-acc">
                     Уже есть аккаунт?{" "}
                     <a href="" className="login">
@@ -36,7 +36,7 @@ export default function Home() {
                     className="second-img"
                 />
                 <div className="to-top">
-                    <Button label="Регистрация как Пациент" />
+                    <Button label="Регистрация как Пациент" className="btnLogin"/>
                 </div>
                 <p className="has-acc to-top">
                     Уже есть аккаунт?{" "}

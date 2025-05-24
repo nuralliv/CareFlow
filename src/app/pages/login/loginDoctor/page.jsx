@@ -1,6 +1,6 @@
 import Image from "next/image";
-import Doctor from "../../../images/Doctor.png";
-import { FaInstagram, FaFacebook, FaTwitter, FaGoogle } from "react-icons/fa";
+import Doctor from "/public/images/Doctor.png";
+import { FaFacebook, FaTwitter, FaGoogle } from "react-icons/fa";
 import "./loginDoctor.css";
 import Button from "@/app/components/atoms/Button/Button";
 import BtnBorder from "@/app/components/atoms/btnBorder/btnBorder";
