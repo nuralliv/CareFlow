@@ -1,11 +1,6 @@
-import Header from "./components/atoms/Header/Header";
-import MainPage from "./pages/main/page";
+import { redirect } from "next/navigation";
 
 export default function Home() {
-  return (
-    <div>
-      <Header/>
-      <MainPage/>
-    </div>  
-  );
+  redirect("/pages/login");
+
 }

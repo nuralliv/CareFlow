@@ -19,7 +19,7 @@ export default function RegisterPage() {
             </div>
 
             <div className="right">
-                <h1 className="heading">Добро пожаловать! Давайте начнём.</h1>
+                <h1 classNameф="heading">Добро пожаловать! Давайте начнём.</h1>
 
                 <form className="form">
                     <label htmlFor="email">Email</label>
