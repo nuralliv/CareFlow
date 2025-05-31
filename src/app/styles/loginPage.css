@@ -44,3 +44,15 @@
     position: relative;
     top: 6px;
 }
+
+.btnLogin{
+    width: 264px;
+    padding: 10px 30px;
+}
+
+@media (max-width: 744px) {
+    .main-txt{
+        text-align: center;
+        padding: 0 40px;
+    }
+}
