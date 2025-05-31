@@ -1,15 +1,49 @@
-import "./interested.css";
+"use client";
+
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { auth, db } from "@/app/firebaseConfig";
+import { ref, set } from "firebase/database";
 import BtnBorder from "@/app/components/atoms/btnBorder/btnBorder";
 import Button from "@/app/components/atoms/Button/Button";
+import Options from "@/app/components/atoms/Options/Options";
 import Image from "next/image";
 import GroupImg from "@/app/images/GroupImg.png";
-import Options from "@/app/components/atoms/Options/Options";
+import "./interested.css";
 
-export default function RegisterPage() {
+const options = [
+    "Психологическая помощь",
+    "Консультации по питанию",
+    "Медицинские статьи",
+    "Поддержка при хронических заболеваниях",
+];
+
+export default function InterestedPage() {
+    const router = useRouter();
+    const [selected, setSelected] = useState(null);
+    const user = auth.currentUser;
+
+    const onSelect = (label) => setSelected(label);
+
+    const saveAndNext = async () => {
+        if (!user) {
+            alert("Пожалуйста, войдите в систему");
+            return;
+        }
+        if (selected) {
+            await set(ref(db, `users/${user.uid}/patientData/interested`), selected);
+        }
+        router.push("/pages/register/patient/recomendation");
+    };
+
+    const skip = () => {
+        router.push("/pages/register/patient/recomendation");
+    };
+
     return (
         <section className="container">
             <main className="left">
-                <Image src={GroupImg} width={130} height={130} className="group-img1" alt="group-img"/>
+                <Image src={GroupImg} width={130} height={130} className="group-img1" alt="group-img" />
 
                 <div className="head-texts">
                     <p>Расскажите немного о себе.</p>
@@ -17,18 +51,22 @@ export default function RegisterPage() {
                 </div>
 
                 <div className="options-spe">
-                    <Options label="Психологическая помощь" className="" />
-                    <Options label="Консультации по питанию" className="" />
-                    <Options label="Медицинские статьи" className="" />
-                    <Options label="Поддержка при хронических заболеваниях" className="" />
+                    {options.map((label) => (
+                        <Options
+                            key={label}
+                            label={label}
+                            className={selected === label ? "selected" : ""}
+                            onClick={() => onSelect(label)}
+                        />
+                    ))}
                 </div>
 
                 <div className="btns">
-                    <BtnBorder label="Пропустить" className="btn-skip" />
-                    <Button label="Дальше" className="btn-next" />
+                    <BtnBorder label="Пропустить" className="btn-skip" onClick={skip} />
+                    <Button label="Дальше" className="btn-next" onClick={saveAndNext} disabled={!selected} />
                 </div>
 
-                <Image src={GroupImg} width={130} height={130} className="group-img2" alt="group-img"/>
+                <Image src={GroupImg} width={130} height={130} className="group-img2" alt="group-img" />
             </main>
 
             <main className="right">

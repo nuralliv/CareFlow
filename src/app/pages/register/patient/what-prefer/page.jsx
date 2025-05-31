@@ -1,42 +1,77 @@
-import "./what-prefer.css";
+"use client";
+
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { auth, db } from "@/app/firebaseConfig";
+import { ref, set } from "firebase/database";
 import BtnBorder from "@/app/components/atoms/btnBorder/btnBorder";
 import Button from "@/app/components/atoms/Button/Button";
+import Options from "@/app/components/atoms/Options/Options";
 import Image from "next/image";
 import GroupImg from "@/app/images/GroupImg.png";
-import Options from "@/app/components/atoms/Options/Options";
+import "./what-prefer.css";
 
-export default function RegisterPage() {
-    return (
-        <section className="container">
-            <main className="left">
-                <Image src={GroupImg} width={130} height={130} className="group-img1" alt="group-img"/>
+const options = ["Онлайн", "Очная встреча", "Пока не знаю"];
 
-                <div className="head-texts">
-                    <p>Расскажите немного о себе.</p>
-                    <h2>Какой формат консультаций вы предпочитаете?</h2>
-                </div>
+export default function WhatPreferPage() {
+  const router = useRouter();
+  const [selected, setSelected] = useState(null);
+  const user = auth.currentUser;
 
-                <div className="options-spe">
-                    <Options label="Онлайн" className="" />
-                    <Options label="Очная встреча" className="" />
-                    <Options label="Пока не знаю" className="" />
-                </div>
+  const onSelect = (label) => setSelected(label);
 
-                <div className="btns">
-                    <BtnBorder label="Пропустить" className="btn-skip" />
-                    <Button label="Дальше" className="btn-next" />
-                </div>
+  const saveAndFinish = async () => {
+    if (!user) {
+      alert("Пожалуйста, войдите в систему");
+      return;
+    }
+    if (selected) {
+      await set(ref(db, `users/${user.uid}/patientData/consultationFormat`), selected);
+    }
+    alert("Регистрация пациента завершена!");
+    router.push("/"); // Можно редирект куда нужно
+  };
 
-                <Image src={GroupImg} width={130} height={130} className="group-img2" alt="group-img"/>
-            </main>
+  const skip = () => {
+    router.push("/");
+  };
 
-            <main className="right">
-                <h1 className="cf">CF</h1>
-                <p className="cf-text">
-                    CareFlow — медицинский веб-сайт и <br /> приложение,
-                    созданные для удобства клиник, <br /> врачей и пациентов.
-                </p>
-            </main>
-        </section>
-    );
+  return (
+    <section className="container">
+      <main className="left">
+        <Image src={GroupImg} width={130} height={130} className="group-img1" alt="group-img" />
+
+        <div className="head-texts">
+          <p>Расскажите немного о себе.</p>
+          <h2>Какой формат консультаций вы предпочитаете?</h2>
+        </div>
+
+        <div className="options-spe">
+          {options.map((label) => (
+            <Options
+              key={label}
+              label={label}
+              className={selected === label ? "selected" : ""}
+              onClick={() => onSelect(label)}
+            />
+          ))}
+        </div>
+
+        <div className="btns">
+          <BtnBorder label="Пропустить" className="btn-skip" onClick={skip} />
+          <Button label="Завершить" className="btn-next" onClick={saveAndFinish} disabled={!selected} />
+        </div>
+
+        <Image src={GroupImg} width={130} height={130} className="group-img2" alt="group-img" />
+      </main>
+
+      <main className="right">
+        <h1 className="cf">CF</h1>
+        <p className="cf-text">
+          CareFlow — медицинский веб-сайт и <br /> приложение,
+          созданные для удобства клиник, <br /> врачей и пациентов.
+        </p>
+      </main>
+    </section>
+  );
 }
