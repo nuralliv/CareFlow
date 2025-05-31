@@ -1,0 +1,107 @@
+.container {
+    display: flex;
+    min-height: 100vh;
+}
+
+.left {
+    width: 50%;
+    background-color: #F0F6FF;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.heading {
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.right {
+    width: 50%;
+    background-color: #DBE9FF;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+}
+
+.welcome {
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 30px;
+
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form label {
+    font-size: 16px;
+    margin-top: 12px;
+    font-weight: 500;
+    margin-bottom: 6px;
+}
+
+.form input {
+    padding: 16px;
+    border-radius: 999px;
+    outline: none;
+    font-size: 16px;
+    width: 433px;
+    height: 50px;
+    background-color: white;
+    border: 1px solid #DBDBDB;
+    color: #767676;
+    font-weight: 400;
+}
+
+.btnRegister{
+    width: 283px;
+}
+
+.socialIcons {
+    display: flex;
+    gap: 16px;
+    margin: 24px 0;
+}
+
+.icon {
+    font-size: 20px;
+    color: #236ADB;
+    cursor: pointer;
+    transition: 0.3s ease;
+    
+}
+
+.iconDiv{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #F0F6FF;
+    width: 40px;
+    height: 40px;
+    border-radius: 30px;
+}
+
+.buttons {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 16px;
+}
+
+.loginText {
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.loginText a {
+    color: #236ADB;
+    text-decoration: none;
+}
+

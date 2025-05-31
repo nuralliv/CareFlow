@@ -1,0 +1,26 @@
+.btnDelete {
+    background-color: #C42121;
+    color: white;
+    padding: 10px 28px;
+    height: 50px;
+    border: none;
+    border-radius: 9999px; 
+    font-weight: 500;
+    font-size: 17px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btnDelete:hover {
+    background-color: #EB5454;
+}
+
+.btnDelete:focus {
+    outline: 3px solid #EB5454;
+}
+
+.btnDelete:disabled {
+    background-color: #C1C1C1;
+    color: #8E8E8E;
+    cursor: not-allowed;
+}

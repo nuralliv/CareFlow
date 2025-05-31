@@ -5,7 +5,7 @@ import "./loginPatient.css";
 import BtnBorder from "@/app/components/atoms/btnBorder/btnBorder";
 import Button from "@/app/components/atoms/Button/Button";
 
-export default function RegisterPage() {
+export default function LoginPatientPage() {
     return (
         <div className="container">
             <div className="left">
@@ -19,6 +19,7 @@ export default function RegisterPage() {
                         type="email"
                         id="email"
                         placeholder="Введите ваш email"
+                        required
                     />
 
                     <label htmlFor="password">Пароль</label>
@@ -26,6 +27,7 @@ export default function RegisterPage() {
                         type="password"
                         id="password"
                         placeholder="Введите ваш пароль"
+                        required
                     />
 
                 </form>

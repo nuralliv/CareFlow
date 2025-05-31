@@ -1,11 +1,11 @@
 import Image from "next/image";
 import Patient from "@/app/images/Patient-login-img.png";
 import { FaFacebook, FaTwitter, FaGoogle } from "react-icons/fa";
-import "./patientRegister.css";
+import "./patientName.css";
 import BtnBorder from "@/app/components/atoms/btnBorder/btnBorder";
 import Button from "@/app/components/atoms/Button/Button";
 
-export default function PatientRegisterPage() {
+export default function PatientNamePage() {
     return (
         <div className="container">
             <div className="left">
@@ -13,40 +13,22 @@ export default function PatientRegisterPage() {
                 <h1 className="heading">Добро пожаловать! Давайте начнём.</h1>
 
                 <form className="form">
-                    <label htmlFor="email">Email</label>
+                    <label htmlFor="text">ФИО</label>
                     <input
                         className="input"
-                        type="email"
-                        id="email"
-                        placeholder="Введите ваш email"
+                        type="text"
+                        placeholder="Введите ФИО"
                     />
 
-                    <label htmlFor="password">Пароль</label>
+                    <label htmlFor="text">Номер телефона</label>
                     <input
-                        type="password"
-                        id="password"
-                        placeholder="Введите ваш пароль"
-                    />
-
-                    <label htmlFor="confirm">Пароль</label>
-                    <input
-                        type="password"
-                        id="confirm"
-                        placeholder="Введите пароль повторно"
+                        type="text"
+                        placeholder="Введите ваш номер телефона"
                     />
 
                 </form>
 
                 <div className="socialIcons">
-                    <div className="iconDiv">
-                        <FaGoogle className="icon" />
-                    </div>
-                    <div className="iconDiv">
-                        <FaFacebook className="icon" />
-                    </div>
-                    <div className="iconDiv">
-                        <FaTwitter className="icon" />
-                    </div>
                 </div>
 
                 <div className="buttons">

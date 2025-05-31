@@ -5,7 +5,7 @@ import Image from "next/image";
 import GroupImg from "@/app/images/GroupImg.png";
 import Options from "@/app/components/atoms/Options/Options";
 
-export default function RegisterPage() {
+export default function DoctorWorkTimePage() {
     return (
         <section className="container">
             <main className="left">

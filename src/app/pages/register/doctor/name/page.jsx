@@ -1,11 +1,11 @@
 import Image from "next/image";
-import Doctor from "../../../images/Doctor.png";
+import Doctor from "../../../../images/Doctor.png";
 import { FaFacebook, FaTwitter, FaGoogle } from "react-icons/fa";
-import "../../../styles/registeDoctor.css";
+import "./name.css";
 import BtnBorder from "@/app/components/atoms/btnBorder/btnBorder";
 import Button from "@/app/components/atoms/Button/Button";
 
-export default function DoctorRegisterPage() {
+export default function DoctorNamePage() {
     return (
         <div className="container">
             <div className="left">
@@ -22,42 +22,27 @@ export default function DoctorRegisterPage() {
                 <h1 className="heading">Добро пожаловать! Давайте начнём.</h1>
 
                 <form className="form">
-                    <label htmlFor="email">Email</label>
+                    <label htmlFor="text">ФИО</label>
                     <input
                         className="input"
-                        type="email"
-                        id="email"
-                        placeholder="Введите ваш email"
-                        required
+                        type="text"
+                        placeholder="Введите ФИО"
                     />
 
-                    <label htmlFor="password">Пароль</label>
+                    <label htmlFor="text">Номер телефона</label>
                     <input
-                        type="password"
-                        id="password"
-                        placeholder="Введите ваш пароль"
-                        required
+                        type="text"
+                        placeholder="Введите ваш номер телефона"
                     />
 
-                    <label htmlFor="confirm">Пароль</label>
+                    <label htmlFor="text">Адрес</label>
                     <input
-                        type="password"
-                        id="confirm"
-                        placeholder="Введите пароль повторно"
-                        required
+                        type="text"
+                        placeholder="Введите ваше рабочее место"
                     />
                 </form>
 
                 <div className="socialIcons">
-                    <div className="iconDiv">
-                        <FaGoogle className="icon" />
-                    </div>
-                    <div className="iconDiv">
-                        <FaFacebook className="icon" />
-                    </div>
-                    <div className="iconDiv">
-                        <FaTwitter className="icon" />
-                    </div>
                 </div>
 
                 <div className="buttons">
