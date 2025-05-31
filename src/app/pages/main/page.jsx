@@ -1,99 +1,263 @@
 "use client";
-import React from "react";
-import "./main.css";
-import { FaMapMarkerAlt } from "react-icons/fa";
 import Button from "@/app/components/atoms/Button/Button";
-import Header from "@/app/components/atoms/Header/Header";
 import Image from "next/image";
 import MainPageImg from "@/app/images/MainPageImg.png";
 import Doctors from "@/app/images/Team-doctors.png";
+import "./main.css";
+import Header from "@/app/components/atoms/Header/Header";
+import React from "react";
+import Link from "next/link";
+import first from "@/app/images/1.jpg";
+import second from "@/app/images/2.jpg";
+import third from "@/app/images/3.jpg";
+import SendTo from "@/app/images/Sendicon.svg";
+import Heart from "@/app/images/heart.svg";
+import BtnBorder from "@/app/components/atoms/btnBorder/btnBorder";
+import doctor2 from "@/app/images/11.jpg"
+import doctor1 from "@/app/images/22.jpg"
+import doctor3 from "@/app/images/33.jpg"
+import Footer from "@/app/components/atoms/Footer/Footer";
 
-export default function MainPage() {
+const newsItems = [
+    {
+        id: 1,
+        image: first,
+        date: "27 Май 2025",
+        title: "В Казахстане разработают стандарт для традиционной медицины",
+        description:
+            "Министерство здравоохранения разработает стандарт с целью регламентации методов традиционной медицины.",
+        link: "https://www.inform.kz/ru/v-kazahstane-razrabotayut-standart-dlya-traditsionnoy-meditsini-b9921a",
+    },
+    {
+        id: 2,
+        image: second,
+        date: "27 Май 2025",
+        title: "Новые протоколы для борьбы с наркоманией разработают в Казахстане",
+        description:
+            "Минздрав разработает новый протокол по лечению зависимостей от новых психоактивных веществ передает агентства Kazinform. ",
+        link: "https://www.inform.kz/ru/novie-protokoli-dlya-borbi-s-narkomaniey-razrabotayut-v-kazahstane-e3ed69",
+    },
+    {
+        id: 3,
+        image: third,
+        date: "27 Май 2025",
+        title: "В Алматы не могут решить, кто будет управлять первым крематорием в стране",
+        description:
+            "В Алматы построили первый в стране крематорий, но никто не хочет брать его на баланс, передает корреспондент агентства Kazinform.",
+        link: "https://www.inform.kz/ru/v-almati-ne-mogut-reshit-kto-budet-upravlyat-pervim-krematoriem-v-strane-0f08b9",
+    },
+];
+const doctors = [
+    {
+        id: 1,
+        name: "Алия Жумагалиева",
+        specialty: "Педиатр",
+        image: doctor1,
+    },
+    {
+        id: 2,
+        name: "Тимур Рахимов",
+        specialty: "Терапевт",
+        image: doctor2,
+    },
+    {
+        id: 3,
+        name: "Жанара Тулеубаева",
+        specialty: "Невролог",
+        image: doctor3,
+    },
+];
+
+export default function HomePage() {
     return (
-        <>
+        <div className="homepage">
             <Header />
-            <section className="main-page">
-                <div className="image-section">
+
+            <section className="hero-section">
+                <div className="hero-image">
                     <Image
                         src={MainPageImg}
-                        alt="Doctor"
-                        width={400}
-                        height={400}
-                        className=""
+                        alt="MainPageImg"
+                        className="main-img"
                     />
                 </div>
-                <div className="content-section">
-                    <div className="location">
-                        <FaMapMarkerAlt className="icon" />
-                        Тараз, Пушкина 154
-                    </div>
 
-                    <h1 className="title">
-                        Добро пожаловать в <span>CareFlow</span> — ваш надёжный
-                        помощник в мире медицины!
+                <div className="hero-content">
+                    <h1 className="hero-title">
+                        Добро пожаловать в CareFlow — ваш надёжный помощник в
+                        мире медицины!
                     </h1>
-
-                    <p className="description">
+                    <p className="hero-subtitle">
                         Найдите ближайшие аптеки и медицинские центры за
                         считанные секунды. Удобный поиск по карте, актуальные
                         данные, и возможность онлайн-записи к врачу — всё в
                         одном месте. Заботьтесь о здоровье легко и без очередей.
                     </p>
+                    <Button label="Записаться на приём" />
+                </div>
+            </section>
 
-                    <div className="buttons">
-                        <Button label="Забронировать встречу" />
+            <section className="about-section">
+                <div className="about-texts">
+                    <h2 className="about-main-txt">
+                        Что делает нас особенным?
+                    </h2>
+                    <p className="about-second-txt">
+                        Ничто не важнее вашего здоровья. Мы стремимся
+                        предоставить медицинские услуги, которые помогут вам
+                        легче заботиться о своём здоровье и повышать его уровень
+                        благополучия.
+                    </p>
+                </div>
+
+                <div className="about-content">
+                    <Image
+                        src={Doctors}
+                        alt="Doctors"
+                        className="doctors-img"
+                    />
+                    <div className="about-stats">
+                        <div className="stat-box">
+                            <div className="stat-number">5</div>
+                            <div className="stat-label">
+                                Лет успешной работы
+                            </div>
+                        </div>
+                        <div className="stat-box">
+                            <div className="stat-number">10k+</div>
+                            <div className="stat-label">
+                                Довольных пациентов
+                            </div>
+                        </div>
+                        <div className="stat-box">
+                            <div className="stat-number">20+</div>
+                            <div className="stat-label">Медицинских услуг</div>
+                        </div>
+                        <div className="stat-box highlight">
+                            <div className="stat-number">1k+</div>
+                            <div className="stat-label">
+                                Профессиональных докторов
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
 
-            <section className="why-us-section">
-                <div className="container">
-                    <div className="left">
-                        <h2 className="title">
-                            Что делает нас <br /> особенным?
-                        </h2>
-
-                        <div className="image-container">
+            <section className="news-section">
+                <h2 className="section-title">Новости</h2>
+                <div className="news-grid">
+                    {newsItems.map((news) => (
+                        <div key={news.id} className="news-card">
                             <Image
-                                src={Doctors}
-                                alt="Doctor"
-                                width={500}
-                                height={500}
-                                className=""
+                                src={news.image}
+                                alt={news.title}
+                                className="news-image"
+                            />
+
+                            <div className="white-bckg">
+                                <div className="news-date">{news.date}</div>
+                            </div>
+                            <div className="news-title">{news.title}</div>
+                            <div className="news-description">
+                                {news.description}
+                            </div>
+                            <Link href={news.link} passHref className="link">
+                                <Button
+                                    label="Узнать больше"
+                                    icon={SendTo}
+                                    iconPosition="right"
+                                    className="btnSendTo"
+                                />
+                            </Link>
+                        </div>
+                    ))}
+                </div>
+            </section>
+
+            <section className="services-section">
+                <h2 className="section-title">Процедуры и услуги</h2>
+                <div className="services-grid">
+                    <div className="container">
+                        <div className="service-card">
+                            <Image src={Heart} width={70} />
+                            <h3>Кардиология</h3>
+                            <p>
+                                Диагностика и лечение сердечно-сосудистых
+                                заболеваний. Онлайн-запись к кардиологу без
+                                ожидания.
+                            </p>
+                            <BtnBorder
+                                label="Читать подробнее"
+                                className="btnRead"
+                            />
+                        </div>
+
+                        <div className="service-card highlight">
+                            <Image src={Heart} width={70} />
+                            <h3>Неврология</h3>
+                            <p>
+                                Помощь при головной боли, бессоннице,
+                                остеохондрозе, невралгии и других нарушениях.
+                            </p>
+                            <BtnBorder
+                                label="Читать подробнее"
+                                className="btnRead borW"
                             />
                         </div>
                     </div>
 
-                    <div className="right">
-                        <p className="description">
-                            Ничто не важнее вашего здоровья. Мы стремимся
-                            предоставить медицинские услуги, которые помогут вам
-                            легче заботиться о своём здоровье и повышать его
-                            уровень благополучия.
-                        </p>
-                        <div className="boxs">
-                            <div className="stat-box">
-                                <h2 className="stat-number">5</h2>
-                                <p className="stat-text">Лет успешной работы</p>
-                            </div>
-                            <div className="stat-box">
-                                <h2 className="stat-number">10k+</h2>
-                                <p className="stat-text">Довольных пациентов</p>
-                            </div>
-                            <div className="stat-box">
-                                <h2 className="stat-number">20+</h2>
-                                <p className="stat-text">Медицинских услуг</p>
-                            </div>
-                            <div className="stat-box dark">
-                                <h2 className="stat-number">1k+</h2>
-                                <p className="stat-text">
-                                    Профессиональных докторов
-                                </p>
-                            </div>
+                    <div className="container">
+                        <div className="service-card highlight">
+                            <Image src={Heart} width={70} />
+                            <h3>Терапия</h3>
+                            <p>
+                                Первичный приём, лечение простуд, ОРВИ,
+                                хронических заболеваний.
+                            </p>
+                            <BtnBorder
+                                label="Читать подробнее"
+                                className="btnRead borW"
+                            />
+                        </div>
+
+                        <div className="service-card">
+                            <Image src={Heart} width={70} />
+                            <h3>Гинекология</h3>
+                            <p>
+                                Профилактика и лечение женских заболеваний. УЗИ,
+                                консультации, ведение беременности.
+                            </p>
+                            <BtnBorder
+                                label="Читать подробнее"
+                                className="btnRead"
+                            />
                         </div>
                     </div>
                 </div>
             </section>
-        </>
+
+            <section className="doctors-section">
+                <h2 className="section-title">Наши лучшие доктора</h2>
+                <div className="doctor-cards">
+                    {doctors.map((doctor) => (
+                        <div key={doctor.id} className="doctor-card">
+                            <Image
+                                src={doctor.image}
+                                alt={doctor.title}
+                                className="doctor-image"
+                            />
+                            <div className="doctor-info">
+                                <h4>{doctor.name}</h4>
+                                <p>{doctor.specialty}</p>
+                            </div>
+                            
+                        </div>
+                        ))}
+                <BtnBorder label="Все специалисты" className="btnAllSpe"/>
+                </div>
+            </section>
+
+            <Footer/>
+        </div>
     );
 }

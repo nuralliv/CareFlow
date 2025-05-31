@@ -1,0 +1,130 @@
+.footer {
+    background-color: #236adb;
+    color: white;
+    padding: 60px 80px 20px;
+    border-top-left-radius: 40px;
+    border-top-right-radius: 40px;
+}
+
+.footer-top {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-bottom: 40px;
+    gap: 40px;
+}
+
+.footer-column {
+    flex: 1;
+    min-width: 220px;
+}
+
+.footer-column h2 {
+    margin-bottom: 12px;
+    font-size: 22px;
+    font-weight: 500;
+}
+
+.footer-column p {
+    font-size: 17px;
+    margin-bottom: 12px;
+}
+
+.footer-column ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-column ul li {
+    margin-bottom: 8px;
+    font-size: 17px;
+}
+
+.newsletter-input {
+    display: flex;
+    background-color: #6295E7;
+    border-radius: 12px;
+    overflow: hidden;
+    width: 300px;
+    height: 50px;
+}
+
+.newsletter-input input {
+    border: none;
+    padding: 10px 12px;
+    flex: 1;
+    font-size: 14px;
+    background-color: #6295E7;
+    color: white;
+    outline: none;
+}
+
+.foot-icon{
+    width: 45px;
+    position: relative;
+    right: 10px;
+}
+
+.icons{
+    width: 40px;
+}
+
+.ic{
+    display: flex;
+    gap: 10px;
+}
+
+.newsletter-input input::placeholder {
+    color: white;
+    font-size: 15px;
+}
+
+.newsletter-input button {
+    background-color: #2d6cdf;
+    border: none;
+    padding: 10px 16px;
+    cursor: pointer;
+    color: white;
+    font-size: 18px;
+}
+
+.footer-logo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    flex-wrap: wrap;
+    gap: 20px;
+    background-color: white;
+    color: #757575;
+    height: 65px;
+    border-radius: 14px;
+    padding: 0 15px;
+}
+
+.logo-txt{
+    color: black !important;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.logo{
+    width: 40px;
+}
+
+.logo-section {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.footer-socials a:hover {
+    opacity: 0.7;
+}
+
+.foot-txt{
+    font-size: 17px;
+}
