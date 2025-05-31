@@ -2,7 +2,13 @@
 
 import { useState } from "react";
 import { auth } from '@/app/firebaseConfig'
+import DoctorImg from "@/app/images/Doctor.png";
+import { FaFacebook, FaTwitter, FaGoogle } from "react-icons/fa";
+import BtnBorder from "@/app/components/atoms/btnBorder/btnBorder";
+import Image from "next/image";
 import { createUserWithEmailAndPassword } from "firebase/auth";
+import Button from "@/app/components/atoms/Button/Button";
+
 import { useRouter } from "next/navigation";
 import "../../../styles/registeDoctor.css";
 
@@ -41,6 +47,8 @@ export default function RegisterPage() {
         <div className="container">
             <div className="left">
                 <h1 className="heading">Я здесь, чтобы помогать</h1>
+                <Image src={DoctorImg} alt="Doctor" width={300} className="image" />
+
             </div>
 
             <div className="right">
@@ -77,11 +85,18 @@ export default function RegisterPage() {
                         onChange={(e) => setConfirm(e.target.value)}
                         required
                     />
+                    <div className="flex w-full justify-center my-[25px] gap-5 align-middle">
+                                <div className="iconDiv"><FaGoogle className="icon" /></div>
+                                <div className="iconDiv"><FaFacebook className="icon" /></div>
+                                <div className="iconDiv"><FaTwitter className="icon" /></div>
+                              </div>
 
-                    <button type="submit" className="btnRegister" disabled={loading}>
-                        {loading ? "Регистрация..." : "Зарегистрироваться"}
-                    </button>
+                    <div className="flex justify-between">
+                        <Button label={loading ? "Регистрация..." : "Зарегистрироваться"} className="btnRegister" disabled={loading} />
+                        <BtnBorder label="Отмена" />
+                    </div>
                 </form>
+                <p className="loginText">Уже есть аккаунт? <a href="/patient/login">Войти</a></p>
             </div>
         </div>
     );

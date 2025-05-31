@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { auth, db } from "@/app/firebaseConfig";
-import { ref, set } from "firebase/database";
+import { ref, update } from "firebase/database";
 import BtnBorder from "@/app/components/atoms/btnBorder/btnBorder";
 import Button from "@/app/components/atoms/Button/Button";
 import Options from "@/app/components/atoms/Options/Options";
@@ -26,10 +26,15 @@ export default function WhatPreferPage() {
       return;
     }
     if (selected) {
-      await set(ref(db, `users/${user.uid}/patientData/consultationFormat`), selected);
+      await update(ref(db, `patients/${user.uid}`), {
+        consultationFormat: selected,
+        isPatient: true,
+        email: user.email,
+        uid: user.uid,
+      });
     }
     alert("Регистрация пациента завершена!");
-    router.push("/"); // Можно редирект куда нужно
+    router.push("/"); // Редирект куда надо
   };
 
   const skip = () => {
@@ -39,7 +44,7 @@ export default function WhatPreferPage() {
   return (
     <section className="container">
       <main className="left">
-        <Image src={GroupImg} width={130} height={130} className="group-img1" alt="group-img" />
+        <Image src={GroupImg} width={130} height={130} alt="group-img" />
 
         <div className="head-texts">
           <p>Расскажите немного о себе.</p>
@@ -62,14 +67,15 @@ export default function WhatPreferPage() {
           <Button label="Завершить" className="btn-next" onClick={saveAndFinish} disabled={!selected} />
         </div>
 
-        <Image src={GroupImg} width={130} height={130} className="group-img2" alt="group-img" />
+        <Image src={GroupImg} width={130} height={130} alt="group-img" />
       </main>
 
       <main className="right">
         <h1 className="cf">CF</h1>
         <p className="cf-text">
-          CareFlow — медицинский веб-сайт и <br /> приложение,
-          созданные для удобства клиник, <br /> врачей и пациентов.
+          CareFlow — медицинский веб-сайт и <br />
+          приложение, созданные для удобства клиник, <br />
+          врачей и пациентов.
         </p>
       </main>
     </section>

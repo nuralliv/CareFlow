@@ -35,6 +35,7 @@ export default function PatientRegisterPage() {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
 
+      // Записываем базовые данные в patients/{uid}
       await set(ref(db, `patients/${user.uid}`), {
         uid: user.uid,
         email: user.email,
@@ -88,16 +89,21 @@ export default function PatientRegisterPage() {
             onChange={(e) => setConfirm(e.target.value)}
             required
           />
-          <Button label={loading ? "Регистрация..." : "Зарегистрироваться"} className="btnRegister" disabled={loading} />
+          <div className="flex w-full justify-center my-[25px] gap-5 align-middle">
+            <div className="iconDiv"><FaGoogle className="icon" /></div>
+            <div className="iconDiv"><FaFacebook className="icon" /></div>
+            <div className="iconDiv"><FaTwitter className="icon" /></div>
+          </div>
+          <div className="flex justify-between">
+            <Button label={loading ? "Регистрация..." : "Зарегистрироваться"} className="btnRegister" disabled={loading} />
+            <BtnBorder label="Отмена" />
+          </div>
+         
+
         </form>
 
-        <div className="socialIcons">
-          <div className="iconDiv"><FaGoogle className="icon" /></div>
-          <div className="iconDiv"><FaFacebook className="icon" /></div>
-          <div className="iconDiv"><FaTwitter className="icon" /></div>
-        </div>
 
-        <BtnBorder label="Отмена" />
+
         <p className="loginText">Уже есть аккаунт? <a href="/patient/login">Войти</a></p>
       </div>
 
