@@ -24,7 +24,7 @@ export default function WorkPage() {
             return;
         }
         if (selected) {
-            await update(ref(db, `users/${user.uid}`), { workDirection: selected });
+            await update(ref(db, `doctors/${user.uid}`), { workDirection: selected });
         }
         router.push("/pages/register/doctor/speciality");
     };

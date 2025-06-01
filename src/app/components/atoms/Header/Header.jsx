@@ -4,32 +4,21 @@ import React, { useEffect, useState } from "react";
 import { auth, db } from "@/app/firebaseConfig";
 import { onValue, ref } from "firebase/database";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
 import Image from "next/image";
 import searchIcon from "@/app/images/search.svg";
 import "./header.css";
-
-const doctorsData = [
-    "Ашимов Алмас",
-    "Ашимова Айгерим",
-    "Ахметова Аружан",
-    "Алмасов Данияр",
-    "Серикова Динара",
-];
 
 export default function Header() {
     const [userName, setUserName] = useState(null);
     const [userRole, setUserRole] = useState(null);
     const [activeDropdown, setActiveDropdown] = useState(null);
     const [searchTerm, setSearchTerm] = useState("");
-    const [filteredDoctors, setFilteredDoctors] = useState([]);
     const router = useRouter();
 
     useEffect(() => {
         const unsubscribeAuth = auth.onAuthStateChanged((user) => {
             if (user) {
                 const uid = user.uid;
-
                 const doctorRef = ref(db, `doctors/${uid}/fullName`);
                 onValue(
                     doctorRef,
@@ -39,16 +28,11 @@ export default function Header() {
                             setUserName(fullName?.split(" ")[0] || null);
                             setUserRole("doctor");
                         } else {
-                            const patientRef = ref(
-                                db,
-                                `patients/${uid}/fullName`
-                            );
+                            const patientRef = ref(db, `patients/${uid}/fullName`);
                             onValue(patientRef, (snapPat) => {
                                 if (snapPat.exists()) {
                                     const fullNamePat = snapPat.val();
-                                    setUserName(
-                                        fullNamePat?.split(" ")[0] || null
-                                    );
+                                    setUserName(fullNamePat?.split(" ")[0] || null);
                                     setUserRole("patient");
                                 } else {
                                     setUserName(null);
@@ -72,21 +56,16 @@ export default function Header() {
         setActiveDropdown(activeDropdown === name ? null : name);
     };
 
-    const handleSearch = (e) => {
-        const value = e.target.value;
-        setSearchTerm(value);
-        const filtered = doctorsData.filter((name) =>
-            name.toLowerCase().startsWith(value.toLowerCase())
-        );
-        setFilteredDoctors(filtered);
-    };
-
+    // Универсальная функция навигации:
+    // если юзер залогинен, идет на указанный путь
+    // если нет — на страницу логина
     const navigate = (path) => {
         if (auth.currentUser) {
             router.push(path);
         } else {
             router.push("/pages/login");
         }
+        setActiveDropdown(null); // закрываем дропдаун при переходе
     };
 
     return (
@@ -96,67 +75,72 @@ export default function Header() {
             </div>
 
             <nav className="nav">
-                <div
-                    className="nav-item"
-                    onClick={() => toggleDropdown("about")}
-                >
+                {/* Про нас */}
+                <div className="nav-item" onClick={() => navigate("/pages/about")}>
                     Про нас
                 </div>
 
-                <div
-                    className="nav-item"
-                    onClick={() => toggleDropdown("news")}
-                >
+                {/* Новости */}
+                <div className="nav-item" onClick={() => navigate("/pages/news")}>
                     Новости
                 </div>
 
+                {/* Сервисы с дропдауном */}
                 <div
                     className="nav-item"
                     onClick={() => toggleDropdown("services")}
+                    onMouseLeave={() => setActiveDropdown(null)}
                 >
                     Сервисы <span>▾</span>
                     {activeDropdown === "services" && (
                         <div className="dropdown">
-                            <div className="dropdown-item">Кардиология</div>
-                            <div className="dropdown-item">Неврология</div>
-                            <div className="dropdown-item">Терапия</div>
-                            <div className="dropdown-item">Гинекология</div>
+                            <div
+                                className="dropdown-item"
+                                onClick={() => navigate("/pages/services/cardiology")}
+                            >
+                                Кардиология
+                            </div>
+                            <div
+                                className="dropdown-item"
+                                onClick={() => navigate("/pages/services/neurology")}
+                            >
+                                Неврология
+                            </div>
+                            <div
+                                className="dropdown-item"
+                                onClick={() => navigate("/pages/services/therapy")}
+                            >
+                                Терапия
+                            </div>
+                            <div
+                                className="dropdown-item"
+                                onClick={() => navigate("/pages/services/gynecology")}
+                            >
+                                Гинекология
+                            </div>
                         </div>
                     )}
                 </div>
 
-                <div
-                    className="nav-item"
-                    onClick={() => toggleDropdown("doctors")}
-                >
+                {/* Докторы */}
+                <div className="nav-item" onClick={() => navigate("/pages/doctors")}>
                     Докторы
                 </div>
 
+                {/* Поиск */}
                 <div className="search-wrapper">
-                    <Image
-                        src={searchIcon}
-                        alt="Поиск"
-                        className="search-icon"
-                    />
+                    <Image src={searchIcon} alt="Поиск" className="search-icon" />
                     <input
                         type="text"
                         value={searchTerm}
-                        onChange={handleSearch}
+                        onChange={(e) => setSearchTerm(e.target.value)}
                         className="search-input"
                         placeholder="Искать услугу или доктора..."
                     />
-                    {searchTerm && filteredDoctors.length > 0 && (
-                        <div className="search-results">
-                            {filteredDoctors.map((doctor, index) => (
-                                <div key={index} className="search-result-item">
-                                    {doctor}
-                                </div>
-                            ))}
-                        </div>
-                    )}
                 </div>
             </nav>
 
+            {/* Профиль / Войти */}
             <div className="profile">
                 {userName ? (
                     <div
@@ -172,10 +156,7 @@ export default function Header() {
                         {userName} <span>▾</span>
                     </div>
                 ) : (
-                    <button
-                        className="register-btn"
-                        onClick={() => router.push("/pages/login")}
-                    >
+                    <button className="register-btn" onClick={() => router.push("/pages/login")}>
                         Войти
                     </button>
                 )}
