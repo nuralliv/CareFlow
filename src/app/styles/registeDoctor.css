@@ -1,6 +1,7 @@
 .container {
     display: flex;
     min-height: 100vh;
+    width: 100%;
 }
 
 .left {
@@ -67,6 +68,7 @@
 
 .socialIcons {
     display: flex;
+    justify-content: center;
     gap: 16px;
     margin: 24px 0;
 }

@@ -8,6 +8,7 @@ import BtnBorder from "@/app/components/atoms/btnBorder/btnBorder";
 import Button from "@/app/components/atoms/Button/Button";
 import Options from "@/app/components/atoms/Options/Options";
 import Image from "next/image";
+import './experience.css'; // Assuming you have a CSS file for styles
 import GroupImg from "@/app/images/GroupImg.png";
 
 const options = ["До 1 года", "1–3 года", "3–5 лет", "Более 5 лет"];
