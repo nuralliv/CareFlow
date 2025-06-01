@@ -13,31 +13,27 @@ import { useRouter } from "next/navigation";
 import "./patientRegister.css";
 
 export default function PatientRegisterPage() {
-    const router = useRouter();
+  const router = useRouter();
 
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [confirm, setConfirm] = useState("");
-    const [loading, setLoading] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirm, setConfirm] = useState("");
+  const [loading, setLoading] = useState(false);
 
-    const onRegister = async () => {
-        if (!email || !password) {
-            alert("Введите email и пароль");
-            return;
-        }
-        if (password !== confirm) {
-            alert("Пароли не совпадают");
-            return;
-        }
+  const onRegister = async () => {
+    if (!email || !password) {
+      alert("Введите email и пароль");
+      return;
+    }
+    if (password !== confirm) {
+      alert("Пароли не совпадают");
+      return;
+    }
 
-        setLoading(true);
-        try {
-            const userCredential = await createUserWithEmailAndPassword(
-                auth,
-                email,
-                password
-            );
-            const user = userCredential.user;
+    setLoading(true);
+    try {
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
 
       // Записываем базовые данные в patients/{uid}
       await set(ref(db, `patients/${user.uid}`), {
@@ -46,13 +42,13 @@ export default function PatientRegisterPage() {
         isPatient: true,
       });
 
-            router.push("/pages/register/patient/interested-to");
-        } catch (error) {
-            alert("Ошибка: " + error.message);
-        } finally {
-            setLoading(false);
-        }
-    };
+      router.push("/pages/register/patient/patient-name");
+    } catch (error) {
+      alert("Ошибка: " + error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="container">
@@ -102,24 +98,14 @@ export default function PatientRegisterPage() {
             <Button label={loading ? "Регистрация..." : "Зарегистрироваться"} className="btnRegister" disabled={loading} />
             <BtnBorder label="Отмена" />
           </div>
-         
-
         </form>
-
-
-
         <p className="loginText">Уже есть аккаунт? <a href="/patient/login">Войти</a></p>
       </div>
 
-            <div className="right">
-                <h1 className="heading">Я ищу медицинскую помощь</h1>
-                <Image
-                    src={Patient}
-                    alt="Patient"
-                    width={300}
-                    className="image"
-                />
-            </div>
-        </div>
-    );
+      <div className="right">
+        <h1 className="heading">Я ищу медицинскую помощь</h1>
+        <Image src={Patient} alt="Patient" width={300} className="image" />
+      </div>
+    </div>
+  );
 }

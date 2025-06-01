@@ -1,13 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import { auth, db } from "@/app/firebaseConfig";
-import { ref, set } from "firebase/database";
-
-import Options from "@/app/components/atoms/Options/Options";
+import { ref, update } from "firebase/database";
+import { useRouter } from "next/navigation";
 import BtnBorder from "@/app/components/atoms/btnBorder/btnBorder";
 import Button from "@/app/components/atoms/Button/Button";
+import Options from "@/app/components/atoms/Options/Options";
 import Image from "next/image";
 import GroupImg from "@/app/images/GroupImg.png";
 
@@ -24,7 +23,7 @@ export default function SpecialityPage() {
             return;
         }
         if (selected) {
-            await set(ref(db, `users/${user.uid}/speciality`), selected);
+            await update(ref(db, `doctors/${user.uid}`), { speciality: selected });
         }
         router.push("/pages/register/doctor/work-days");
     };
@@ -44,7 +43,7 @@ export default function SpecialityPage() {
                 </div>
 
                 <div className="options-spe">
-                    {options.map((label) => (
+                    {options.map(label => (
                         <Options
                             key={label}
                             label={label}

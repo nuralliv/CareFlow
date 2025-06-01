@@ -33,9 +33,6 @@ export default function InterestedPage() {
         if (selected) {
             await update(ref(db, `patients/${user.uid}`), {
                 interested: selected,
-                isPatient: true,
-                email: user.email,
-                uid: user.uid,
             });
         }
         router.push("/pages/register/patient/recomendation");

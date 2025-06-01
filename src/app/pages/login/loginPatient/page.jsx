@@ -30,7 +30,7 @@ export default function LoginPatient() {
         setLoading(true);
         try {
             await signInWithEmailAndPassword(auth, email, password);
-            router.push("/pages/profile/Patient"); // или куда нужно после входа
+            router.push("/pages/main"); // или куда нужно после входа
         } catch (error) {
             alert("Ошибка входа: " + error.message);
         } finally {

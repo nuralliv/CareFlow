@@ -31,7 +31,7 @@ export default function LoginDoctor() {
         try {
             await signInWithEmailAndPassword(auth, email, password);
             // Можно добавить проверку роли в базе, если нужно
-            router.push("/pages/profile/Doctor"); // или куда надо после логина
+            router.push("/pages/main"); // или куда надо после логина
         } catch (error) {
             alert("Ошибка входа: " + error.message);
         } finally {

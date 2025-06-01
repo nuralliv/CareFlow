@@ -1,13 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import { auth, db } from "@/app/firebaseConfig";
-import { ref, set } from "firebase/database";
-
-import Options from "@/app/components/atoms/Options/Options";
+import { ref, update } from "firebase/database";
+import { useRouter } from "next/navigation";
 import BtnBorder from "@/app/components/atoms/btnBorder/btnBorder";
 import Button from "@/app/components/atoms/Button/Button";
+import Options from "@/app/components/atoms/Options/Options";
 import Image from "next/image";
 import GroupImg from "@/app/images/GroupImg.png";
 
@@ -32,7 +31,7 @@ export default function WorkDaysPage() {
             return;
         }
         if (selected.length) {
-            await set(ref(db, `users/${user.uid}/workDays`), selected);
+            await update(ref(db, `doctors/${user.uid}`), { workDays: selected });
         }
         router.push("/pages/register/doctor/work-time");
     };
@@ -52,7 +51,7 @@ export default function WorkDaysPage() {
                 </div>
 
                 <div className="options-spe">
-                    {options.map((label) => (
+                    {options.map(label => (
                         <Options
                             key={label}
                             label={label}

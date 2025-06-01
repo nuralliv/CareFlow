@@ -28,9 +28,6 @@ export default function RecommendationPage() {
         if (selected) {
             await update(ref(db, `patients/${user.uid}`), {
                 recommendation: selected,
-                isPatient: true,
-                email: user.email,
-                uid: user.uid,
             });
         }
         router.push("/pages/register/patient/what-prefer");
