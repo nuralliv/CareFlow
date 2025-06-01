@@ -98,6 +98,8 @@
 .loginText {
     font-size: 15px;
     font-weight: 500;
+    margin-top: 20px;
+
 }
 
 .loginText a {
@@ -105,3 +107,15 @@
     text-decoration: none;
 }
 
+
+@media (max-width: 450px) {
+    .left {
+        width: 100%;
+        padding: 0 10px;
+    }
+
+    .right {
+        display: none;
+    }
+
+}

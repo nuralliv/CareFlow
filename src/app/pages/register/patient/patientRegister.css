@@ -16,6 +16,7 @@
     font-size: 28px;
     font-weight: 600;
     margin-bottom: 20px;
+    
 }
 
 .right {
@@ -65,11 +66,7 @@
     width: 283px;
 }
 
-.socialIcons {
-    display: flex;
-    gap: 16px;
-    margin: 24px 0;
-}
+
 
 .icon {
     font-size: 20px;
@@ -98,6 +95,7 @@
 .loginText {
     font-size: 15px;
     font-weight: 500;
+    margin-top: 20px;
 }
 
 .loginText a {
@@ -105,3 +103,13 @@
     text-decoration: none;
 }
 
+@media  (max-width: 450px) {
+  .left{
+    width: 100%;
+    padding: 0 10px;
+  }
+    .right{
+        display: none;
+    }
+    
+}

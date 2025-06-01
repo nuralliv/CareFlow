@@ -1,0 +1,275 @@
+.doctors-page-container {
+   max-width: 1100px;
+   margin: 40px auto;
+   padding: 0 20px;
+   background-color: #f0f4fc;
+   border-radius: 12px;
+   font-family: Arial, sans-serif;
+   color: #1e293b;
+}
+
+.page-title {
+   font-size: 28px;
+   font-weight: 700;
+   margin-bottom: 6px;
+}
+
+.page-subtitle {
+   font-size: 16px;
+   margin-bottom: 25px;
+   color: #64748b;
+}
+
+.filters-row {
+   display: flex;
+   gap: 12px;
+   margin-bottom: 30px;
+}
+
+.filter-dropdown {
+   position: relative;
+   font-weight: 600;
+   user-select: none;
+}
+
+.filter-button {
+   background: #2563eb;
+   border: none;
+   color: white;
+   padding: 10px 18px;
+   border-radius: 30px;
+   cursor: pointer;
+   min-width: 140px;
+   text-align: left;
+   font-size: 15px;
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+}
+
+.dropdown-menu {
+   position: absolute;
+   background: white;
+   border-radius: 12px;
+   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+   top: 44px;
+   width: 160px;
+   z-index: 100;
+   padding: 8px 0;
+   font-weight: 500;
+   font-size: 14px;
+}
+
+.dropdown-item {
+   padding: 8px 16px;
+   cursor: pointer;
+   display: flex;
+   align-items: center;
+}
+
+.dropdown-item.selected {
+   font-weight: 700;
+   color: #2563eb;
+}
+
+.dropdown-item:hover {
+   background: #e0e7ff;
+}
+
+.doctors-list {
+   display: flex;
+   flex-direction: column;
+   gap: 20px;
+}
+
+.doctor-card {
+   background: white;
+   border-radius: 15px;
+   padding: 22px;
+   display: flex;
+   gap: 24px;
+   box-shadow: 0 2px 8px rgb(0 0 0 / 0.1);
+}
+
+.avatar-container {
+   flex-shrink: 0;
+}
+
+.avatar-placeholder {
+   width: 120px;
+   height: 120px;
+   border-radius: 50%;
+   background-color: #cbd5e1;
+}
+
+.avatar {
+   width: 120px;
+   height: 120px;
+   border-radius: 50%;
+   object-fit: cover;
+}
+
+.doctor-info {
+   flex-grow: 1;
+   display: flex;
+   flex-direction: column;
+}
+
+.doctor-name {
+   font-weight: 700;
+   font-size: 22px;
+   margin-bottom: 4px;
+}
+
+.doctor-meta {
+   color: #64748b;
+   font-size: 13px;
+   margin-bottom: 10px;
+}
+
+.reviews-rating {
+   font-size: 13px;
+   color: #475569;
+   margin-bottom: 14px;
+   display: flex;
+   gap: 10px;
+   align-items: center;
+}
+
+.appointment-info {
+   background: #dbeafe;
+   border-radius: 12px;
+   padding: 15px 20px;
+   margin-bottom: 15px;
+   width: 300px;
+   font-size: 14px;
+   color: #475569;
+   position: relative;
+}
+
+.price-old {
+   text-decoration: line-through;
+   color: #94a3b8;
+   font-size: 13px;
+}
+
+.price-new {
+   font-weight: 700;
+   font-size: 17px;
+   color: #dc2626;
+   position: absolute;
+   bottom: 12px;
+   right: 20px;
+}
+
+.clinic-info {
+   font-size: 13px;
+   color: #334155;
+   margin-bottom: 14px;
+   display: flex;
+   flex-direction: column;
+   gap: 2px;
+}
+
+.schedule {
+   margin-bottom: 15px;
+   width: 100%;
+}
+
+.dates-row {
+   display: flex;
+   gap: 8px;
+   margin-bottom: 10px;
+   font-weight: 600;
+   font-size: 13px;
+   color: #334155;
+}
+
+.date-item {
+   padding: 6px 12px;
+   border-radius: 8px;
+   background-color: transparent;
+   color: #334155;
+   user-select: none;
+}
+
+.date-item.active {
+   background-color: #2563eb;
+   color: white;
+}
+
+.date-item.disabled {
+   color: #cbd5e1;
+}
+
+.times-row {
+   display: flex;
+   gap: 8px;
+   flex-wrap: wrap;
+}
+
+.time-button {
+   background-color: #2563eb;
+   border: none;
+   border-radius: 8px;
+   padding: 8px 16px;
+   color: white;
+   font-weight: 600;
+   cursor: pointer;
+   user-select: none;
+}
+
+.call-info {
+   margin-top: 8px;
+   font-size: 12px;
+   color: #64748b;
+   display: flex;
+   align-items: center;
+   gap: 6px;
+}
+
+.sign-up-button {
+   align-self: flex-start;
+   background-color: #2563eb;
+   color: white;
+   border: none;
+   padding: 12px 36px;
+   border-radius: 30px;
+   font-weight: 700;
+   cursor: pointer;
+   margin-top: 8px;
+   transition: background-color 0.2s ease;
+}
+
+.sign-up-button:hover {
+   background-color: #1e40af;
+}
+
+.pagination {
+   margin: 30px 0 50px 0;
+   display: flex;
+   justify-content: center;
+   gap: 12px;
+}
+
+.page-btn {
+   background: #f0f4fc;
+   border: none;
+   border-radius: 20px;
+   padding: 8px 16px;
+   cursor: pointer;
+   font-weight: 600;
+   font-size: 14px;
+   min-width: 40px;
+}
+
+.page-btn.active {
+   background: #2563eb;
+   color: white;
+   cursor: default;
+}
+
+.page-btn:disabled {
+   cursor: default;
+   opacity: 0.7;
+}

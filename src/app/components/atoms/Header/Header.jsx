@@ -1,9 +1,13 @@
 "use client";
-import React, { useState } from "react";
-import "./header.css";
+
+import React, { useEffect, useState } from "react";
+import { auth, db } from "@/app/firebaseConfig";
+import { onValue, ref } from "firebase/database";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import searchIcon from "@/app/images/search.svg";
+import "./header.css";
 
 const doctorsData = [
     "Ашимов Алмас",
@@ -14,9 +18,55 @@ const doctorsData = [
 ];
 
 export default function Header() {
+    const [userName, setUserName] = useState(null);
+    const [userRole, setUserRole] = useState(null);
     const [activeDropdown, setActiveDropdown] = useState(null);
     const [searchTerm, setSearchTerm] = useState("");
     const [filteredDoctors, setFilteredDoctors] = useState([]);
+    const router = useRouter();
+
+    useEffect(() => {
+        const unsubscribeAuth = auth.onAuthStateChanged((user) => {
+            if (user) {
+                const uid = user.uid;
+
+                const doctorRef = ref(db, `doctors/${uid}/fullName`);
+                onValue(
+                    doctorRef,
+                    (snapshot) => {
+                        if (snapshot.exists()) {
+                            const fullName = snapshot.val();
+                            setUserName(fullName?.split(" ")[0] || null);
+                            setUserRole("doctor");
+                        } else {
+                            const patientRef = ref(
+                                db,
+                                `patients/${uid}/fullName`
+                            );
+                            onValue(patientRef, (snapPat) => {
+                                if (snapPat.exists()) {
+                                    const fullNamePat = snapPat.val();
+                                    setUserName(
+                                        fullNamePat?.split(" ")[0] || null
+                                    );
+                                    setUserRole("patient");
+                                } else {
+                                    setUserName(null);
+                                    setUserRole(null);
+                                }
+                            });
+                        }
+                    },
+                    { onlyOnce: true }
+                );
+            } else {
+                setUserName(null);
+                setUserRole(null);
+            }
+        });
+
+        return () => unsubscribeAuth();
+    }, []);
 
     const toggleDropdown = (name) => {
         setActiveDropdown(activeDropdown === name ? null : name);
@@ -31,10 +81,18 @@ export default function Header() {
         setFilteredDoctors(filtered);
     };
 
+    const navigate = (path) => {
+        if (auth.currentUser) {
+            router.push(path);
+        } else {
+            router.push("/pages/login");
+        }
+    };
+
     return (
         <header className="header">
-            <div className="logo">
-                <Link href="#">CareFlow</Link>
+            <div className="logo" onClick={() => router.push("/")}>
+                CareFlow
             </div>
 
             <nav className="nav">
@@ -44,12 +102,14 @@ export default function Header() {
                 >
                     Про нас
                 </div>
+
                 <div
                     className="nav-item"
                     onClick={() => toggleDropdown("news")}
                 >
                     Новости
                 </div>
+
                 <div
                     className="nav-item"
                     onClick={() => toggleDropdown("services")}
@@ -64,6 +124,7 @@ export default function Header() {
                         </div>
                     )}
                 </div>
+
                 <div
                     className="nav-item"
                     onClick={() => toggleDropdown("doctors")}
@@ -74,7 +135,7 @@ export default function Header() {
                 <div className="search-wrapper">
                     <Image
                         src={searchIcon}
-                        alt="search"
+                        alt="Поиск"
                         className="search-icon"
                     />
                     <input
@@ -97,7 +158,27 @@ export default function Header() {
             </nav>
 
             <div className="profile">
-                <span className="loginBtn">Войти</span>
+                {userName ? (
+                    <div
+                        className="user-profile"
+                        onClick={() =>
+                            navigate(
+                                userRole === "doctor"
+                                    ? "/pages/profile/Doctor"
+                                    : "/pages/profile/Patient"
+                            )
+                        }
+                    >
+                        {userName} <span>▾</span>
+                    </div>
+                ) : (
+                    <button
+                        className="register-btn"
+                        onClick={() => router.push("/pages/login")}
+                    >
+                        Войти
+                    </button>
+                )}
             </div>
         </header>
     );
