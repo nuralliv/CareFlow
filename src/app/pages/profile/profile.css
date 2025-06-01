@@ -1,85 +1,202 @@
-.container {
-    width: 90%;
-    margin: 40px auto;
-    padding: 30px;
-    border-radius: 12px;
-    font-family: sans-serif;
-    background-color: white;
-}
 
-.header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 30px;
-}
-
-.profile-info {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-}
-
-.profile-info h2 {
-    margin: 0;
-    font-size: 22px;
-}
-
-.profile-info p {
-    margin: 4px 0 0;
-    color: #777;
-}
-
-.avatar {
-    border-radius: 50%;
-}
-
-/* .buttons button {
-    padding: 8px 16px;
-    border: none;
-    border-radius: 8px;
-    font-weight: bold;
-    cursor: pointer;
-    margin-left: 10px;
-} */
-
-.section {
-    background-color: #eaf1ff;
-    padding: 20px;
-    border-radius: 12px;
-    margin-bottom: 30px;
-}
-
-.section h3 {
-    margin-bottom: 20px;
-}
-
-.form-row {
-    display: flex;
-    gap: 20px;
-    margin-bottom: 20px;
-}
-
-.form-row input[type="text"],
-.form-row input[type="file"],
-.form-row input[type="date"],
-.form-row input[type="tel"],
-.form-row input {
-    flex: 1;
-    padding: 10px 12px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    font-size: 14px;
-}
-
-.form-row label {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    font-size: 14px;
+.profile-page {
+  width: 100%;
+  background-color: #F0F6FF;
+  min-height: 100vh;
+  margin-top: 110px;
+  padding: 30px 0px;
 }
 
 input{
-    border-radius: 300px !important;
-    outline: none;
+  outline: none;
+}
+
+.qwer{
+  position: relative;
+  top: 0px;
+}
+
+.profile-section{
+  width: 95%;
+  padding: 20px 40px;
+  background-color: white;
+  border-radius: 35px;
+  margin: 0 auto ;
+  min-height: 1000px;
+}
+
+.profile-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 40px;
+  
+}
+
+.profile-head{
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.profile-name{
+  display: flex;
+  flex-direction: column;
+}
+
+.profile-name h2 {
+  font-size: 28px;
+  font-weight: 500;
+}
+
+.profile-name p {
+  color: #757575;
+  font-size: 19px;
+}
+
+.actions {
+  display: flex;
+  gap: 16px;
+}
+
+.info-block {
+  background-color: #F0F6FF;
+  border-radius: 26px;
+  padding: 25px;
+  margin-bottom: 30px;
+  height: 300px;
+}
+
+.info-block h2 {
+  font-size: 22px;
+  margin-bottom: 20px;
+  font-weight: 500;
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+}
+
+.input-field {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.input-field label {
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 6px;
+}
+
+.input-field input {
+  height: 50px;
+  border-radius: 9999px;
+  border: 1px solid #e0e0e0;
+  background-color: white;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  padding: 0px 15px;
+}
+
+.input-field input:disabled {
+  background-color: white;
+  color: #555;
+}
+
+.input-field::after {
+  content: url("../../images/Edit.svg");
+  position: absolute;
+  right: 18px;
+  top:45px;
+  width: 18px;
+  height: 18px;
+}
+
+.docs-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.doc-upload {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  position: relative;
+}
+
+.doc-upload input[type="file"] {
+  display: none;
+}
+
+.doc-upload label {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.doc-upload a,
+.doc-placeholder {
+  display: flex;
+  background-color: white;
+  height: 50px;
+  border-radius: 9999px;
+  border: 1px solid #e0e0e0;
+  font-size: 16px;
+  color: #333;
+  position: relative;
+  padding-right: 40px;
+  text-decoration: none;
+  align-items: center;
+  padding: 0px 15px;
+}
+
+.doc-upload a::after,
+.doc-placeholder::after {
+  content: url("../../images/upload.svg");
+  position: absolute;
+  right: 17px;
+  top: 9px;
+}
+
+
+.docs-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 25px 40px;
+  margin-top: 20px;
+}
+
+.doc-upload {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  background-color: #f5f8ff;
+  padding: 12px 18px;
+  border-radius: 18px;
+}
+
+.doc-label {
+  font-weight: 500;
+  font-size: 15px;
+}
+
+.doc-input {
+  display: block;
+  font-size: 14px;
+  padding: 8px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.doc-placeholder {
+  color: #236adb;
+  font-size: 14px;
+  margin-top: 5px;
+  display: inline-block;
 }

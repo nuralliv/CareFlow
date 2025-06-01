@@ -1,25 +1,25 @@
 "use client";
 import React from "react";
-import { neurologySpecialty, neurologyDoctors } from "@/app/pages/Data/neurologyData.js";
+import { gynecologySpecialty, gynecologyDoctors } from "@/app/pages/Data/gynecologyData.js";
 import Image from "next/image";
-import "./neurology.css";
+import "./gynecology.css";
 import Header from "@/app/components/atoms/Header/Header";
 import Footer from "@/app/components/atoms/Footer/Footer";
 import Button from "@/app/components/atoms/Button/Button";
 import BtnBorder from "@/app/components/atoms/btnBorder/btnBorder";
 
-export default function NeurologyPage() {
+export default function GynecologyPage() {
   return (
     <>
     <Header className="header-bckg"/>
     <section className="specialty-page">
       <div className="specialty-header">
         <h1>
-          <span className="emoji"><Image width={60} src={neurologySpecialty.emoji}/></span>{" "}
-          {neurologySpecialty.title}
+          <span className="emoji"><Image width={60} src={gynecologySpecialty.emoji}/></span>{" "}
+          {gynecologySpecialty.title}
         </h1>
-        <div className="subtitle">{neurologySpecialty.subtitle}</div>
-        <p className="description">{neurologySpecialty.description}</p>
+        <div className="subtitle">{gynecologySpecialty.subtitle}</div>
+        <p className="description">{gynecologySpecialty.description}</p>
         <Button className="bookAppointment" label="Записаться"/>
       </div>
 
@@ -27,7 +27,7 @@ export default function NeurologyPage() {
         <div>
           <h4 className="block-title">Когда стоит обратиться:</h4>
           <ul>
-            {neurologySpecialty.whenToVisit.map((item, i) => (
+            {gynecologySpecialty.whenToVisit.map((item, i) => (
               <li className="what-lech" key={i}><span className="decoration-blue-700">•</span> {item}</li>
             ))}
           </ul>
@@ -35,7 +35,7 @@ export default function NeurologyPage() {
         <div>
           <h4 className="block-title">Что мы лечим:</h4>
           <ul>
-            {neurologySpecialty.whatWeTreat.map((item, i) => (
+            {gynecologySpecialty.whatWeTreat.map((item, i) => (
               <li className="what-lech" key={i}><span className="decoration-blue-700">•</span> {item}</li>
             ))}
           </ul>
@@ -44,7 +44,7 @@ export default function NeurologyPage() {
 
       <h2 className="specialty-title">Наши специалисты</h2>
       <div className="doctors-grid">
-        {neurologyDoctors.map((doc) => (
+        {gynecologyDoctors.map((doc) => (
           <div className="doctor-card" key={doc.id}>
             <div className="doctor-info">
               <Image

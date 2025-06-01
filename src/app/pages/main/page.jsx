@@ -76,8 +76,7 @@ export default function HomePage() {
     const router = useRouter();
     const [user, setUser] = useState(null);
 
-    useEffect(() => {
-        // Подписка на изменение состояния пользователя
+    useEffect(() => { 
         const unsubscribe = auth.onAuthStateChanged((user) => {
             setUser(user);
         });
@@ -85,7 +84,6 @@ export default function HomePage() {
         return () => unsubscribe();
     }, []);
 
-    // Универсальная навигация для кнопок
     const handleNavigate = (path) => {
         if (user) {
             router.push(path);
@@ -111,7 +109,6 @@ export default function HomePage() {
                         Найдите ближайшие аптеки и медицинские центры за считанные секунды. Удобный поиск по карте,
                         актуальные данные, и возможность онлайн-записи к врачу — всё в одном месте. Заботьтесь о здоровье легко и без очередей.
                     </p>
-                    {/* Здесь кнопка "Записаться на приём" */}
                     <Button label="Записаться на приём" onClick={() => handleNavigate("/appointment")} />
                 </div>
             </section>
@@ -161,7 +158,6 @@ export default function HomePage() {
                             <div className="news-title">{news.title}</div>
                             <div className="news-description">{news.description}</div>
                             <div className="link">
-                                {/* Кнопка "Узнать больше" */}
                                 <Button
                                     label="Узнать больше"
                                     icon={SendTo}

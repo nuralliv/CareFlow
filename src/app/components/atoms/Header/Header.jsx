@@ -17,7 +17,7 @@ const doctorsData = [
     "Серикова Динара",
 ];
 
-export default function Header() {
+export default function Header({ className = "" } ) {
     const [userName, setUserName] = useState(null);
     const [userRole, setUserRole] = useState(null);
     const [activeDropdown, setActiveDropdown] = useState(null);
@@ -90,7 +90,7 @@ export default function Header() {
     };
 
     return (
-        <header className="header">
+        <header className={`header ${className}`}>
             <div className="logo" onClick={() => router.push("/")}>
                 CareFlow
             </div>
@@ -117,10 +117,10 @@ export default function Header() {
                     Сервисы <span>▾</span>
                     {activeDropdown === "services" && (
                         <div className="dropdown">
-                            <div className="dropdown-item">Кардиология</div>
-                            <div className="dropdown-item">Неврология</div>
-                            <div className="dropdown-item">Терапия</div>
-                            <div className="dropdown-item">Гинекология</div>
+                            <div className="dropdown-item"  onClick={() => router.push("/pages/specialties/Cardiology")} >Кардиология</div>
+                            <div className="dropdown-item"  onClick={() => router.push("/pages/specialties/Neurology")} >Неврология</div>
+                            <div className="dropdown-item"  onClick={() => router.push("/pages/specialties/Therapy")} >Терапия</div>
+                            <div className="dropdown-item"  onClick={() => router.push("/pages/specialties/Gynecology")} >Гинекология</div>
                         </div>
                     )}
                 </div>
