@@ -1,4 +1,5 @@
-.header {
+
+ .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -27,6 +28,7 @@
     border-radius: 400px;
     padding: 0 10px;
     color: #003487;
+    
 }
 
 .nav-item {
@@ -38,7 +40,7 @@
     align-items: center;
     justify-content: center;
     gap: 6px;
-    border: 0.5px solid #f5f5f5;
+    border: .5px solid #F5F5F5;
     font-size: 15px;
     font-weight: 500;
     height: 35px;
@@ -75,7 +77,7 @@
 .search-input {
     padding: 10px 18px;
     border-radius: 40px;
-    border: 0.5px solid #f5f5f5;
+    border: .5px solid #F5F5F5;
     background-color: white;
     font-size: 14px;
     width: 260px;
@@ -83,7 +85,7 @@
     outline: none;
 }
 
-.loginBtn {
+.loginBtn{
     font-size: 17px;
     font-weight: 500;
     width: 120px;
@@ -97,7 +99,7 @@
     border-radius: 100px;
 }
 
-.search-input::placeholder {
+.search-input::placeholder{
     color: #003487;
     font-size: 15px;
     font-weight: 500;
@@ -117,51 +119,52 @@
     object-fit: cover;
 }
 
-.search-wrapper {
-    position: relative;
-    display: flex;
-    align-items: center;
+ .search-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
 }
 
 .search-icon {
-    position: absolute;
-    left: 14px;
-    width: 16px;
-    height: 16px;
-    z-index: 2;
+  position: absolute;
+  left: 14px;
+  width: 16px;
+  height: 16px;
+  z-index: 2;
 }
 
 .search-input {
-    padding: 10px 18px 10px 38px;
-    border-radius: 40px;
-    border: 0.5px solid #f5f5f5;
-    background-color: white;
-    font-size: 15px;
-    width: 260px;
-    height: 35px;
-    outline: none;
-    font-weight: 500;
+  padding: 10px 18px 10px 38px; /* ← отступ под иконку */
+  border-radius: 40px;
+  border: 0.5px solid #F5F5F5;
+  background-color: white;
+  font-size: 14px;
+  width: 260px;
+  height: 35px;
+  outline: none;
 }
 
 .search-results {
-    position: absolute;
-    top: 52px;
-    left: 0;
-    width: 100%;
-    z-index: 9999;
+  position: absolute;
+  top: 42px;
+  left: 0;
+  width: 100%;
+  background-color: #eaf1ff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  z-index: 9999;
 }
 
 .search-result-item {
-    padding: 10px 16px;
-    cursor: pointer;
-    font-size: 15px;
-    border-radius: 70px;
-    margin: 4px 6px;
-    background-color: #dbe9ff;
-    font-weight: 500;
+  padding: 10px 16px;
+  cursor: pointer;
+  font-size: 14px;
+  border-radius: 12px;
+  margin: 4px 6px;
+  background-color: #dbe8ff;
+  font-weight: 500;
 }
 
 .search-result-item:hover {
-    background-color: #c7dcff;
+  background-color: #c7dcff;
 }
-
