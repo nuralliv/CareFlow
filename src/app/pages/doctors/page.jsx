@@ -1,148 +1,171 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect, useMemo } from "react";
+import { ref, onValue } from "firebase/database";
+import { db } from "@/app/firebaseConfig";
 import Header from "@/app/components/atoms/Header/Header";
 import Footer from "@/app/components/atoms/Footer/Footer";
+import phoneIcon from '@/app/images/HealthcareCall.svg';
+import search from '@/app/images/sea.svg';
+import Overlay from '@/app/images/Overlay.svg';
+import Image from "next/image";
+import { useRouter } from "next/navigation";
 import "./doctors.css";
-
-const doctorsData = [
-   {
-      id: 1,
-      name: "Жумагулова Гульмира Асизовна",
-      experience: "Стаж 30 лет",
-      specialties: ["Маммолог", "Акушер", "Гинеколог"],
-      reviews: 13,
-      rating: 5.0,
-      priceOld: "14 000 тенге",
-      priceNew: "3 500 тенге",
-      clinicName: "Эмирмед",
-      clinicAddress: "Алматы, ул. Манаса, 53а",
-      avatarUrl: "", // серый круг
-   },
-   {
-      id: 2,
-      name: "Иванов Иван Иванович",
-      experience: "Стаж 20 лет",
-      specialties: ["Кардиолог"],
-      reviews: 10,
-      rating: 4.8,
-      priceOld: "15 000 тенге",
-      priceNew: "5 000 тенге",
-      clinicName: "МедЦентр",
-      clinicAddress: "Алматы, ул. Абая, 12",
-      avatarUrl: "",
-   },
-   {
-      id: 3,
-      name: "Петрова Ольга Сергеевна",
-      experience: "Стаж 15 лет",
-      specialties: ["Терапевт"],
-      reviews: 8,
-      rating: 4.5,
-      priceOld: "12 000 тенге",
-      priceNew: "4 000 тенге",
-      clinicName: "Клиника Здоровье",
-      clinicAddress: "Алматы, пр. Достык, 45",
-      avatarUrl: "",
-   },
-   {
-      id: 4,
-      name: "Сидоров Алексей Петрович",
-      experience: "Стаж 25 лет",
-      specialties: ["Невролог"],
-      reviews: 20,
-      rating: 5.0,
-      priceOld: "18 000 тенге",
-      priceNew: "6 000 тенге",
-      clinicName: "НевроМед",
-      clinicAddress: "Алматы, ул. Назарбаева, 78",
-      avatarUrl: "",
-   },
-   {
-      id: 5,
-      name: "Козлова Марина Андреевна",
-      experience: "Стаж 18 лет",
-      specialties: ["Гинеколог"],
-      reviews: 17,
-      rating: 4.9,
-      priceOld: "14 000 тенге",
-      priceNew: "4 500 тенге",
-      clinicName: "Эмирмед",
-      clinicAddress: "Алматы, ул. Манаса, 53а",
-      avatarUrl: "",
-   },
-   {
-      id: 6,
-      name: "Николаев Сергей Викторович",
-      experience: "Стаж 22 года",
-      specialties: ["Кардиолог"],
-      reviews: 14,
-      rating: 4.7,
-      priceOld: "15 000 тенге",
-      priceNew: "5 200 тенге",
-      clinicName: "МедЦентр",
-      clinicAddress: "Алматы, ул. Абая, 12",
-      avatarUrl: "",
-   },
-   // добавь столько докторов, сколько нужно
-];
 
 const ITEMS_PER_PAGE = 5;
 
 export default function DoctorsPage() {
-   const [selectedDirection, setSelectedDirection] = React.useState(null);
-   const [selectedSpecialist, setSelectedSpecialist] = React.useState(null);
-   const [selectedSorting, setSelectedSorting] = React.useState(null);
+   const [doctorsData, setDoctorsData] = useState([]);
+   const [selectedDirection, setSelectedDirection] = useState(null);
+   const [selectedSpecialist, setSelectedSpecialist] = useState(null);
+   const [selectedSorting, setSelectedSorting] = useState(null);
+   const [searchTerm, setSearchTerm] = useState("");
+   const [currentPage, setCurrentPage] = useState(1);
+   const [openDropdown, setOpenDropdown] = useState(null);
+   const router = useRouter();
 
-   // Пагинация
-   const [currentPage, setCurrentPage] = React.useState(1);
-   const totalPages = Math.ceil(doctorsData.length / ITEMS_PER_PAGE);
+   useEffect(() => {
+      const doctorsRef = ref(db, "doctors");
+      const unsubscribe = onValue(doctorsRef, (snapshot) => {
+         const data = snapshot.val();
+         if (data) {
+            const doctorsList = Object.entries(data).map(([key, doc]) => ({
+               id: key,
+               name: doc.fullName || "",
+               experience: doc.experience || "",
+               specialties: doc.speciality ? [doc.speciality] : [],
+               reviews: doc.reviews || 0,
+               rating: doc.rating || 0,
+               priceOld: doc.priceOld || "",
+               priceNew: doc.priceNew || "",
+               clinicName: doc.clinicName || "",
+               clinicAddress: doc.address || "",
+               workDirection: doc.workDirection || "",
+               avatarUrl: doc.avatarUrl || "", // если есть фото
+            }));
+            setDoctorsData(doctorsList);
+         } else {
+            setDoctorsData([]);
+         }
+      });
+      return () => unsubscribe();
+   }, []);
 
-   // Отфильтрованные врачи (заглушка - пока без фильтрации)
-   const filteredDoctors = doctorsData;
+   const directions = ["Кардиология", "Неврология", "Терапия", "Гинекология"];
+   const specialists = ["Акушер", "Кардиологи", "Доктор"];
+   const sortingOptions = ["Много отзывов", "Высокие оценки", "Большой стаж", "Сначала дешевле"];
+
+   const filteredDoctors = useMemo(() => {
+      let filtered = doctorsData;
+
+      if (searchTerm.trim() !== "") {
+         filtered = filtered.filter(d =>
+            d.name.toLowerCase().includes(searchTerm.trim().toLowerCase())
+         );
+      }
+      if (selectedDirection) {
+         filtered = filtered.filter(d =>
+            d.specialties.some(s => s.toLowerCase() === selectedDirection.toLowerCase())
+         );
+      }
+      if (selectedSpecialist) {
+         filtered = filtered.filter(d =>
+            d.specialties.some(s => s.toLowerCase() === selectedSpecialist.toLowerCase())
+         );
+      }
+      if (selectedSorting) {
+         if (selectedSorting === "Много отзывов") {
+            filtered = filtered.slice().sort((a, b) => b.reviews - a.reviews);
+         } else if (selectedSorting === "Высокие оценки") {
+            filtered = filtered.slice().sort((a, b) => b.rating - a.rating);
+         } else if (selectedSorting === "Большой стаж") {
+            const getYears = (exp) => parseInt(exp.match(/\d+/));
+            filtered = filtered.slice().sort((a, b) => getYears(b.experience) - getYears(a.experience));
+         } else if (selectedSorting === "Сначала дешевле") {
+            const parsePrice = (price) => Number(price.replace(/\D/g, ''));
+            filtered = filtered.slice().sort((a, b) => parsePrice(a.priceNew) - parsePrice(b.priceNew));
+         }
+      }
+
+      return filtered;
+   }, [doctorsData, searchTerm, selectedDirection, selectedSpecialist, selectedSorting]);
+
+   const totalPages = Math.ceil(filteredDoctors.length / ITEMS_PER_PAGE);
+
+   useEffect(() => {
+      setCurrentPage(1);
+   }, [searchTerm, selectedDirection, selectedSpecialist, selectedSorting]);
 
    const paginatedDoctors = filteredDoctors.slice(
       (currentPage - 1) * ITEMS_PER_PAGE,
       currentPage * ITEMS_PER_PAGE
    );
 
+   const toggleDropdown = (name) => {
+      setOpenDropdown(openDropdown === name ? null : name);
+   };
+
+   // При выборе доктора — переходим на страницу профиля с передачей id в URL
+   const handleSelectDoctor = (doctorId) => {
+      router.push(`/pages/profile/Doctor?id=${doctorId}`);
+   };
+
    return (
-      <>
+      <div className="flex flex-col">
          <Header />
          <div className="doctors-page-container">
             <h1 className="page-title">Врач акушер-гинеколог в Таразе</h1>
             <p className="page-subtitle">
-               Лучшие акушер-гинекологи в Таразе – цены, отзывы. Записаться онлайн и
-               проконсультироваться
+               Лучшие акушер-гинекологи в Таразе – цены, отзывы. Записаться онлайн и проконсультироваться
             </p>
 
             <div className="filters-row">
-               <FilterDropdown
-                  title="Направление"
-                  options={["Кардиология", "Неврология", "Терапия", "Гинекология"]}
-                  selected={selectedDirection}
-                  setSelected={setSelectedDirection}
-               />
-               <FilterDropdown
-                  title="Специалист"
-                  options={["Акушер", "Кардиологи", "Доктор"]}
-                  selected={selectedSpecialist}
-                  setSelected={setSelectedSpecialist}
-               />
-               <FilterDropdown
-                  title="Сортировать"
-                  options={["Много отзывов", "Высокие оценки", "Большой стаж", "Сначала дешевле"]}
-                  selected={selectedSorting}
-                  setSelected={setSelectedSorting}
-               />
+               <div className="input-con">
+                  <Image className="imad" src={search} alt="search" width={24} height={24} />
+                  <input
+                     className="sea"
+                     type="text"
+                     placeholder="Искать доктора"
+                     value={searchTerm}
+                     onChange={e => setSearchTerm(e.target.value)}
+                  />
+               </div>
+               <div className="filters">
+                  <FilterDropdown
+                     title="Направление"
+                     options={directions}
+                     selected={selectedDirection}
+                     setSelected={setSelectedDirection}
+                     openDropdown={openDropdown}
+                     toggleDropdown={toggleDropdown}
+                     name="direction"
+                  />
+                  <FilterDropdown
+                     title="Специалист"
+                     options={specialists}
+                     selected={selectedSpecialist}
+                     setSelected={setSelectedSpecialist}
+                     openDropdown={openDropdown}
+                     toggleDropdown={toggleDropdown}
+                     name="specialist"
+                  />
+                  <FilterDropdown
+                     title="Сортировать"
+                     options={sortingOptions}
+                     selected={selectedSorting}
+                     setSelected={setSelectedSorting}
+                     openDropdown={openDropdown}
+                     toggleDropdown={toggleDropdown}
+                     name="sorting"
+                  />
+               </div>
             </div>
 
             <div className="doctors-list">
                {paginatedDoctors.map((doctor) => (
-                  <DoctorCard key={doctor.id} doctor={doctor} />
+                  <DoctorCard key={doctor.id} doctor={doctor} onSelect={handleSelectDoctor} />
                ))}
             </div>
 
-            {/* Пагинация */}
             <Pagination
                totalPages={totalPages}
                currentPage={currentPage}
@@ -150,26 +173,24 @@ export default function DoctorsPage() {
             />
          </div>
          <Footer />
-      </>
+      </div>
    );
 }
 
-function FilterDropdown({ title, options, selected, setSelected }) {
-   const [open, setOpen] = React.useState(false);
-
-   const toggleOpen = () => setOpen(!open);
+function FilterDropdown({ title, options, selected, setSelected, openDropdown, toggleDropdown, name }) {
+   const isOpen = openDropdown === name;
 
    const onSelect = (option) => {
       setSelected(option === selected ? null : option);
-      setOpen(false);
+      toggleDropdown(null);
    };
 
    return (
       <div className="filter-dropdown">
-         <button className="filter-button" onClick={toggleOpen}>
-            {title} {selected ? `: ${selected}` : ""} ▼
+         <button className="filter-button" onClick={() => toggleDropdown(name)}>
+            {selected ?? title} ▼
          </button>
-         {open && (
+         {isOpen && (
             <div className="dropdown-menu">
                {options.map((option) => (
                   <div
@@ -186,71 +207,107 @@ function FilterDropdown({ title, options, selected, setSelected }) {
    );
 }
 
-function DoctorCard({ doctor }) {
+function DoctorCard({ doctor, onSelect }) {
    return (
       <div className="doctor-card">
-         <div className="avatar-container">
-            {doctor.avatarUrl ? (
-               <img src={doctor.avatarUrl} alt={doctor.name} className="avatar" />
-            ) : (
-               <div className="avatar-placeholder" />
-            )}
+         <div className="doctor-top">
+            <div className="doc-left">
+               <div className="flex flex-col gap-[10px]">
+                  <div className="avatar-container">
+                     {doctor.avatarUrl ? (
+                        <img src={doctor.avatarUrl} alt={doctor.name} className="avatar" />
+                     ) : (
+                        <div className="avatar-placeholder" />
+                     )}
+                  </div>
+                  <div className="reviews-rating">
+                     <span>{doctor.reviews} отзывов</span>
+                     <span>⭐ {doctor.rating.toFixed(1)}</span>
+                  </div>
+               </div>
+               <div className="infos">
+                  <h2 className="doctor-name">{doctor.name}</h2>
+                  <div className="doctor-meta">
+                     <span>{doctor.experience}</span>
+                     <span> • </span>
+                     <span>{doctor.specialties.join(" • ")}</span>
+                  </div>
+                  <div className="appointment-info">
+                     <div className="spec">{doctor.workDirection}</div>
+                     <div className="price-old">{doctor.priceOld}</div>
+                     <div className="price-new">{doctor.priceNew}</div>
+                  </div>
+               </div>
+            </div>
+            <div className="doc-right">
+               <div className="schedule">
+                  <div className="dates-row">
+                     <div className="date-item">
+                        <span>вт</span>
+                        <span>13</span>
+                     </div>
+                     <div className="date-item active">
+                        <span>ср</span>
+                        <span>14</span>
+                     </div>
+                     <div className="date-item">
+                        <span>чт</span>
+                        <span>15</span>
+                     </div>
+                     <div className="date-item">
+                        <span>пт</span>
+                        <span>пт</span>
+                     </div>
+                     <div className="date-item disabled">
+                        <span>сб</span>
+                        <span>17</span>
+                     </div>
+                     <div className="date-item disabled">
+                        <span>вс</span>
+                        <span>18</span>
+                     </div>
+                     <div className="date-item disabled">
+                        <span>пн</span>
+                        <span>19</span>
+                     </div>
+                  </div>
+                  <div className="times-row">
+                     {[
+                        "00:00",
+                        "01:00",
+                        "02:00",
+                        "03:00",
+                        "04:00",
+                        "05:00",
+                        "06:00",
+                        "07:00",
+                        "08:00",
+                        "...",
+                     ].map((time) => (
+                        <button
+                           key={time}
+                           className="time-button"
+                           onClick={() => onSelect(doctor.id)}
+                        >
+                           {time}
+                        </button>
+                     ))}
+                  </div>
+                  <div className="call-info">
+                     <Image src={Overlay} alt="Overlay" height={28} width={28} />
+                     Вам перезвонят для подтверждения записи
+                  </div>
+               </div>
+            </div>
          </div>
-
-         <div className="doctor-info">
-            <h2 className="doctor-name">{doctor.name}</h2>
-            <div className="doctor-meta">
-               <span>{doctor.experience}</span>
-               <span> • </span>
-               <span>{doctor.specialties.join(" • ")}</span>
-            </div>
-            <div className="reviews-rating">
-               <span>{doctor.reviews} отзывов</span>
-               <span>⭐ {doctor.rating.toFixed(1)}</span>
-            </div>
-
-            <div className="appointment-info">
-               <div className="price-old">{doctor.priceOld}</div>
-               <div className="price-new">{doctor.priceNew}</div>
-            </div>
-
+         <div className="doctor-bottom">
             <div className="clinic-info">
                <strong>{doctor.clinicName}</strong>
                <div>{doctor.clinicAddress}</div>
             </div>
-
-            <div className="schedule">
-               <div className="dates-row">
-                  <div className="date-item">вт 13</div>
-                  <div className="date-item active">ср 14</div>
-                  <div className="date-item">чт 15</div>
-                  <div className="date-item">пт 16</div>
-                  <div className="date-item disabled">сб 17</div>
-                  <div className="date-item disabled">вс 18</div>
-                  <div className="date-item disabled">пн 19</div>
-               </div>
-               <div className="times-row">
-                  {[
-                     "00:00",
-                     "01:00",
-                     "02:00",
-                     "03:00",
-                     "04:00",
-                     "05:00",
-                     "06:00",
-                     "07:00",
-                     "08:00",
-                     "...",
-                  ].map((time) => (
-                     <button key={time} className="time-button">
-                        {time}
-                     </button>
-                  ))}
-               </div>
-               <div className="call-info">Вам перезвонят для подтверждения записи</div>
-            </div>
-
-            <button className="sign-up-button">Записаться 📞</button>
+            <button className="sign-up-button" onClick={() => onSelect(doctor.id)}>
+               Записаться <Image src={phoneIcon} alt="Phone Icon" width={24} height={24} />
+            </button>
          </div>
       </div>
    );
