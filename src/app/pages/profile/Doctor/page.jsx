@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { ref, onValue } from "firebase/database";
 import { db } from "@/app/firebaseConfig";
-import './doctorProfile.css';
+import './DoctorProfile.css'; // Assuming you have a CSS file for styles
 import documentIcon from '@/app/images/fi-br-document.svg';
 import btnBack from '@/app/images/Button.svg';
 import Link from 'next/link';

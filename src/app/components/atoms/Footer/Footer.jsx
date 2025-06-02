@@ -30,7 +30,6 @@ export default function Footer() {
                 <div className="footer-column">
                     <h2>Компания</h2>
                     <ul>
-                        <li>Про нас</li>
                         <li>Новости</li>
                         <li>Сервисы</li>
                         <li>Докторы</li>
