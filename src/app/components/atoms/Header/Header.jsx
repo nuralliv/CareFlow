@@ -106,9 +106,6 @@
         </div>
 
         <nav className="nav">
-          <div className="nav-item" onClick={() => toggleDropdown("about")}>
-            Про нас
-          </div>
 
           <div className="nav-item" onClick={() => setModalOpen(true)}>
             Онлайн прием врача
