@@ -18,7 +18,7 @@ import doctor2 from "@/app/images/11.jpg";
 import doctor1 from "@/app/images/22.jpg";
 import doctor3 from "@/app/images/33.jpg";
 import Footer from "@/app/components/atoms/Footer/Footer";
-
+import AppointmentModal from "../Appointment/page";
 import { auth } from "@/app/firebaseConfig";
 import { useRouter } from "next/navigation";
 
@@ -73,6 +73,7 @@ const doctors = [
 ];
 
 export default function HomePage() {
+    const [isModalOpen, setModalOpen] = useState(false);
     const router = useRouter();
     const [user, setUser] = useState(null);
 
@@ -109,7 +110,10 @@ export default function HomePage() {
                         Найдите ближайшие аптеки и медицинские центры за считанные секунды. Удобный поиск по карте,
                         актуальные данные, и возможность онлайн-записи к врачу — всё в одном месте. Заботьтесь о здоровье легко и без очередей.
                     </p>
-                    <Button label="Записаться на приём" onClick={() => handleNavigate("/appointment")} />
+                    <Button label="Записаться на приём" onClick={() => setModalOpen(true)} />
+                        {isModalOpen && (
+        <AppointmentModal onClose={() => setModalOpen(false)} />
+      )}
                 </div>
             </section>
 
