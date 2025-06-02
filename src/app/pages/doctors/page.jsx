@@ -1,4 +1,3 @@
-// pages/doctors/page.jsx (или /pages/doctors/index.jsx)
 "use client";
 import React, { useEffect, useState, useMemo } from "react";
 import { ref, onValue } from "firebase/database";
@@ -23,6 +22,7 @@ export default function DoctorsPage() {
    const [currentPage, setCurrentPage] = useState(1);
    const [openDropdown, setOpenDropdown] = useState(null);
    const router = useRouter();
+
 
    useEffect(() => {
       const doctorsRef = ref(db, "doctors");
@@ -51,7 +51,6 @@ export default function DoctorsPage() {
       return () => unsubscribe();
    }, []);
 
-   // Фильтрация, сортировка и поиск (без изменений)
    const filteredDoctors = useMemo(() => {
       let filtered = doctorsData;
 
@@ -114,7 +113,6 @@ export default function DoctorsPage() {
                Лучшие акушер-гинекологи в Таразе – цены, отзывы. Записаться онлайн и проконсультироваться
             </p>
 
-            {/* Фильтры и поиск (оставляем без изменений) */}
             <div className="filters-row">
                <div className="input-con">
                   <Image className="imad" src={search} alt="search" width={24} height={24} />
@@ -157,14 +155,12 @@ export default function DoctorsPage() {
                </div>
             </div>
 
-            {/* Список врачей */}
             <div className="doctors-list">
                {paginatedDoctors.map((doctor) => (
                   <DoctorCard key={doctor.id} doctor={doctor} onSelect={handleSelectDoctor} />
                ))}
             </div>
 
-            {/* Пагинация */}
             <Pagination
                totalPages={totalPages}
                currentPage={currentPage}
@@ -207,6 +203,16 @@ function FilterDropdown({ title, options, selected, setSelected, openDropdown, t
 }
 
 function DoctorCard({ doctor, onSelect }) {
+   
+   const [selectedDate, setSelectedDate] = useState(null);
+   const [selectedTime, setSelectedTime] = useState(null);
+   const handleDateClick = (date) => {
+      setSelectedDate(date);
+   };
+
+   const handleTimeClick = (time) => {
+      setSelectedTime(time);
+   };
    return (
       <div className="doctor-card">
          <div className="doctor-top">
@@ -240,7 +246,7 @@ function DoctorCard({ doctor, onSelect }) {
             </div>
             <div className="doc-right">
                <div className="schedule">
-                  <div className="dates-row">
+                  {/* <div className="dates-row">
                      <div className="date-item">
                         <span>вт</span>
                         <span>13</span>
@@ -286,12 +292,52 @@ function DoctorCard({ doctor, onSelect }) {
                         <button
                            key={time}
                            className="time-button"
-                           onClick={() => onSelect(doctor.id)}
+                           // onClick={() => onSelect(doctor.id)}
                         >
                            {time}
                         </button>
                      ))}
-                  </div>
+                  </div> */}
+
+<div className="dates-row">
+  {[
+    { label: "вт", value: "13" },
+    { label: "ср", value: "14" },
+    { label: "чт", value: "15" },
+    { label: "пт", value: "16" },
+    { label: "сб", value: "17", disabled: true },
+    { label: "вс", value: "18", disabled: true },
+    { label: "пн", value: "19", disabled: true },
+  ].map(({ label, value, disabled }) => (
+    <div
+      key={value}
+      className={`date-item ${
+        disabled ? "disabled" : selectedDate === value ? "active" : ""
+      }`}
+      onClick={() => !disabled && handleDateClick(value)}
+    >
+      <span>{label}</span>
+      <span>{value}</span>
+    </div>
+  ))}
+</div>
+
+<div className="times-row">
+  {[
+    "00:00", "01:00", "02:00", "03:00", "04:00",
+    "05:00", "06:00", "07:00", "08:00", "..."
+  ].map((time) => (
+    <button
+      key={time}
+      className={`time-button ${selectedTime === time ? "active" : ""}`}
+      onClick={() => handleTimeClick(time)}
+    >
+      {time}
+    </button>
+  ))}
+</div>
+
+
                   <div className="call-info">
                      <Image src={Overlay} alt="Overlay" height={28} width={28} />
                      Вам перезвонят для подтверждения записи
