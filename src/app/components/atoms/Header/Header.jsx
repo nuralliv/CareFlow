@@ -110,8 +110,8 @@
          
 
 
-          <div className="nav-item" onClick={() => toggleDropdown("news")}>
-            Новости
+          <div className="nav-item" onClick={() => handleNavigate("/pages/main")}>
+            Главноя
           </div>
 
           <div className="nav-item" onClick={() => router.push("/pages/Appointment/Notifications")}>

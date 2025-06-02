@@ -92,6 +92,20 @@ export default function HomePage() {
             router.push("/pages/login");
         }
     };
+    const handleServiceCardClick = (specialty) => {
+        const pathsMap = {
+            cardiology: "/pages/specialties/Cardiology",
+            neurology: "/pages/specialties/Neurology",
+            therapy: "/pages/specialties/Therapy",
+            gynecology: "/pages/specialties/Gynecology",
+        };
+        const path = pathsMap[specialty.toLowerCase()];
+        if (path) {
+            handleNavigate(path);
+        } else {
+            console.warn("Unknown specialty path:", specialty);
+        }
+      };
 
     return (
         <div className="homepage">
@@ -179,7 +193,7 @@ export default function HomePage() {
                 <h2 className="section-title">Процедуры и услуги</h2>
                 <div className="services-grid">
                     <div className="container">
-                        <div className="service-card">
+                        <div   className="service-card">
                             <Image src={Heart} width={70} />
                             <h3>Кардиология</h3>
                             <p>
@@ -188,42 +202,42 @@ export default function HomePage() {
                             <BtnBorder
                                 label="Читать подробнее"
                                 className="btnRead"
-                                onClick={() => handleNavigate("/services/cardiology")}
+                                onClick={() => handleNavigate("/pages/specialties/Cardiology")}
                             />
                         </div>
 
-                        <div className="service-card highlight">
+                        <div  className="service-card highlight">
                             <Image src={Heart} width={70} />
                             <h3>Неврология</h3>
                             <p>Помощь при головной боли, бессоннице, остеохондрозе, невралгии и других нарушениях.</p>
                             <BtnBorder
                                 label="Читать подробнее"
                                 className="btnRead borW"
-                                onClick={() => handleNavigate("/services/neurology")}
+                                onClick={() => handleNavigate("/pages/specialties/Neurology")}
                             />
                         </div>
                     </div>
 
                     <div className="container">
-                        <div className="service-card highlight">
+                        <div  className="service-card highlight">
                             <Image src={Heart} width={70} />
                             <h3>Терапия</h3>
                             <p>Первичный приём, лечение простуд, ОРВИ, хронических заболеваний.</p>
                             <BtnBorder
                                 label="Читать подробнее"
                                 className="btnRead borW"
-                                onClick={() => handleNavigate("/services/therapy")}
+                                onClick={() => handleNavigate("/pages/specialties/Therapy")}
                             />
                         </div>
 
-                        <div className="service-card">
+                        <div   className="service-card">
                             <Image src={Heart} width={70} />
                             <h3>Гинекология</h3>
                             <p>Профилактика и лечение женских заболеваний. УЗИ, консультации, ведение беременности.</p>
                             <BtnBorder
                                 label="Читать подробнее"
                                 className="btnRead"
-                                onClick={() => handleNavigate("/services/gynecology")}
+                                onClick={() => handleNavigate("/pages/specialties/Gynecology")}
                             />
                         </div>
                     </div>
@@ -242,7 +256,7 @@ export default function HomePage() {
                             </div>
                         </div>
                     ))}
-                    <BtnBorder label="Все специалисты" className="btnAllSpe" onClick={() => handleNavigate("/doctors")} />
+                    <BtnBorder label="Все специалисты" className="btnAllSpe" onClick={() => handleNavigate("/pages/doctors")} />
                 </div>
             </section>
 
