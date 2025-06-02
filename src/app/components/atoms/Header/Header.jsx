@@ -9,8 +9,6 @@
   import searchIcon from "@/app/images/search.svg";
   import "./header.css";
 
-  import AppointmentModal from "@/app/pages/Appointment/page";
-
   const doctorsData = [
     "Ашимов Алмас",
     "Ашимова Айгерим",
@@ -20,20 +18,12 @@
   ];
 
   export default function Header() {
-    // const [isModalOpen, setModalOpen] = useState(false);
-
-    const [isModalOpen, setModalOpen] = useState(false);
-  const [successModal, setSuccessModal] = useState(false);
-  const [cancelModal, setCancelModal] = useState(false);
-
     const [userName, setUserName] = useState(null);
     const [userRole, setUserRole] = useState(null);
     const [activeDropdown, setActiveDropdown] = useState(null);
     const [searchTerm, setSearchTerm] = useState("");
     const [filteredDoctors, setFilteredDoctors] = useState([]);
     const router = useRouter();
-
-    
 
     useEffect(() => {
       const unsubscribeAuth = auth.onAuthStateChanged((user) => {
@@ -98,7 +88,6 @@
     router.push(path);
   };
 
-
     return (
       <header className="header">
         <div className="logo" onClick={() => router.push("/")}>
@@ -107,11 +96,8 @@
 
         <nav className="nav">
 
-         
-
-
           <div className="nav-item" onClick={() => handleNavigate("/pages/main")}>
-            Главноя
+            Главная
           </div>
 
           <div className="nav-item" onClick={() => router.push("/pages/Appointment/Notifications")}>
@@ -150,7 +136,6 @@
             )}
           </div>
 
-                {/* Докторы */}
                 <div className="nav-item" onClick={() => navigate("/pages/doctors")}>
                     Докторы
                 </div>
@@ -195,29 +180,7 @@
               Войти
           </button>
       )}
-      </div> 
-      {isModalOpen && (
-    <AppointmentModal
-      onClose={() => setModalOpen(false)}
-      setSuccessModal={() => {
-        setSuccessModal(true);
-        setModalOpen(false); 
-      }}
-      setCancelModal={() => {
-        setCancelModal(true);
-        setModalOpen(false);
-      }}
-    />
-  )}
-
-  {successModal && (
-    <SuccessModal onClose={() => setSuccessModal(false)} />
-  )}
-
-  {cancelModal && (
-    <CancelModal onClose={() => setCancelModal(false)} />
-  )}
-        
+      </div>
       </header>
       
     );
