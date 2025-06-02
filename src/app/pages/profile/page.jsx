@@ -22,7 +22,7 @@ export default function ProfilePage() {
         position: "",
         priceNew: "",
         location: "",
-        avatarBase64: "",  // ключ для Base64 картинки
+        avatarBase64: "",  
         documents: {},
     });
 
@@ -30,7 +30,6 @@ export default function ProfilePage() {
     const [newAvatarPreview, setNewAvatarPreview] = useState(null);
     const avatarInputRef = useRef();
 
-    // Загрузка данных
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged((user) => {
             if (user) {
@@ -54,25 +53,21 @@ export default function ProfilePage() {
         return () => unsubscribe();
     }, []);
 
-    // Проверка изменений
     const hasChanges = () => {
         if (!originalData) return false;
         const keys = ["fullName", "surname", "birthDate", "phone", "experience", "position", "priceNew", "location"];
         for (const key of keys) {
             if ((data[key] || "") !== (originalData[key] || "")) return true;
         }
-        // Проверяем фото
         if (newAvatarPreview !== (originalData.avatarBase64 || null)) return true;
 
         return false;
     };
 
-    // Обновление текстовых данных
     const handleChange = (field, value) => {
         setData((prev) => ({ ...prev, [field]: value }));
     };
 
-    // Конвертация файла в Base64
     const fileToBase64 = (file) => {
         return new Promise((resolve, reject) => {
             const reader = new FileReader();
@@ -82,7 +77,6 @@ export default function ProfilePage() {
         });
     };
 
-    // Обработка выбора фото
     const handleAvatarChange = async (e) => {
         const file = e.target.files[0];
         if (file) {
@@ -93,25 +87,19 @@ export default function ProfilePage() {
         }
     };
 
-    // Удаление фото
     const handleDeleteAvatar = async () => {
         if (!uid) return;
         try {
-            // Обновляем локальное состояние
             setNewAvatarFile(null);
             setNewAvatarPreview(null);
             setData((prev) => ({ ...prev, avatarBase64: "" }));
-            // Обновляем базу, удаляем фото (ставим пустую строку)
             await update(dbRef(db, `doctors/${uid}`), { avatarBase64: "" });
             setOriginalData((prev) => ({ ...prev, avatarBase64: "" }));
-            alert("Фото успешно удалено");
         } catch (error) {
             console.error("Ошибка удаления фото:", error);
-            alert("Ошибка удаления фото");
         }
     };
 
-    // Сохранение всех данных
     const handleSave = async () => {
         if (!uid) return;
 
@@ -130,7 +118,6 @@ export default function ProfilePage() {
         }
     };
 
-    // Запуск выбора файла
     const triggerAvatarInput = () => {
         if (avatarInputRef.current) avatarInputRef.current.click();
     };
