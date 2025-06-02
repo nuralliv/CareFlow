@@ -107,10 +107,7 @@
 
         <nav className="nav">
 
-         
-
-
-          <div className="nav-item" onClick={() => toggleDropdown("news")}>
+          <div className="nav-item">
             Новости
           </div>
 
