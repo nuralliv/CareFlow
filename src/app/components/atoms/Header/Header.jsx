@@ -107,8 +107,11 @@
 
         <nav className="nav">
 
-          <div className="nav-item">
-            Новости
+         
+
+
+          <div className="nav-item" onClick={() => handleNavigate("/pages/main")}>
+            Главноя
           </div>
 
           <div className="nav-item" onClick={() => router.push("/pages/Appointment/Notifications")}>
