@@ -5,6 +5,7 @@ import { auth, db, storage } from "@/app/firebaseConfig";
 import { ref as dbRef, onValue, update } from "firebase/database";
 import { ref as storageRef, uploadBytes, getDownloadURL } from "firebase/storage";
 import { useRouter } from "next/navigation";
+import "./doctorProfile.css"
 
 export default function ProfilePage() {
   const [userData, setUserData] = useState({
@@ -23,7 +24,7 @@ export default function ProfilePage() {
   useEffect(() => {
     const user = auth.currentUser;
     if (!user) {
-      router.push("/pages/login");
+      // router.push("/pages/login");
       return;
     }
 

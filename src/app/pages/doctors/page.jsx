@@ -40,7 +40,7 @@ export default function DoctorsPage() {
                clinicName: doc.location || "",
                clinicAddress: doc.address || "",
                workDirection: doc.workDirection || "",
-               avatarUrl: doc.avatarBase64 || "", // если есть фото
+               avatarUrl: doc.avatarBase64 || "", 
             }));
             setDoctorsData(doctorsList);
          } else {
@@ -104,7 +104,6 @@ export default function DoctorsPage() {
       setOpenDropdown(openDropdown === name ? null : name);
    };
 
-   // При выборе доктора — переходим на страницу профиля с передачей id в URL
    const handleSelectDoctor = (doctorId) => {
       router.push(`/pages/profile/Doctor?id=${doctorId}`);
    };

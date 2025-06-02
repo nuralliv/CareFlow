@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { auth, db } from "@/app/firebaseConfig";
-import { onValue, push, ref } from "firebase/database";
+import { onValue, push, ref, get  } from "firebase/database";
 import "./appointment.css";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -66,104 +66,124 @@ export default function AppointmentModal({ onClose }) {
     return () => unsubscribe();
   }, []);
 
-  const handleSubmit = async () => {
-    if (!date || !time || !selectedDoctor || !specialty) {
-      alert("Пожалуйста, заполните все обязательные поля.");
-      return;
-    }
+//   const handleSubmit = async () => {
+//     if (!date || !time || !selectedDoctor || !specialty) {
+//       alert("Пожалуйста, заполните все обязательные поля.");
+//       return;
+//     }
 
-    const newAppointment = {
-      fullName: userData.fullName,
-      phone: userData.phone,
-      email: userData.email,
-      specialty,
-      doctor: selectedDoctor,
-      date,
-      time,
-      symptoms,
-      timestamp: new Date().toISOString(),
-    };
+//     const newAppointment = {
+//       fullName: userData.fullName,
+//       phone: userData.phone,
+//       email: userData.email,
+//       specialty,
+//       doctor: selectedDoctor,
+//       date,
+//       time,
+//       symptoms,
+//       timestamp: new Date().toISOString(),
+//     };
 
-    try {
-      await push(ref(db, "appointments"), newAppointment);
-       const doctorsRef = ref(db, "doctors");
-//     onValue(doctorsRef, (snapshot) => {
+//     try {
+//       await push(ref(db, "appointments"), newAppointment);
+//        const doctorsRef = ref(db, "doctors");
+// onValue(doctorsRef, (snapshot) => {
 //       if (snapshot.exists()) {
-//         const doctors = snapshot.val();
-//         const doctorEntry = Object.entries(doctors).find(
-//           ([_, value]) => value.fullName === selectedDoctor
+//         const doctorsData = snapshot.val();
+
+//         const doctorEntry = Object.entries(doctorsData).find(
+//           ([uid, value]) => value.fullName === selectedDoctor
 //         );
 
-//         // if (doctorEntry) {
-//         //   const doctorUid = doctorEntry[0];
-
-//         //   const notificationRef = ref(db, `notifications/${doctorUid}`);
-//         //   push(notificationRef, {
-//         //     message: `Новая запись от пациента ${userData.fullName}`,
-//         //     date: newAppointment.date,
-//         //     time: newAppointment.time,
-//         //     specialty: newAppointment.specialty,
-//         //     symptoms: newAppointment.symptoms,
-//         //     timestamp: new Date().toISOString(),
-//         //   });
-//         // }
 //         if (doctorEntry) {
-//   const doctorUid = doctorEntry[0];
-//   console.log("Врач найден, UID:", doctorUid); // ⬅️ Добавь
+//           const doctorUid = doctorEntry[0];
 
-//   // Уведомление врачу
-//   const notificationRef = ref(db, `notifications/${doctorUid}`);
-//   push(notificationRef, {
-//     message: `Новая запись от пациента ${userData.fullName}`,
-//     date: newAppointment.date,
-//     time: newAppointment.time,
-//     specialty: newAppointment.specialty,
-//     symptoms: newAppointment.symptoms,
-//     timestamp: new Date().toISOString(),
-//   });
-// } else {
-//   console.warn("Врач не найден по имени:", selectedDoctor); // ⬅️ если не нашли
-// }
+//           const notificationRef = ref(db, `notifications/${doctorUid}`);
 
+//         push(notificationRef, {
+//   message: `Пациент ${userData.fullName} записался к вам на приём`,
+//   date,
+//   time,
+//   specialty,
+//   symptoms,
+//   fullName: userData.fullName,
+//   phone: userData.phone,
+//   email: userData.email,
+//   timestamp: new Date().toISOString(),
+// });
 
+//           console.log("Уведомление отправлено врачу:", doctorUid);
+//         } else {
+//           console.warn("Не найден врач с именем:", selectedDoctor);
+//         }
 //       }
 //     }, {
 //       onlyOnce: true
 //     });
-onValue(doctorsRef, (snapshot) => {
-      if (snapshot.exists()) {
-        const doctorsData = snapshot.val();
+// setSuccessModal(true);
+//     } catch (error) {
+//       console.error("Ошибка при сохранении:", error);
+//     }
+//   };
 
-        const doctorEntry = Object.entries(doctorsData).find(
-          ([uid, value]) => value.fullName === selectedDoctor
-        );
+const handleSubmit = async () => {
+  if (!date || !time || !selectedDoctor || !specialty) {
+    alert("Пожалуйста, заполните все обязательные поля.");
+    return;
+  }
 
-        if (doctorEntry) {
-          const doctorUid = doctorEntry[0];
-
-          const notificationRef = ref(db, `notifications/${doctorUid}`);
-          push(notificationRef, {
-            message: `Пациент ${userData.fullName} записался к вам на приём`,
-            date,
-            time,
-            specialty,
-            symptoms,
-            timestamp: new Date().toISOString(),
-          });
-
-          console.log("Уведомление отправлено врачу:", doctorUid);
-        } else {
-          console.warn("Не найден врач с именем:", selectedDoctor);
-        }
-      }
-    }, {
-      onlyOnce: true
-    });
-setSuccessModal(true);
-    } catch (error) {
-      console.error("Ошибка при сохранении:", error);
-    }
+  const newAppointment = {
+    fullName: userData.fullName,
+    phone: userData.phone,
+    email: userData.email,
+    specialty,
+    doctor: selectedDoctor,
+    date,
+    time,
+    symptoms,
+    timestamp: new Date().toISOString(),
   };
+
+  try {
+    await push(ref(db, "appointments"), newAppointment);
+
+    const snapshot = await get(ref(db, "doctors"));
+
+    if (snapshot.exists()) {
+      const doctorsData = snapshot.val();
+
+      const doctorEntry = Object.entries(doctorsData).find(
+        ([uid, value]) => value.fullName === selectedDoctor
+      );
+
+      if (doctorEntry) {
+        const doctorUid = doctorEntry[0];
+        const notificationRef = ref(db, `notifications/${doctorUid}`);
+
+        await push(notificationRef, {
+          message: `Пациент ${userData.fullName} записался к вам на приём`,
+          date,
+          time,
+          specialty,
+          symptoms,
+          fullName: userData.fullName,
+          phone: userData.phone,
+          email: userData.email,
+          timestamp: new Date().toISOString(),
+        });
+
+        console.log("Уведомление отправлено врачу:", doctorUid);
+      } else {
+        console.warn("Не найден врач с именем:", selectedDoctor);
+      }
+    }
+
+    setSuccessModal(true);
+  } catch (error) {
+    console.error("Ошибка при сохранении:", error);
+    alert("Произошла ошибка при отправке заявки.");
+  }
+};
 
   return (
     <div className="modal-overlay">
