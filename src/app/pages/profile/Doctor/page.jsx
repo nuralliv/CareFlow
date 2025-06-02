@@ -1,177 +1,142 @@
 "use client";
-import React, { useState, useEffect } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
-import { ref, onValue } from "firebase/database";
-import { db } from "@/app/firebaseConfig";
-import './DoctorProfile.css';
-import documentIcon from '@/app/images/fi-br-document.svg';
-import btnBack from '@/app/images/Button.svg';
-import Link from 'next/link';
-import Image from 'next/image';
 
-export default function DoctorProfile() {
+import React, { useState, useEffect } from "react";
+import { auth, db, storage } from "@/app/firebaseConfig";
+import { ref as dbRef, onValue, update } from "firebase/database";
+import { ref as storageRef, uploadBytes, getDownloadURL } from "firebase/storage";
+import { useRouter } from "next/navigation";
+
+export default function ProfilePage() {
+  const [userData, setUserData] = useState({
+    fullName: "",
+    speciality: "",
+    experience: "",
+    priceNew: "",
+    clinicName: "",
+    address: "",
+    avatarUrl: "",
+  });
+  const [loading, setLoading] = useState(true);
+  const [uploading, setUploading] = useState(false);
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const doctorId = searchParams.get('id');
-
-  const [doctor, setDoctor] = useState(null);
 
   useEffect(() => {
-    if (!doctorId) return;
+    const user = auth.currentUser;
+    if (!user) {
+      router.push("/pages/login");
+      return;
+    }
 
-    const doctorRef = ref(db, `doctors/${doctorId}`);
-    const unsubscribe = onValue(doctorRef, (snapshot) => {
-      const data = snapshot.val();
-      if (data) {
-        setDoctor(data);
+    const userRef = dbRef(db, `doctors/${user.uid}`);
+    const unsubscribe = onValue(userRef, (snapshot) => {
+      if (snapshot.exists()) {
+        setUserData(snapshot.val());
       } else {
-        setDoctor(null);
+        setUserData({});
       }
+      setLoading(false);
     });
 
     return () => unsubscribe();
-  }, [doctorId]);
+  }, [router]);
 
-  if (!doctorId) {
-    return <p>Доктор не выбран.</p>;
-  }
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setUserData((prev) => ({ ...prev, [name]: value }));
+  };
 
-  if (!doctor) {
-    return <p>Загрузка данных доктора...</p>;
-  }
+  const handleFileChange = async (e) => {
+    const user = auth.currentUser;
+    if (!user) return;
+
+    const file = e.target.files[0];
+    if (!file) return;
+
+    setUploading(true);
+
+    try {
+      const avatarStorageRef = storageRef(storage, `avatars/${user.uid}/${file.name}`);
+      await uploadBytes(avatarStorageRef, file);
+      const downloadURL = await getDownloadURL(avatarStorageRef);
+      setUserData((prev) => ({ ...prev, avatarUrl: downloadURL }));
+    } catch (error) {
+      alert("Ошибка при загрузке фото: " + error.message);
+    } finally {
+      setUploading(false);
+    }
+  };
+
+  const handleSave = async () => {
+    const user = auth.currentUser;
+    if (!user) return alert("Пользователь не авторизован");
+
+    const userRef = dbRef(db, `doctors/${user.uid}`);
+
+    try {
+      await update(userRef, userData);
+      alert("Данные успешно сохранены!");
+    } catch (error) {
+      alert("Ошибка при сохранении: " + error.message);
+    }
+  };
+
+  if (loading) return <p>Загрузка данных...</p>;
 
   return (
-    <div className="container">
-      <div className='flex flex-col'>
-        <div className="pro-head">
-          <button onClick={() => router.back()}>
-            <Image src={btnBack} alt='Btn back' width={45} height={45} />
-          </button>
-          Специалисты
-        </div>
-        <section className="profile-card">
-          <div className="profile-left">
-            <div className='profle-left-content'>
-              <img
-                src={doctor.avatarUrl || "/doctor-avatar.jpg"}
-                alt={`Фото доктора ${doctor.fullName}`}
-                className="avatar"
-              />
-              <h2 className="doctor-name">{doctor.fullName}</h2>
-              <div>
-                <div className="rating">
-                  {"★".repeat(Math.floor(doctor.rating)) + "☆".repeat(5 - Math.floor(doctor.rating))}{" "}
-                </div>
-                <p className="reviews-count">На основе {doctor.reviews || 0} отзывов</p>
-              </div>
+    <div className="profile-container" style={{ padding: 20 }}>
+      <h1>Мой профиль</h1>
 
-              <div className="info">
-                <p><span>Специализация:</span> {doctor.speciality || "-"}</p>
-                <p><span>Опыт работы:</span> {doctor.experience || "-"}</p>
-                <p><span>Первичный приём:</span> {doctor.priceNew || "-"}</p>
-              </div>
-
-              <div className="buttons-group">
-                <button className="btn btn-primary">Записаться на приём</button>
-                <Link href='#review' className="btn btn-outline">
-                  <div className='w-full h-full flex justify-center align-middle'>Оставить отзыв</div>
-                </Link>
-              </div>
-            </div>
-          </div>
-
-          <div className="profile-right">
-            <div className="section">
-              <h3>Образование</h3>
-              <ul>
-                {(doctor.education || []).map((edu, idx) => (
-                  <li key={idx}>{edu}</li>
-                ))}
-              </ul>
-            </div>
-
-            <div className="section">
-              <h3>Повышение квалификации</h3>
-              <ul>
-                {(doctor.certificates || []).map((cert, idx) => (
-                  <li key={idx}>{cert}</li>
-                ))}
-              </ul>
-            </div>
-
-            <div className="section">
-              <h3>Опыт работы</h3>
-              <ul>
-                {(doctor.workExperience || []).map((work, idx) => (
-                  <li key={idx}>{work}</li>
-                ))}
-              </ul>
-            </div>
-
-            <div className="section documents">
-              <h3>Документы</h3>
-              <div className="documents-grid">
-                {(doctor.documents || []).map((doc, idx) => (
-                  <div className="doc-item" key={idx}>
-                    <Image src={documentIcon} alt='Document' width={32} height={32} />
-                    <div>
-                      <p className="doc-title">{doc.title}</p>
-                      <a href={doc.url || "#"} className="doc-link" target="_blank" rel="noopener noreferrer">Открыть документ</a>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
+      <div>
+        <label>Фото профиля:</label><br />
+        {userData.avatarUrl ? (
+          <img
+            src={userData.avatarUrl}
+            alt="avatar"
+            width={120}
+            height={120}
+            style={{ borderRadius: "50%" }}
+          />
+        ) : (
+          <div style={{ width: 120, height: 120, backgroundColor: "#ccc", borderRadius: "50%" }} />
+        )}
+        <br />
+        <input type="file" accept="image/*" onChange={handleFileChange} disabled={uploading} />
+        {uploading && <p>Загрузка...</p>}
       </div>
 
-      <section id='review' className="review-form-section">
-        <h3>Поделитесь мнением</h3>
-        <div className='rev-forms'>
-          <div className="stars">
-            {[...Array(5)].map((_, i) => (
-              <button key={i} className="star" aria-label={`${i + 1} звезда`}>★</button>
-            ))}
-          </div>
+      <div>
+        <label>Полное имя:</label><br />
+        <input type="text" name="fullName" value={userData.fullName || ""} onChange={handleChange} />
+      </div>
 
-          <textarea
-            placeholder="Опишите, как прошел прием: помог ли специалист решить проблему качество приема (внимательность, сервис), будете ли еще обращаться и рекомендовать специалиста"
-            className="review-textarea"
-          ></textarea>
+      <div>
+        <label>Специализация:</label><br />
+        <input type="text" name="speciality" value={userData.speciality || ""} onChange={handleChange} />
+      </div>
 
-          <label className="consent-label">
-            <input type="checkbox" className="consent-checkbox" />
-            Я даю <a href="#" className="consent-link">Согласие на сбор и обработку персональных данных</a>
-          </label>
+      <div>
+        <label>Опыт:</label><br />
+        <input type="text" name="experience" value={userData.experience || ""} onChange={handleChange} />
+      </div>
 
-          <div className="review-buttons">
-            <button className="btn btn-primary">Написать отзыв</button>
-            <button className="btn btn-link">Отмена</button>
-          </div>
+      <div>
+        <label>Цена приёма:</label><br />
+        <input type="text" name="priceNew" value={userData.priceNew || ""} onChange={handleChange} />
+      </div>
 
-          <p className="agreement-note">
-            Нажимая кнопку “Написать отзыв”, вы принимаете <a href="#" className="consent-link">условия Пользовательского соглашения</a>
-          </p>
-        </div>
-      </section>
+      <div>
+        <label>Клиника:</label><br />
+        <input type="text" name="clinicName" value={userData.location || ""} onChange={handleChange} />
+      </div>
 
-      <section className="reviews-list-section">
-        <h3>Проверенные отзывы</h3>
+      <div>
+        <label>Адрес:</label><br />
+        <input type="text" name="address" value={userData.address || ""} onChange={handleChange} />
+      </div>
 
-        <div className="reviews-list">
-          {(doctor.reviewsList || []).map((review, idx) => (
-            <article key={idx} className="review-item">
-              <div className="review-header">
-                <img src={documentIcon} alt="Пользователь" className="user-avatar" />
-                <p className="user-name">{review.userName}</p>
-              </div>
-              <p className="review-text">{review.text}</p>
-              <time className="review-date">{review.date}</time>
-            </article>
-          ))}
-        </div>
-      </section>
+      <button onClick={handleSave} style={{ marginTop: 20 }}>
+        Сохранить
+      </button>
     </div>
   );
 }

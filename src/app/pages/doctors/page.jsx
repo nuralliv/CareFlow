@@ -37,10 +37,10 @@ export default function DoctorsPage() {
                rating: doc.rating || 0,
                priceOld: doc.priceOld || "",
                priceNew: doc.priceNew || "",
-               clinicName: doc.clinicName || "",
+               clinicName: doc.location || "",
                clinicAddress: doc.address || "",
                workDirection: doc.workDirection || "",
-               avatarUrl: doc.avatarUrl || "", // если есть фото
+               avatarUrl: doc.avatarBase64 || "", // если есть фото
             }));
             setDoctorsData(doctorsList);
          } else {
@@ -235,7 +235,7 @@ function DoctorCard({ doctor, onSelect }) {
                   <div className="appointment-info">
                      <div className="spec">{doctor.workDirection}</div>
                      <div className="price-old">{doctor.priceOld}</div>
-                     <div className="price-new">{doctor.priceNew}</div>
+                     <div className="price-new">{doctor.priceNew}₸                     </div>
                   </div>
                </div>
             </div>

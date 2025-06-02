@@ -143,6 +143,8 @@
    height: 120px;
    border-radius: 50%;
    object-fit: cover;
+   padding: 3px;
+   background-color: #c0d1f6;
 }
 
 .doctor-info {

@@ -16,7 +16,7 @@ const doctorsData = [
     "Серикова Динара",
 ];
 
-export default function Header({ className = "" } ) {
+export default function Header({ className = "" }) {
     const [userName, setUserName] = useState(null);
     const [userRole, setUserRole] = useState(null);
     const [activeDropdown, setActiveDropdown] = useState(null);
@@ -126,7 +126,6 @@ export default function Header({ className = "" } ) {
                     )}
                 </div>
 
-                {/* Докторы */}
                 <div className="nav-item" onClick={() => navigate("/pages/doctors")}>
                     Докторы
                 </div>
@@ -152,8 +151,8 @@ export default function Header({ className = "" } ) {
                         onClick={() =>
                             navigate(
                                 userRole === "doctor"
-                                    ? "/pages/profile/Doctor"
-                                    : "/pages/profile/Patient"
+                                    ? "/pages/profile"
+                                    : "/pages/profile"
                             )
                         }
                     >
