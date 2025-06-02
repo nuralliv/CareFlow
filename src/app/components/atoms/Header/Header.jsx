@@ -151,9 +151,10 @@
             )}
           </div>
 
-          <div className="nav-item" onClick={() => toggleDropdown("doctors")}>
-            Докторы
-          </div>
+                {/* Докторы */}
+                <div className="nav-item" onClick={() => navigate("/pages/doctors")}>
+                    Докторы
+                </div>
 
           <div className="search-wrapper">
             <Image src={searchIcon} alt="Поиск" className="search-icon" />
