@@ -184,8 +184,8 @@
               onClick={() =>
                   navigate(
                       userRole === "doctor"
-                          ? "/pages/profile/Doctor"
-                          : "/pages/profile/Patient"
+                          ? "/pages/profile/"
+                          : "/pages/profile/"
                   )
               }
           >
@@ -197,13 +197,12 @@
           </button>
       )}
       </div> 
-      {/* {isModalOpen && <AppointmentModal onClose={() => setModalOpen(false)} />} */}
       {isModalOpen && (
     <AppointmentModal
       onClose={() => setModalOpen(false)}
       setSuccessModal={() => {
         setSuccessModal(true);
-        setModalOpen(false); // Закроет модалку
+        setModalOpen(false); 
       }}
       setCancelModal={() => {
         setCancelModal(true);
