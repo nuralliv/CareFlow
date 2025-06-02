@@ -72,23 +72,27 @@ export default function LoginDoctor() {
                         onChange={(e) => setPassword(e.target.value)}
                         required
                     />
+                    <div className="socialIcons">
+                        <div className="iconDiv">
+                            <FaGoogle className="icon" />
+                        </div>
+                        <div className="iconDiv">
+                            <FaFacebook className="icon" />
+                        </div>
+                        <div className="iconDiv">
+                            <FaTwitter className="icon" />
+                        </div>
+                    </div>
+                    <div className="flex justify-between">
+                        <Button label={loading ? "Вход..." : "Войти"} className="btnLogin" disabled={loading} />
+                        <BtnBorder label="Отмена" />
+                    </div>
+                    
 
-                    <Button label={loading ? "Вход..." : "Войти"} className="btnLogin" disabled={loading} />
                 </form>
 
-                <div className="socialIcons">
-                    <div className="iconDiv">
-                        <FaGoogle className="icon" />
-                    </div>
-                    <div className="iconDiv">
-                        <FaFacebook className="icon" />
-                    </div>
-                    <div className="iconDiv">
-                        <FaTwitter className="icon" />
-                    </div>
-                </div>
+                
 
-                <BtnBorder label="Отмена" />
 
                 <p className="loginText">
                     Нет аккаунта? <a href="/doctor/register">Зарегистрироваться</a>

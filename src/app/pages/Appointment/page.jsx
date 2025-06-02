@@ -3,8 +3,6 @@ import React, { useEffect, useState } from "react";
 import { auth, db } from "@/app/firebaseConfig";
 import { onValue, push, ref, get  } from "firebase/database";
 import "./appointment.css";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
 
 
 export default function AppointmentModal({ onClose }) {

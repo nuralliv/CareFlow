@@ -1,14 +1,15 @@
+// pages/doctors/page.jsx (или /pages/doctors/index.jsx)
 "use client";
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import { ref, onValue } from "firebase/database";
 import { db } from "@/app/firebaseConfig";
 import Header from "@/app/components/atoms/Header/Header";
 import Footer from "@/app/components/atoms/Footer/Footer";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
 import phoneIcon from '@/app/images/HealthcareCall.svg';
 import search from '@/app/images/sea.svg';
 import Overlay from '@/app/images/Overlay.svg';
-import Image from "next/image";
-import { useRouter } from "next/navigation";
 import "./doctors.css";
 
 const ITEMS_PER_PAGE = 5;
@@ -50,10 +51,7 @@ export default function DoctorsPage() {
       return () => unsubscribe();
    }, []);
 
-   const directions = ["Кардиология", "Неврология", "Терапия", "Гинекология"];
-   const specialists = ["Акушер", "Кардиологи", "Доктор"];
-   const sortingOptions = ["Много отзывов", "Высокие оценки", "Большой стаж", "Сначала дешевле"];
-
+   // Фильтрация, сортировка и поиск (без изменений)
    const filteredDoctors = useMemo(() => {
       let filtered = doctorsData;
 
@@ -85,7 +83,6 @@ export default function DoctorsPage() {
             filtered = filtered.slice().sort((a, b) => parsePrice(a.priceNew) - parsePrice(b.priceNew));
          }
       }
-
       return filtered;
    }, [doctorsData, searchTerm, selectedDirection, selectedSpecialist, selectedSorting]);
 
@@ -117,6 +114,7 @@ export default function DoctorsPage() {
                Лучшие акушер-гинекологи в Таразе – цены, отзывы. Записаться онлайн и проконсультироваться
             </p>
 
+            {/* Фильтры и поиск (оставляем без изменений) */}
             <div className="filters-row">
                <div className="input-con">
                   <Image className="imad" src={search} alt="search" width={24} height={24} />
@@ -131,7 +129,7 @@ export default function DoctorsPage() {
                <div className="filters">
                   <FilterDropdown
                      title="Направление"
-                     options={directions}
+                     options={["Кардиология", "Неврология", "Терапия", "Гинекология"]}
                      selected={selectedDirection}
                      setSelected={setSelectedDirection}
                      openDropdown={openDropdown}
@@ -140,7 +138,7 @@ export default function DoctorsPage() {
                   />
                   <FilterDropdown
                      title="Специалист"
-                     options={specialists}
+                     options={["Акушер", "Кардиологи", "Доктор"]}
                      selected={selectedSpecialist}
                      setSelected={setSelectedSpecialist}
                      openDropdown={openDropdown}
@@ -149,7 +147,7 @@ export default function DoctorsPage() {
                   />
                   <FilterDropdown
                      title="Сортировать"
-                     options={sortingOptions}
+                     options={["Много отзывов", "Высокие оценки", "Большой стаж", "Сначала дешевле"]}
                      selected={selectedSorting}
                      setSelected={setSelectedSorting}
                      openDropdown={openDropdown}
@@ -159,12 +157,14 @@ export default function DoctorsPage() {
                </div>
             </div>
 
+            {/* Список врачей */}
             <div className="doctors-list">
                {paginatedDoctors.map((doctor) => (
                   <DoctorCard key={doctor.id} doctor={doctor} onSelect={handleSelectDoctor} />
                ))}
             </div>
 
+            {/* Пагинация */}
             <Pagination
                totalPages={totalPages}
                currentPage={currentPage}
@@ -234,7 +234,7 @@ function DoctorCard({ doctor, onSelect }) {
                   <div className="appointment-info">
                      <div className="spec">{doctor.workDirection}</div>
                      <div className="price-old">{doctor.priceOld}</div>
-                     <div className="price-new">{doctor.priceNew}₸                     </div>
+                     <div className="price-new">{doctor.priceNew}₸</div>
                   </div>
                </div>
             </div>
