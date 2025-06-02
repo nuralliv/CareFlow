@@ -1,12 +1,27 @@
 .doctors-page-container {
    width: 100%;
-   margin: 40px auto;
+   margin: 0px auto;
+   margin-top: 40px;
    padding: 0 20px;
-   background-color: #f0f4fc;
+   background-color: #F0F6FF;
    border-radius: 12px;
    font-family: Arial, sans-serif;
    color: #1e293b;
 }
+
+.date-item.active {
+  border: 2px solid #3478f6;
+  background-color: #e5f0ff;
+  border-radius: 8px;
+}
+
+.time-button.active {
+  background-color: #3478f6;
+  color: white;
+  font-weight: bold;
+  border: 2px solid #275bb5;
+}
+
 
 .page-title {
    font-size: 28px;

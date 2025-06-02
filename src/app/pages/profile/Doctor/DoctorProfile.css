@@ -22,8 +22,17 @@
    font-size: 28px;
    font-weight: 500;
 }
+
 .pro-head button {
    cursor: pointer;
+}
+
+.section-txt h3{
+   font-size: 17px !important;
+}
+
+.section-txt ul li{
+   font-size: 15px !important;
 }
 
 .profile-card {
@@ -229,10 +238,9 @@
    padding: 30px 60px;
    color: #334155;
    font-size: 0.9rem;
-
 }
 
-.review-form-section h3 {
+.review-form-h3 {
    font-weight: 600;
    color: #003487;
    width: 400px;

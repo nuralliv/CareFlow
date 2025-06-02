@@ -1,142 +1,169 @@
+
 "use client";
+import React, { useState, useEffect } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { ref, onValue } from "firebase/database";
+import { db } from "@/app/firebaseConfig";
+import './doctorProfile.css';
+import documentIcon from '@/app/images/fi-br-document.svg';
+import btnBack from '@/app/images/Button.svg';
+import Link from 'next/link';
+import Image from 'next/image';
+import AppointmentModal from '../../Appointment/page';
 
-import React, { useState, useEffect } from "react";
-import { auth, db, storage } from "@/app/firebaseConfig";
-import { ref as dbRef, onValue, update } from "firebase/database";
-import { ref as storageRef, uploadBytes, getDownloadURL } from "firebase/storage";
-import { useRouter } from "next/navigation";
-
-export default function ProfilePage() {
-  const [userData, setUserData] = useState({
-    fullName: "",
-    speciality: "",
-    experience: "",
-    priceNew: "",
-    clinicName: "",
-    address: "",
-    avatarUrl: "",
-  });
-  const [loading, setLoading] = useState(true);
-  const [uploading, setUploading] = useState(false);
+export default function DoctorProfile() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const doctorId = searchParams.get('id');
+
+  const [doctor, setDoctor] = useState(null);
 
   useEffect(() => {
-    const user = auth.currentUser;
-    if (!user) {
-      router.push("/pages/login");
-      return;
-    }
+    if (!doctorId) return;
 
-    const userRef = dbRef(db, `doctors/${user.uid}`);
-    const unsubscribe = onValue(userRef, (snapshot) => {
-      if (snapshot.exists()) {
-        setUserData(snapshot.val());
+    const doctorRef = ref(db, `doctors/${doctorId}`);
+    const unsubscribe = onValue(doctorRef, (snapshot) => {
+      const data = snapshot.val();
+      if (data) {
+        setDoctor(data);
       } else {
-        setUserData({});
+        setDoctor(null);
       }
-      setLoading(false);
     });
 
     return () => unsubscribe();
-  }, [router]);
+  }, [doctorId]);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setUserData((prev) => ({ ...prev, [name]: value }));
-  };
+  if (!doctorId) {
+    return <p>Доктор не выбран.</p>;
+  }
 
-  const handleFileChange = async (e) => {
-    const user = auth.currentUser;
-    if (!user) return;
-
-    const file = e.target.files[0];
-    if (!file) return;
-
-    setUploading(true);
-
-    try {
-      const avatarStorageRef = storageRef(storage, `avatars/${user.uid}/${file.name}`);
-      await uploadBytes(avatarStorageRef, file);
-      const downloadURL = await getDownloadURL(avatarStorageRef);
-      setUserData((prev) => ({ ...prev, avatarUrl: downloadURL }));
-    } catch (error) {
-      alert("Ошибка при загрузке фото: " + error.message);
-    } finally {
-      setUploading(false);
-    }
-  };
-
-  const handleSave = async () => {
-    const user = auth.currentUser;
-    if (!user) return alert("Пользователь не авторизован");
-
-    const userRef = dbRef(db, `doctors/${user.uid}`);
-
-    try {
-      await update(userRef, userData);
-      alert("Данные успешно сохранены!");
-    } catch (error) {
-      alert("Ошибка при сохранении: " + error.message);
-    }
-  };
-
-  if (loading) return <p>Загрузка данных...</p>;
+  if (!doctor) {
+    return <p>Загрузка данных доктора...</p>;
+  }
 
   return (
-    <div className="profile-container" style={{ padding: 20 }}>
-      <h1>Мой профиль</h1>
+    <div className="container">
+      <div className='flex flex-col'>
+        <div className="pro-head">
+          <button onClick={() => router.back()}>
+            <Image src={btnBack} alt='Btn back' width={45} height={45} />
+          </button>
+          Специалисты
+        </div>
+        <section className="profile-card">
+          <div className="profile-left">
+            <div className='profle-left-content'>
+              <img
+                src={doctor.avatarBase64 || "/doctor-avatar.jpg"}
+                alt={`Фото доктора ${doctor.fullName}`}
+                className="avatar"
+              />
+              <h2 className="doctor-name">{doctor.fullName}</h2>
+              <div>
+                <div className="rating">
+                  {"★".repeat(Math.floor(doctor.rating)) + "☆".repeat(5 - Math.floor(doctor.rating))}{" "}
+                  {/* <span className="rating-value">{doctor.rating.toFixed(1)}/5</span> */}
+                </div>
+                <p className="reviews-count">На основе {doctor.reviews || 0} отзывов</p>
+              </div>
 
-      <div>
-        <label>Фото профиля:</label><br />
-        {userData.avatarUrl ? (
-          <img
-            src={userData.avatarUrl}
-            alt="avatar"
-            width={120}
-            height={120}
-            style={{ borderRadius: "50%" }}
-          />
-        ) : (
-          <div style={{ width: 120, height: 120, backgroundColor: "#ccc", borderRadius: "50%" }} />
-        )}
-        <br />
-        <input type="file" accept="image/*" onChange={handleFileChange} disabled={uploading} />
-        {uploading && <p>Загрузка...</p>}
+              <div className="info">
+                <p><span>Специализация:</span> {doctor.speciality || "-"}</p>
+                <p><span>Опыт работы:</span> {doctor.experience || "-"}</p>
+                <p><span>Первичный приём:</span> {doctor.priceNew || "-"}</p>
+              </div>
+
+              <div className="buttons-group">
+                <button className="btn btn-primary" onClick={() => setIsModalOpen(true)}>
+                  Записаться на приём
+                </button>
+                {isModalOpen && (
+                  <AppointmentModal onClose={() => setIsModalOpen(false)} />
+                )}
+                <Link href='#review' className="btn btn-outline">
+                  <div className='w-full h-full flex justify-center align-middle'>Оставить отзыв</div>
+                </Link>
+              </div>
+            </div>
+          </div>
+
+          <div className="profile-right">
+            <div className="section-txt">
+              <h3>Образование</h3>
+              <ul>
+                <li>2010 — врач, Государственное образовательное учреждение высшего профессионального образования «УСМА», г. Иркутск</li>
+                <li>2011 — интернатура по специальности «Хирург», «УСМА», г. Иркутск</li>
+              </ul>
+            </div>
+
+            <div className="section-txt">
+              <h3>Повышение квалификации</h3>
+              <ul>
+                <li>2013 — специализация «Хирург», УСМА</li>
+                <li>2015 — аккредитация по специальности «Хирург»</li>
+                <li>2016 — курс «Экспертиза временной нетрудоспособности», УСМА</li>
+              </ul>
+            </div>
+
+            <div className="section-txt">
+              <h3>Опыт работы</h3>
+              <ul>
+                <li>2012–2019 — Врач общей практики, Поликлиника №2, Иркутская городская больница</li>
+                <li>С 2019 года — Врач общей практики, Медицинская клиника</li>
+              </ul>
+            </div>
+          </div>
+        </section>
       </div>
 
-      <div>
-        <label>Полное имя:</label><br />
-        <input type="text" name="fullName" value={userData.fullName || ""} onChange={handleChange} />
-      </div>
+      <section id='review' className="review-form-section">
+        <h3>Поделитесь мнением</h3>
+        <div className='rev-forms'>
+          <div className="stars">
+            {[...Array(5)].map((_, i) => (
+              <button key={i} className="star" aria-label={`${i + 1} звезда`}>★</button>
+            ))}
+          </div>
 
-      <div>
-        <label>Специализация:</label><br />
-        <input type="text" name="speciality" value={userData.speciality || ""} onChange={handleChange} />
-      </div>
+          <textarea
+            placeholder="Опишите, как прошел прием: помог ли специалист решить проблему качество приема (внимательность, сервис), будете ли еще обращаться и рекомендовать специалиста"
+            className="review-textarea"
+          ></textarea>
 
-      <div>
-        <label>Опыт:</label><br />
-        <input type="text" name="experience" value={userData.experience || ""} onChange={handleChange} />
-      </div>
+          <label className="consent-label">
+            <input type="checkbox" className="consent-checkbox" />
+            Я даю <a href="#" className="consent-link">Согласие на сбор и обработку персональных данных</a>
+          </label>
 
-      <div>
-        <label>Цена приёма:</label><br />
-        <input type="text" name="priceNew" value={userData.priceNew || ""} onChange={handleChange} />
-      </div>
+          <div className="review-buttons">
+            <button className="btn btn-primary">Написать отзыв</button>
+            <button className="btn btn-link">Отмена</button>
+          </div>
 
-      <div>
-        <label>Клиника:</label><br />
-        <input type="text" name="clinicName" value={userData.location || ""} onChange={handleChange} />
-      </div>
+          <p className="agreement-note">
+            Нажимая кнопку “Написать отзыв”, вы принимаете <a href="#" className="consent-link">условия Пользовательского соглашения</a>
+          </p>
+        </div>
+      </section>
 
-      <div>
-        <label>Адрес:</label><br />
-        <input type="text" name="address" value={userData.address || ""} onChange={handleChange} />
-      </div>
+      <section className="reviews-list-section">
+        <h3>Проверенные отзывы</h3>
 
-      <button onClick={handleSave} style={{ marginTop: 20 }}>
-        Сохранить
-      </button>
+        <div className="reviews-list">
+          {(doctor.reviewsList || []).map((review, idx) => (
+            <article key={idx} className="review-item">
+              <div className="review-header">
+                <img src={documentIcon} alt="Пользователь" className="user-avatar" />
+                <p className="user-name">{review.userName}</p>
+              </div>
+              <p className="review-text">{review.text}</p>
+              <time className="review-date">{review.date}</time>
+            </article>
+          ))}
+        </div>
+      </section>
     </div>
   );
 }

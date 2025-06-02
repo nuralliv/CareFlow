@@ -119,6 +119,10 @@
             Новости
           </div>
 
+          <div className="nav-item" onClick={() => router.push("/pages/Appointment/Notifications")}>
+        Уведомления
+      </div>
+
           <div className="nav-item" onClick={() => toggleDropdown("services")}>
             Сервисы <span>▾</span>
             {activeDropdown === "services" && (
