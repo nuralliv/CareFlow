@@ -23,25 +23,25 @@
     justify-content: center;
 }
 
-.cf{
+.cf {
     font-size: 64px;
     font-weight: 800;
     color: #0443A7;
 }
 
-.cf-text{
+.cf-text {
     text-align: center;
     font-weight: 500;
     font-size: 18px;
 }
 
-.options-spe{
+.options-spe {
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
 
-.head-texts{
+.head-texts {
     width: 600px;
     display: flex;
     flex-direction: column;
@@ -51,33 +51,34 @@
     z-index: 10;
 }
 
-.head-texts p{
+.head-texts p {
     font-size: 16px;
     color: #9c9d9d;
 }
 
-.head-texts h2{
+.head-texts h2 {
     font-size: 26px;
     font-weight: 500;
 }
 
-.btns{
+.btns {
     display: flex;
     gap: 200px;
 }
 
-.btn-next, .btn-skip{
+.btn-next,
+.btn-skip {
     width: 200px;
     z-index: 10;
 }
 
-.group-img1{
+.group-img1 {
     position: absolute;
     top: 15px;
     left: 120px;
 }
 
-.group-img2{
+.group-img2 {
     position: absolute;
     bottom: 15px;
     right: 730px;

@@ -66,6 +66,7 @@
 
 .socialIcons {
     display: flex;
+    justify-content: center;
     gap: 16px;
     margin: 24px 0;
 }
@@ -96,6 +97,7 @@
 .loginText {
     font-size: 15px;
     font-weight: 500;
+    margin-top: 20px;
 }
 
 .loginText a {

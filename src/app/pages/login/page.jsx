@@ -1,5 +1,5 @@
 "use client";
-import styles from "@/app/styles/loginPage.css";
+import  "@/app/styles/loginPage.css";
 import Image from "next/image";
 import Doctor from "../../images/Doctor.png";
 import Patient from "../../images/Patient-login-img.png";

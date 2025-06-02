@@ -22,7 +22,7 @@ export default function ProfilePage() {
         position: "",
         priceNew: "",
         location: "",
-        avatarBase64: "",  
+        avatarBase64: "",
         documents: {},
     });
 

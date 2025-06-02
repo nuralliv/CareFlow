@@ -19,6 +19,9 @@ export default function PatientRegisterPage() {
   const [password, setPassword] = useState("");
   const [confirm, setConfirm] = useState("");
   const [loading, setLoading] = useState(false);
+  const handleCancel = () => {
+    router.push("/pages/login");
+  };
 
   const onRegister = async () => {
     if (!email || !password) {
@@ -96,10 +99,10 @@ export default function PatientRegisterPage() {
           </div>
           <div className="flex justify-between">
             <Button label={loading ? "Регистрация..." : "Зарегистрироваться"} className="btnRegister" disabled={loading} />
-            <BtnBorder label="Отмена" />
+            <BtnBorder onClick={handleCancel} label="Отмена" />
           </div>
         </form>
-        <p className="loginText">Уже есть аккаунт? <a href="/patient/login">Войти</a></p>
+        <p className="loginText">Уже есть аккаунт? <a href="/pages/login/loginPatient">Войти</a></p>
       </div>
 
       <div className="right">

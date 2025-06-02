@@ -50,9 +50,35 @@
     padding: 10px 30px;
 }
 
+
+
 @media (max-width: 744px) {
     .main-txt{
         text-align: center;
         padding: 0 40px;
     }
 }
+
+@media (max-width: 450px) {
+    .main-txt {
+        text-align: center;
+        padding: 0 40px;
+    }
+    .section {
+        flex-direction: column;
+        height: 100vh;
+    }
+    .container-one, .container-two {
+        width: 100%;
+        height: 100%;
+    }
+        .first-img {  
+            width: 230px;
+            height: 200px;
+         }
+                 .second-img {
+                     width: 230px;
+                     height: 200px;
+                 }
+}
+

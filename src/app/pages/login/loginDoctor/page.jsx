@@ -18,7 +18,9 @@ export default function LoginDoctor() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
-
+    const handleCancel = () => {
+        router.push("/pages/login");
+    };
     const onLogin = async (e) => {
         e.preventDefault();
 
@@ -85,7 +87,7 @@ export default function LoginDoctor() {
                     </div>
                     <div className="flex justify-between">
                         <Button label={loading ? "Вход..." : "Войти"} className="btnLogin" disabled={loading} />
-                        <BtnBorder label="Отмена" />
+                        <BtnBorder onClick={handleCancel} label="Отмена" />
                     </div>
                     
 
@@ -95,7 +97,7 @@ export default function LoginDoctor() {
 
 
                 <p className="loginText">
-                    Нет аккаунта? <a href="/doctor/register">Зарегистрироваться</a>
+                    Нет аккаунта? <a href="/pages/register/doctor">Зарегистрироваться</a>
                 </p>
             </div>
         </div>
