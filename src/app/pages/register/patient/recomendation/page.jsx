@@ -39,7 +39,7 @@ export default function RecommendationPage() {
 
     return (
         <section className="container">
-            <main className="left">
+            <main className="rleft">
                 <Image src={GroupImg} width={130} height={130} alt="group-img" />
 
                 <div className="head-texts">
@@ -66,7 +66,7 @@ export default function RecommendationPage() {
                 <Image src={GroupImg} width={130} height={130} alt="group-img" />
             </main>
 
-            <main className="right">
+            <main className="rright">
                 <h1 className="cf">CF</h1>
                 <p className="cf-text">
                     CareFlow — медицинский веб-сайт и <br />

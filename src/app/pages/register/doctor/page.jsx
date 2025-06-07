@@ -52,58 +52,61 @@ export default function RegisterPage() {
 
     return (
         <div className="container">
-            <div className="left">
+            <div className="dleft">
                 <h1 className="heading">Я здесь, чтобы помогать</h1>
                 <Image src={DoctorImg} alt="Doctor" width={300} className="image" />
             </div>
 
-            <div className="right">
-                <h1 className="heading">Добро пожаловать! Давайте начнём.</h1>
+            <div className="dright">
+                <div className="dright-top">
+                    <h1 className="heading">Я здесь, чтобы помогать</h1>
+                    <Image src={DoctorImg} alt="Doctor" width={300} className="image" />
+                </div>
+                <div className="dright-bottom"><h1 className="heading">Добро пожаловать! Давайте начнём.</h1>
+                    <form className="form" onSubmit={e => { e.preventDefault(); onRegister(); }}>
+                        <label htmlFor="email">Email</label>
+                        <input
+                            className="input"
+                            type="email"
+                            id="email"
+                            placeholder="Введите ваш email"
+                            value={email}
+                            onChange={e => setEmail(e.target.value)}
+                            required
+                        />
 
-                <form className="form" onSubmit={e => { e.preventDefault(); onRegister(); }}>
-                    <label htmlFor="email">Email</label>
-                    <input
-                        className="input"
-                        type="email"
-                        id="email"
-                        placeholder="Введите ваш email"
-                        value={email}
-                        onChange={e => setEmail(e.target.value)}
-                        required
-                    />
+                        <label htmlFor="password">Пароль</label>
+                        <input
+                            type="password"
+                            id="password"
+                            placeholder="Введите ваш пароль"
+                            value={password}
+                            onChange={e => setPassword(e.target.value)}
+                            required
+                        />
 
-                    <label htmlFor="password">Пароль</label>
-                    <input
-                        type="password"
-                        id="password"
-                        placeholder="Введите ваш пароль"
-                        value={password}
-                        onChange={e => setPassword(e.target.value)}
-                        required
-                    />
+                        <label htmlFor="confirm">Подтверждение пароля</label>
+                        <input
+                            type="password"
+                            id="confirm"
+                            placeholder="Введите пароль повторно"
+                            value={confirm}
+                            onChange={e => setConfirm(e.target.value)}
+                            required
+                        />
 
-                    <label htmlFor="confirm">Подтверждение пароля</label>
-                    <input
-                        type="password"
-                        id="confirm"
-                        placeholder="Введите пароль повторно"
-                        value={confirm}
-                        onChange={e => setConfirm(e.target.value)}
-                        required
-                    />
+                        <div className="socialIcons">
+                            <div className="iconDiv"><FaGoogle className="icon" /></div>
+                            <div className="iconDiv"><FaFacebook className="icon" /></div>
+                            <div className="iconDiv"><FaTwitter className="icon" /></div>
+                        </div>
 
-                    <div className="socialIcons">
-                        <div className="iconDiv"><FaGoogle className="icon" /></div>
-                        <div className="iconDiv"><FaFacebook className="icon" /></div>
-                        <div className="iconDiv"><FaTwitter className="icon" /></div>
-                    </div>
-
-                    <div className="flex justify-between">
-                        <Button label={loading ? "Регистрация..." : "Зарегистрироваться"} className="btnRegister" disabled={loading} />
-                        <BtnBorder onClick={handleCancel} label="Отмена" />
-                    </div>
-                </form>
-                <p className="loginText">Уже есть аккаунт? <a href="/pages/login/loginDoctor">Войти</a></p>
+                        <div className="buttNs ">
+                            <Button label={loading ? "Регистрация..." : "Зарегистрироваться"} className="btnRegister" disabled={loading} />
+                            <BtnBorder className="btnCancel" onClick={handleCancel} label="Отмена" />
+                        </div>
+                    </form>
+                    <p className="loginText">Уже есть аккаунт? <a href="/pages/login/loginDoctor">Войти</a></p></div>
             </div>
         </div>
     );

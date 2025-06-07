@@ -35,7 +35,7 @@ export default function ExperiencePage() {
 
     return (
         <section className="container">
-            <main className="left">
+            <main className="eleft">
                 <Image src={GroupImg} width={140} height={140} className="group-img1" alt="group-img" />
 
                 <div className="head-texts">
@@ -62,7 +62,7 @@ export default function ExperiencePage() {
                 <Image src={GroupImg} width={140} height={140} className="group-img2" alt="group-img" />
             </main>
 
-            <main className="right">
+            <main className="eright">
                 <h1 className="cf">CF</h1>
                 <p className="cf-text">
                     CareFlow — медицинский веб-сайт и <br /> приложение, созданные для удобства клиник, <br /> врачей и пациентов.

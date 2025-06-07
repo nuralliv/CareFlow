@@ -18,7 +18,9 @@ export default function DoctorNamePage() {
     const [loading, setLoading] = useState(false);
     const user = auth.currentUser;
 
-    // Validation: phone starts with 8 and length 11
+    const onCancel = () => {
+        router.push("/pages/register/doctor");
+    };
     const validatePhone = (value) => {
         if (!value.startsWith("8")) {
             return "Номер должен начинаться с 8";
@@ -70,61 +72,64 @@ export default function DoctorNamePage() {
 
     return (
         <div className="container">
-            <div className="left">
+            <div className="dleft">
                 <h1 className="heading">Я здесь, чтобы помогать</h1>
                 <Image src={Doctor} alt="Doctor" width={300} className="image" />
             </div>
 
-            <div className="right">
-                <h1 className="heading">Добро пожаловать! Давайте начнём.</h1>
+            <div className="dright">
+                <div className="dright-top"><h1 className="heading">Я здесь, чтобы помогать</h1>
+                    <Image src={Doctor} alt="Doctor" width={300} className="image" /></div>
+                <div className="dright-bottom">
+                    <h1 className="heading">Добро пожаловать! Давайте начнём.</h1>
+                    <form
+                        className="form"
+                        onSubmit={(e) => {
+                            e.preventDefault();
+                            onSubmit();
+                        }}
+                    >
+                        <label htmlFor="fullName">ФИО</label>
+                        <input
+                            className="input"
+                            id="fullName"
+                            type="text"
+                            placeholder="Введите ФИО"
+                            value={fullName}
+                            onChange={e => setFullName(e.target.value)}
+                            required
+                        />
 
-                <form
-                    className="form"
-                    onSubmit={(e) => {
-                        e.preventDefault();
-                        onSubmit();
-                    }}
-                >
-                    <label htmlFor="fullName">ФИО</label>
-                    <input
-                        className="input"
-                        id="fullName"
-                        type="text"
-                        placeholder="Введите ФИО"
-                        value={fullName}
-                        onChange={e => setFullName(e.target.value)}
-                        required
-                    />
+                        <label htmlFor="phone">Номер телефона</label>
+                        <input
+                            className="input"
+                            id="phone"
+                            type="text"
+                            placeholder="Введите ваш номер телефона"
+                            value={phone}
+                            onChange={onPhoneChange}
+                            maxLength={11}
+                            required
+                        />
+                        {phoneError && <p style={{ color: "red", marginTop: "4px" }}>{phoneError}</p>}
 
-                    <label htmlFor="phone">Номер телефона</label>
-                    <input
-                        className="input"
-                        id="phone"
-                        type="text"
-                        placeholder="Введите ваш номер телефона"
-                        value={phone}
-                        onChange={onPhoneChange}
-                        maxLength={11}
-                        required
-                    />
-                    {phoneError && <p style={{ color: "red", marginTop: "4px" }}>{phoneError}</p>}
+                        <label htmlFor="address">Адрес</label>
+                        <input
+                            className="input"
+                            id="address"
+                            type="text"
+                            placeholder="Введите ваше рабочее место"
+                            value={address}
+                            onChange={e => setAddress(e.target.value)}
+                            required
+                        />
 
-                    <label htmlFor="address">Адрес</label>
-                    <input
-                        className="input"
-                        id="address"
-                        type="text"
-                        placeholder="Введите ваше рабочее место"
-                        value={address}
-                        onChange={e => setAddress(e.target.value)}
-                        required
-                    />
-
-                    <div className="buttons">
-                        <Button label={loading ? "Сохранение..." : "Дальше"} className="btnRegister" disabled={loading} />
-                        <BtnBorder label="Отмена" />
-                    </div>
-                </form>
+                        <div className="buttNs">
+                            <Button label={loading ? "Сохранение..." : "Дальше"} className="btnRegister" disabled={loading} />
+                            <BtnBorder className="btnCancel" onClick={onCancel}  label="Отмена" />
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     );

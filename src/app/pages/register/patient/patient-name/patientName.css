@@ -12,10 +12,15 @@
     justify-content: center;
 }
 
+.left-top {
+    display: none;
+}
+
 .heading {
     font-size: 28px;
     font-weight: 600;
     margin-bottom: 20px;
+
 }
 
 .right {
@@ -39,6 +44,7 @@
 .form {
     display: flex;
     flex-direction: column;
+    align-items: center;
 }
 
 .form label {
@@ -46,6 +52,9 @@
     margin-top: 12px;
     font-weight: 500;
     margin-bottom: 6px;
+    display: flex;
+    width: 90%;
+    justify-content: flex-start;
 }
 
 .form input {
@@ -61,25 +70,29 @@
     font-weight: 400;
 }
 
-.btnRegister{
+.btnRegister {
     width: 283px;
 }
 
-.socialIcons {
+.buttNs {
     display: flex;
-    gap: 16px;
-    margin: 24px 0;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    justify-content: space-between;
+    margin-top: 20px;
 }
+
 
 .icon {
     font-size: 20px;
     color: #236ADB;
     cursor: pointer;
     transition: 0.3s ease;
-    
+
 }
 
-.iconDiv{
+.iconDiv {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -98,10 +111,119 @@
 .loginText {
     font-size: 15px;
     font-weight: 500;
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
 }
+
 
 .loginText a {
     color: #236ADB;
     text-decoration: none;
 }
 
+@media (max-width: 1025px) {
+    .left {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .buttNs {
+        width: 100%;
+    }
+
+    .right {
+        display: none;
+    }
+
+    .left-top {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 700px;
+    }
+
+    .left-bottom {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 700px;
+    }
+
+    .form {
+        width: 80%;
+    }
+
+    .form input {
+        width: 100%;
+    }
+
+    .btnRegister {
+        width: 60%;
+    }
+
+    .btnCancel {
+        width: 40%;
+    }
+}
+
+@media (max-width: 768px) {
+
+    .form {
+        width: 70%;
+    }
+
+
+
+}
+
+@media (max-width: 450px) {
+    .left {
+        width: 100%;
+    }
+
+    .left-bottom {
+        width: 100%;
+    }
+
+    .buttNs {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .btnRegister {
+        width: 90%;
+    }
+
+    .btnCancel {
+        width: 90%;
+    }
+
+    .form input {
+        width: 90%;
+    }
+
+    .left-top {
+        display: none;
+    }
+
+    .form label {
+        display: flex;
+        width: 90%;
+        justify-content: flex-start;
+    }
+
+    .form {
+        width: 100%;
+        align-items: center;
+    }
+
+    .heading {
+        text-align: center;
+    }
+
+}

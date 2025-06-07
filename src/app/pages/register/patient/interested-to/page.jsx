@@ -15,7 +15,7 @@ const options = [
     "Психологическая помощь",
     "Консультации по питанию",
     "Медицинские статьи",
-    "Поддержка при хронических заболеваниях",
+    "Помощь при ХЗ",
 ];
 
 export default function InterestedPage() {
@@ -43,8 +43,8 @@ export default function InterestedPage() {
     };
 
     return (
-        <section className="container">
-            <main className="left">
+        <section className="icontainer">
+            <main className="ileft">
                 <Image src={GroupImg} width={130} height={130} alt="group-img" />
                 <div className="head-texts">
                     <p>Расскажите немного о себе.</p>
@@ -70,7 +70,7 @@ export default function InterestedPage() {
                 <Image src={GroupImg} width={130} height={130} alt="group-img" />
             </main>
 
-            <main className="right">
+            <main className="iright">
                 <h1 className="cf">CF</h1>
                 <p className="cf-text">
                     CareFlow — медицинский веб-сайт и <br />
