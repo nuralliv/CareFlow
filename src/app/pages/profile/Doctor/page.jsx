@@ -134,7 +134,7 @@ export default function DoctorProfile() {
 
           <label className="consent-label">
             <input type="checkbox" className="consent-checkbox" />
-            Я даю <a href="#" className="consent-link">Согласие на сбор и обработку персональных данных</a>
+            <a href="#" className="consent-link"><span>Я даю</span> Согласие на сбор и обработку персональных данных</a>
           </label>
 
           <div className="review-buttons">
