@@ -1,0 +1,101 @@
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(23, 23, 23, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+}
+
+.modal {
+  background: white;
+  border-radius: 30px;
+  padding: 30px;
+  width: 80%;
+  max-width: 900px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.close-btn {
+  position: absolute;
+  top: 20px;
+  right: 25px;
+  font-size: 26px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.modal-content {
+  display: flex;
+  /* gap: 40px; */
+}
+
+.left-side {
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.right-side {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 60%;
+}
+
+.dates-row {
+  display: flex;
+  justify-content: space-between;
+  margin: 20px 0;
+}
+
+.date-btn {
+  padding: 10px;
+  width: 50px;
+  text-align: center;
+  border-radius: 10px;
+  background: #eee;
+  cursor: pointer;
+}
+
+.date-btn.active {
+  border: 2px solid #236adb;
+  background: white;
+}
+
+.times-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.time-btn {
+  background: #dbe9ff;
+  padding: 10px 20px;
+  border-radius: 20px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+}
+
+.time-btn.active {
+  background: #236adb;
+  color: white;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}

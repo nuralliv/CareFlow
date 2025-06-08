@@ -27,3 +27,11 @@
     src: url("/src/app/fonts/Gilroy/Gilroy-Light.otf") format("woff2");
     font-weight: normal;
 }
+
+input{
+  outline: none;
+}
+
+textarea{
+  outline: none !important;
+}

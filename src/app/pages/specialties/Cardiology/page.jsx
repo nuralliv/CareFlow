@@ -8,7 +8,18 @@ import Footer from "@/app/components/atoms/Footer/Footer";
 import Button from "@/app/components/atoms/Button/Button";
 import BtnBorder from "@/app/components/atoms/btnBorder/btnBorder";
 
+
+
 export default function CardiologyPage() {
+
+  const handleNavigate = (path) => {
+        if (user) {
+            router.push(path);
+        } else {
+            router.push("/pages/login");
+        }
+    };
+
   return (
     <>
     <Header className="header-bckg"/>
@@ -70,7 +81,7 @@ export default function CardiologyPage() {
           </div>
         ))}
       </div>
-      <BtnBorder className="all-doctors-btn" label="Все специалисты"/>
+      <BtnBorder className="all-doctors-btn" label="Все специалисты" onClick={() => handleNavigate("/pages/doctors")}/>
 
     </section>
       <Footer/>

@@ -1,7 +1,7 @@
 .doctors-page-container {
    width: 100%;
    margin: 0px auto;
-   margin-top: 40px;
+   margin-top: 30px;
    padding: 0 20px;
    background-color: #F0F6FF;
    border-radius: 12px;
@@ -54,7 +54,7 @@
 
 .input-con .imad {
    position: absolute;
-   left: 10px;
+   left: 15px;
    top: 15px;
 }
 
@@ -62,7 +62,7 @@
    height: 100%;
    width: 100%;
    border-radius: 1000px;
-   padding-left: 40px;
+   padding-left: 45px;
    background-color: white;
 }
 
@@ -160,6 +160,7 @@
    object-fit: cover;
    padding: 3px;
    background-color: #c0d1f6;
+   cursor: pointer;
 }
 
 .doctor-info {
@@ -217,6 +218,7 @@
    font-weight: 600;
    font-size: 24px;
    margin-bottom: 4px;
+   cursor: pointer;
 }
 
 .doctor-meta {

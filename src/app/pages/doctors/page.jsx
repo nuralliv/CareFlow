@@ -10,6 +10,7 @@ import phoneIcon from "@/app/images/HealthcareCall.svg";
 import search from "@/app/images/sea.svg";
 import Overlay from "@/app/images/Overlay.svg";
 import "./doctors.css";
+import ProfileModal from "../profile/ProfileModal/page";
 
 const ITEMS_PER_PAGE = 5;
 
@@ -33,7 +34,10 @@ export default function DoctorsPage() {
                     name: doc.fullName || "",
                     experience: doc.experience || "",
                     specialties: doc.speciality ? [doc.speciality] : [],
-                    reviews: doc.reviews || 0,
+                    // reviews: doc.reviews || 0,
+                    reviews: doc.reviewsList
+                        ? Object.keys(doc.reviewsList).length
+                        : 0,
                     rating: doc.rating || 0,
                     priceOld: doc.priceOld || "",
                     priceNew: doc.priceNew || "",
@@ -59,20 +63,20 @@ export default function DoctorsPage() {
             );
         }
         if (selectedDirection) {
-  filtered = filtered.filter((d) =>
-    d.workDirection.toLowerCase().includes(selectedDirection.toLowerCase())
-  );
-}
+            filtered = filtered.filter((d) =>
+                d.workDirection
+                    .toLowerCase()
+                    .includes(selectedDirection.toLowerCase())
+            );
+        }
 
-if (selectedSpecialist) {
-  filtered = filtered.filter((d) =>
-    d.specialties.some((s) =>
-      s.toLowerCase().includes(selectedSpecialist.toLowerCase())
-    )
-  );
-}
-
-
+        if (selectedSpecialist) {
+            filtered = filtered.filter((d) =>
+                d.specialties.some((s) =>
+                    s.toLowerCase().includes(selectedSpecialist.toLowerCase())
+                )
+            );
+        }
 
         if (selectedSorting) {
             if (selectedSorting === "Много отзывов") {
@@ -259,19 +263,55 @@ function FilterDropdown({
     );
 }
 
+function getReviewWord(count) {
+    const mod10 = count % 10;
+    const mod100 = count % 100;
+
+    if (mod10 === 1 && mod100 !== 11) return "отзыв";
+    if (mod10 >= 2 && mod10 <= 4 && (mod100 < 10 || mod100 >= 20)) return "отзыва";
+    return "отзывов";
+}
+
 function DoctorCard({ doctor, onSelect }) {
     const [selectedDate, setSelectedDate] = useState(null);
     const [selectedTime, setSelectedTime] = useState(null);
-    const handleDateClick = (date) => {
-        setSelectedDate(date);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const handleDateClick = (date) => setSelectedDate(date);
+    const handleTimeClick = (time) => setSelectedTime(time);
+
+    const handleAppointment = async () => {
+        if (!selectedDate || !selectedTime || !auth.currentUser) {
+            alert("Выберите дату и время");
+            return;
+        }
+
+        const appointmentData = {
+            doctorId: doctor.id,
+            doctorName: doctor.fullName,
+            userId: auth.currentUser.uid,
+            date: selectedDate,
+            time: selectedTime,
+            status: "ожидает подтверждения",
+            createdAt: new Date().toISOString(),
+        };
+
+        try {
+            const appointmentsRef = ref(db, "appointments");
+            await push(appointmentsRef, appointmentData);
+            alert("Запись успешно создана!");
+            setIsModalOpen(false);
+            setSelectedDate(null);
+            setSelectedTime(null);
+        } catch (error) {
+            console.error("Ошибка при записи:", error);
+            alert("Не удалось записаться. Попробуйте позже.");
+        }
     };
 
-    const handleTimeClick = (time) => {
-        setSelectedTime(time);
-    };
     return (
         <div className="doctor-card">
-            <div className="doctor-top">
+            <div className="doctor-top flex">
                 <div className="doc-left">
                     <div className="flex flex-col gap-[10px]">
                         <div className="avatar-container">
@@ -280,21 +320,33 @@ function DoctorCard({ doctor, onSelect }) {
                                     src={doctor.avatarUrl}
                                     alt={doctor.name}
                                     className="avatar"
+                                    onClick={() => onSelect(doctor.id)}
                                 />
                             ) : (
                                 <div className="avatar-placeholder" />
                             )}
                         </div>
                         <div className="reviews-rating">
-                            <span>{doctor.reviews} отзывов</span>
-                            <span>⭐ {doctor.rating.toFixed(1)}</span>
+                            <span>
+                                {doctor.reviews} {getReviewWord(doctor.reviews)}
+                            </span>
+
+                            <span>
+                                ★ {Number(doctor.rating || 0).toFixed(1)}
+                            </span>
                         </div>
                     </div>
                     <div className="infos">
-                        <h2 className="doctor-name">{doctor.name}</h2>
+                        <h2
+                            className="doctor-name"
+                            onClick={() => onSelect(doctor.id)}
+                        >
+                            {doctor.name}
+                        </h2>
+
                         <div className="doctor-meta">
                             <span>{doctor.experience}</span>
-                            <span>  - </span>
+                            <span> - </span>
                             <span>{doctor.specialties.join(" • ")}</span>
                         </div>
                         <div className="appointment-info">
@@ -379,7 +431,8 @@ function DoctorCard({ doctor, onSelect }) {
                 </div>
                 <button
                     className="sign-up-button"
-                    onClick={() => onSelect(doctor.id)}
+                    onClick={() => setIsModalOpen(true)}
+                    // onClick={() => onSelect(doctor.id)}
                 >
                     Записаться{" "}
                     <Image
@@ -389,6 +442,17 @@ function DoctorCard({ doctor, onSelect }) {
                         height={24}
                     />
                 </button>
+                {isModalOpen && (
+                    <ProfileModal
+                        doctor={doctor}
+                        selectedDate={selectedDate}
+                        selectedTime={selectedTime}
+                        setSelectedDate={setSelectedDate}
+                        setSelectedTime={setSelectedTime}
+                        onClose={() => setIsModalOpen(false)}
+                        onSubmit={handleAppointment}
+                    />
+                )}
             </div>
         </div>
     );
