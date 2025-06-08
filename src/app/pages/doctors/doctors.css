@@ -10,16 +10,16 @@
 }
 
 .date-item.active {
-  border: 2px solid #3478f6;
-  background-color: #e5f0ff;
-  border-radius: 8px;
+   border: 2px solid #3478f6;
+   background-color: #e5f0ff;
+   border-radius: 8px;
 }
 
 .time-button.active {
-  background-color: #3478f6;
-  color: white;
-  font-weight: bold;
-  border: 2px solid #275bb5;
+   background-color: #3478f6;
+   color: white;
+   font-weight: bold;
+   border: 2px solid #275bb5;
 }
 
 
@@ -456,6 +456,10 @@
    background: #F0F4FF;
 }
 
+.doctor-mid {
+   display: none;
+}
+
 .search-input {
    flex-grow: 1;
    padding: 10px 34px;
@@ -469,4 +473,136 @@
 
 .search-input:focus {
    border-color: #2B72F9;
+}
+
+@media (max-width: 820px) {
+   .filters-row {
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      width: 100%;
+      margin: 0;
+      margin-bottom: 20px;
+   }
+
+   .input-con {
+      width: 100%;
+   }
+
+   .filters {
+      width: 100%;
+      justify-content: space-between;
+   }
+
+   .doctor-card {
+      padding: 20px;
+      gap: 0;
+   }
+
+   .doc-left {
+      flex-direction: row;
+      align-items: center;
+   }
+
+   .infos {
+      width: 70%;
+   }
+
+
+   .doctor-top {
+      flex-direction: column;
+      gap: 0px;
+      justify-content: center;
+   }
+
+   .doc-right {
+      width: 100%;
+   }
+
+   .doctors-list {
+      padding: 0 20px;
+   }
+
+   .appointment-info {
+      width: 100%;
+   }
+
+   .reviews-rating {
+      gap: 5px;
+   }
+
+   .time-button {
+      width: 110px;
+
+   }
+
+   .times-row {
+      gap: 0;
+      justify-content: space-between;
+   }
+
+   .call-info {
+      justify-content: flex-start;
+   }
+}
+
+@media (max-width: 450px) {
+   
+   .filter-dropdown{
+      width: 100%;
+   }
+   .dropdown-menu{
+      width: 100%;
+      top: 70px;
+   }
+   .filter-button{
+      width: 100%;
+   }
+      .filters .filter-dropdown:nth-child(2),
+      .filters .filter-dropdown:nth-child(3) {
+         display: none;  }
+   .dates-row {
+      width: 100%;
+      gap: 0;
+      justify-content: space-between;
+   }
+
+   .time-button {
+      width: 60px;
+      font-size: 12px;
+   }
+
+   .doc-left {
+      gap: 25px;
+      align-items: flex-start;
+   }
+
+   .doctors-list {
+      padding: 0;
+   }
+
+   .sign-up-button span {
+      display: none;
+   }
+
+   .doctor-mid {
+      display: block;
+      margin-top: 20px;
+   }
+
+   .appointment-info {
+      display: none;
+   }
+
+   .doctor-mid .appointment-info {
+      display: block;
+   }
+
+   .infos {
+      width: 50%;
+   }
+
+   .reviews-rating {
+      display: none;
+   }
 }

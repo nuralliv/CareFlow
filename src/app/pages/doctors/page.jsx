@@ -356,6 +356,13 @@ function DoctorCard({ doctor, onSelect }) {
                         </div>
                     </div>
                 </div>
+                <div className="doctor-mid">
+                <div className="appointment-info">
+                            <div className="spec">{doctor.workDirection}</div>
+                            <div className="price-old">{doctor.priceOld}</div>
+                            <div className="price-new">{doctor.priceNew}₸</div>
+                        </div>
+                </div>
                 <div className="doc-right">
                     <div className="schedule">
                         <div className="dates-row">
@@ -434,7 +441,7 @@ function DoctorCard({ doctor, onSelect }) {
                     onClick={() => setIsModalOpen(true)}
                     // onClick={() => onSelect(doctor.id)}
                 >
-                    Записаться{" "}
+                    <span>Записаться</span>{" "}
                     <Image
                         src={phoneIcon}
                         alt="Phone Icon"
