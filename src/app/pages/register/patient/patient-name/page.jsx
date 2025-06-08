@@ -19,7 +19,6 @@ export default function PatientNamePage() {
     const [address, setAddress] = useState("");
     const [loading, setLoading] = useState(false);
 
-    // Ограничиваем телефон: только цифры, 11 символов, начинается с 8
     const handlePhoneChange = (e) => {
         let val = e.target.value.replace(/\D/g, "");
         if (val.length > 11) val = val.slice(0, 11);
@@ -68,53 +67,57 @@ export default function PatientNamePage() {
     };
 
     const onCancel = () => {
-        router.push("/patient/login");
+        router.push("/pages/register/patient");
     };
 
     return (
         <div className="container">
             <div className="left">
-                <h1 className="heading">Добро пожаловать! Давайте начнём.</h1>
-                <form className="form" onSubmit={onSubmit}>
-                    <label htmlFor="fullname">ФИО</label>
-                    <input
-                        className="input"
-                        id="fullname"
-                        type="text"
-                        placeholder="Введите ФИО"
-                        value={fullName}
-                        onChange={(e) => setFullName(e.target.value)}
-                        required
-                    />
-                    <label htmlFor="phone">Номер телефона</label>
-                    <input
-                        className="input"
-                        id="phone"
-                        type="text"
-                        placeholder="Введите ваш номер телефона"
-                        value={phone}
-                        onChange={handlePhoneChange}
-                        maxLength={11}
-                        required
-                    />
-                    <label htmlFor="address">Адрес</label>
-                    <input
-                        className="input"
-                        id="address"
-                        type="text"
-                        placeholder="Введите ваш адрес"
-                        value={address}
-                        onChange={(e) => setAddress(e.target.value)}
-                        required
-                    />
-                    <div className="buttons">
-                        <Button label={loading ? "Сохранение..." : "Зарегистрироваться"} className="btnRegister" disabled={loading} />
-                        <BtnBorder label="Отмена" onClick={onCancel} />
-                    </div>
-                </form>
-                <p className="loginText">
-                    Уже есть аккаунт? <a href="/patient/login">Войти</a>
-                </p>
+                <div className="left-top"><h1 className="heading">Я ищу медицинскую помощь</h1>
+                    <Image src={Patient} alt="Patient" width={300} className="image" /></div>
+                <div className="left-bottom">
+                    <h1 className="heading">Добро пожаловать! Давайте начнём.</h1>
+                    <form className="form" onSubmit={onSubmit}>
+                        <label htmlFor="fullname">ФИО</label>
+                        <input
+                            className="input"
+                            id="fullname"
+                            type="text"
+                            placeholder="Введите ФИО"
+                            value={fullName}
+                            onChange={(e) => setFullName(e.target.value)}
+                            required
+                        />
+                        <label htmlFor="phone">Номер телефона</label>
+                        <input
+                            className="input"
+                            id="phone"
+                            type="text"
+                            placeholder="Введите ваш номер телефона"
+                            value={phone}
+                            onChange={handlePhoneChange}
+                            maxLength={11}
+                            required
+                        />
+                        <label htmlFor="address">Адрес</label>
+                        <input
+                            className="input"
+                            id="address"
+                            type="text"
+                            placeholder="Введите ваш адрес"
+                            value={address}
+                            onChange={(e) => setAddress(e.target.value)}
+                            required
+                        />
+                        <div className="buttNs">
+                            <Button label={loading ? "Сохранение..." : "Зарегистрироваться"} className="btnRegister" disabled={loading} />
+                            <BtnBorder label="Отмена" className="btnCancel" onClick={onCancel} />
+                        </div>
+                    </form>
+                    <p className="loginText">
+                        Уже есть аккаунт? <a href="/patient/login">Войти</a>
+                    </p>
+                </div>
             </div>
 
             <div className="right">

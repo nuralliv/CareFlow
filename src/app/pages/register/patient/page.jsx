@@ -56,6 +56,11 @@ export default function PatientRegisterPage() {
   return (
     <div className="container">
       <div className="left">
+        <div className="left-top">
+        <h1 className="heading">Я ищу медицинскую помощь</h1>
+        <Image src={Patient} alt="Patient" width={300} className="image" />
+        </div>
+        <div className="left-bottom">
         <h1 className="heading">Добро пожаловать! Давайте начнём.</h1>
         <form
           className="form"
@@ -97,12 +102,13 @@ export default function PatientRegisterPage() {
             <div className="iconDiv"><FaFacebook className="icon" /></div>
             <div className="iconDiv"><FaTwitter className="icon" /></div>
           </div>
-          <div className="flex justify-between">
+          <div className="buttNs ">
             <Button label={loading ? "Регистрация..." : "Зарегистрироваться"} className="btnRegister" disabled={loading} />
-            <BtnBorder onClick={handleCancel} label="Отмена" />
+            <BtnBorder  className="btnCancel" onClick={handleCancel} label="Отмена" />
           </div>
         </form>
         <p className="loginText">Уже есть аккаунт? <a href="/pages/login/loginPatient">Войти</a></p>
+        </div>
       </div>
 
       <div className="right">

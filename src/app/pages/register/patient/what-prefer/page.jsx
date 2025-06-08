@@ -43,7 +43,7 @@ export default function WhatPreferPage() {
 
   return (
     <section className="container">
-      <main className="left">
+      <main className="wpleft">
         <Image src={GroupImg} width={130} height={130} alt="group-img" />
 
                 <div className="head-texts">
@@ -79,7 +79,7 @@ export default function WhatPreferPage() {
         <Image src={GroupImg} width={130} height={130} alt="group-img" />
       </main>
 
-      <main className="right">
+      <main className="wpright">
         <h1 className="cf">CF</h1>
         <p className="cf-text">
           CareFlow — медицинский веб-сайт и <br />

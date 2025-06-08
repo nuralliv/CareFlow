@@ -10,6 +10,7 @@ import BtnBorder from "@/app/components/atoms/btnBorder/btnBorder";
 import Button from "@/app/components/atoms/Button/Button";
 import Image from "next/image";
 import GroupImg from "@/app/images/GroupImg.png";
+import "./work.css"; // Assuming you have a CSS file for styles
 
 const options = ["Кардиология", "Неврология", "Терапия", "Гинекология"];
 
@@ -35,7 +36,7 @@ export default function WorkPage() {
 
     return (
         <section className="container">
-            <main className="left">
+            <main className="wleft">
                 <Image src={GroupImg} width={130} height={130} className="group-img1" alt="group-img" />
 
                 <div className="head-texts">
@@ -62,7 +63,7 @@ export default function WorkPage() {
                 <Image src={GroupImg} width={130} height={130} className="group-img2" alt="group-img" />
             </main>
 
-            <main className="right">
+            <main className="wright">
                 <h1 className="cf">CF</h1>
                 <p className="cf-text">
                     CareFlow — медицинский веб-сайт и <br /> приложение, созданные для удобства клиник, <br /> врачей и пациентов.
