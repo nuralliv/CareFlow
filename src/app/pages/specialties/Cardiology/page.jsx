@@ -8,7 +8,18 @@ import Footer from "@/app/components/atoms/Footer/Footer";
 import Button from "@/app/components/atoms/Button/Button";
 import BtnBorder from "@/app/components/atoms/btnBorder/btnBorder";
 
+
+
 export default function CardiologyPage() {
+
+  const handleNavigate = (path) => {
+        if (user) {
+            router.push(path);
+        } else {
+            router.push("/pages/login");
+        }
+    };
+
   return (
     <>
       <Header className="cor-header-bckg" />

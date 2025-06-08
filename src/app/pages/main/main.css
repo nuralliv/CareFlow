@@ -1,313 +1,641 @@
-
-.homepage {
-  font-family: sans-serif;
-  background-color: #F0F6FF;
-  
+.slider-container {
+    display: flex;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 10px;
+    -webkit-overflow-scrolling: touch;
 }
 
-.hero-section {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  /* padding-right: 30px !important; */
-  padding: 90px 30px;
+.doctor-slider .doctor-card {
+    flex: 0 0 auto;
+    scroll-snap-align: start;
 }
 
-.hero-content {
-  max-width: 780px;
+.slider-card {
+    flex: 0 0 auto;
+    scroll-snap-align: start;
 }
 
-.hero-title {
-  font-size: 38px;
-  font-weight: 600;
-  margin-bottom: 20px;
+.news-slider {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0px 40px;
 }
 
-.hero-subtitle {
-  font-size: 17px;
-  margin-bottom: 30px;
-  font-weight: 500;
-  color: #757575;
-}
-
-.main-img{
-  height: 550px;
-  width: 550px;
-}
-
-.about-section {
-  padding: 60px 40px;
-  width: 100%;
-}
-
-.section-title {
-  font-size: 40px;
-  font-weight: 600;
-  margin-bottom: 40px;
-  text-align: center;
-}
-
-.about-texts{
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 40px;
-}
-
-.about-main-txt{
-  font-size: 40px;
-  font-weight: 600;
-}
-
-.about-second-txt{
-  font-size: 17px;
-  color: #757575;
-  width: 590px;
-  font-weight: 500;
-}
-
-.about-content {
-  display: flex;
-  gap: 40px;
-  align-items: center;
-  flex-wrap: wrap;
-  justify-content: space-between;
-}
-
-.doctors-img {
-  width: 720px;
-  height: 500px;
-  border-radius: 20px;
-}
-
-.about-stats {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 20px;
-}
-
-.stat-box {
-  background-color: #DBE9FF;
-  padding: 20px;
-  border-radius: 20px;
-  width: 330px;
-  height: 240px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.stat-box.highlight {
-  background-color: #236ADB;
-  color: white;
-}
-
-.stat-number {
-  font-size: 40px;
-  font-weight: 600;
-}
-
-.stat-label {
-  font-size: 16px;
-  font-weight: 500;
-
-}
-
-.news-section {
-  padding: 60px 30px;
-  width: 100%;
-}
-
-.news-grid {
-  display: flex;
-  gap: 30px;
-  flex-wrap: wrap;
-  justify-content: space-between;
+.newsCards {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 0px;
 }
 
 .news-card {
-  background-color: white;
-  border-radius: 20px;
-  overflow: hidden;
-  width: 430px;
-  height: 500px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    background-color: white;
+    border-radius: 20px;
+    overflow: hidden;
+    width: 430px;
+    height: 520px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.news-card:nth-child(1) {
+    margin-right: 20px;
+}
+.news-card:nth-child(2) {
+    margin-right: 20px;
 }
 
 .news-image {
-  width: 100%;
-  height: 220px;
-  object-fit: cover;
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
 }
 
-.link{
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  position: relative;
-  bottom: 0px;
-  margin-top: auto;
-  padding: 0 20px 20px;
+.link {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    bottom: 0px;
+    margin-top: auto;
+    padding: 0 20px 20px;
 }
 
 .news-date {
-  background-color: #e53935;
-  color: white;
-  border-radius: 120px;
-  font-size: 16px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 140px;
-  height: 40px;
-  font-weight: 500;
+    background-color: #e53935;
+    color: white;
+    border-radius: 120px;
+    font-size: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 140px;
+    height: 40px;
+    font-weight: 500;
 }
 
-.white-bckg{
-  background-color: rgb(255, 255, 255);
-  width: 160px;
-  height: 55px;
-  border-radius: 20px 20px 0 0 ;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto;
-  position: relative;
-  bottom: 30px;
+.white-bckg {
+    background-color: rgb(255, 255, 255);
+    width: 160px;
+    height: 55px;
+    border-radius: 20px 20px 0 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    position: relative;
+    bottom: 30px;
 }
 
 .news-title {
-  font-size: 20px;
-  font-weight: 500;
-  margin: 0 16px;
+    font-size: 20px;
+    font-weight: 500;
+    margin: 0 16px;
 }
 
-.btnSendTo{
-  width: 348px;
+.btnSendTo {
+    width: 348px;
 }
 
 .news-description {
-  font-size: 16px;
-  margin: 12px 16px;
-  color: #757575;
-  font-weight: 500;
+    font-size: 16px;
+    margin: 12px 16px;
+    color: #757575;
+    font-weight: 500;
+}
+
+.homepage {
+    background-color: #f0f6ff;
+}
+
+.hero-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 0px 40px;
+    margin-top: 90px;
+}
+
+.hero-content {
+    max-width: 60%;
+}
+
+.hero-title {
+    font-size: 38px;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.hero-subtitle {
+    font-size: 17px;
+    margin-bottom: 30px;
+    font-weight: 500;
+    color: #757575;
+}
+
+.main-img {
+    height: 80%;
+    width: 80%;
+}
+
+.about-section {
+    padding: 50px 40px;
+    width: 100%;
+}
+
+.section-title {
+    font-size: 40px;
+    font-weight: 600;
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+.about-texts {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 40px;
+}
+
+.about-main-txt {
+    font-size: 40px;
+    font-weight: 600;
+}
+
+.about-second-txt {
+    font-size: 17px;
+    color: #757575;
+    width: 590px;
+    font-weight: 500;
+}
+
+.about-content {
+    display: flex;
+    gap: 40px;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.doctors-img {
+    width: 720px;
+    height: 500px;
+    border-radius: 20px;
+}
+
+.about-stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.stat-box {
+    background-color: #dbe9ff;
+    padding: 20px;
+    border-radius: 20px;
+    width: 330px;
+    height: 240px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.stat-box.highlight {
+    background-color: #236adb;
+    color: white;
+}
+
+.stat-number {
+    font-size: 40px;
+    font-weight: 600;
+}
+
+.stat-label {
+    font-size: 16px;
+    font-weight: 500;
 }
 
 .services-section {
-  padding: 60px 30px;
+    padding: 60px 30px;
 }
 
 .services-grid {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 40px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
 }
 
-.container{
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  gap: 50px;
+.container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    flex-wrap: wrap;
 }
 
 .service-card {
-  background-color: white;
-  border-radius: 20px;
-  padding: 30px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  justify-content: space-between;
-  width: 580px;
-  height: 350px;
-  flex-wrap: wrap;
+    background-color: white;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column !important;
+    justify-content: space-between;
+    width: 580px;
+    height: 350px;
+    flex-wrap: wrap;
 }
 
-.service-card.highlight {
-  background-color: #236ADB;
-  color: white;
+.highlight {
+    background-color: #236adb;
+    color: white;
+    flex-wrap: wrap;
 }
 
 .service-card h3 {
-  font-size: 28px;
-  font-weight: 600;
+    font-size: 28px;
+    font-weight: 600;
 }
 
 .service-card p {
-  font-size: 17px;
-  font-weight: 500;
+    font-size: 17px;
+    font-weight: 500;
 }
 
-.btnRead{
-  width: 210px;
+.btnRead {
+    width: 210px;
 }
 
-.borW{
-  color: white !important;
-  border: 3px solid white !important;
+.borW {
+    color: white !important;
+    border: 3px solid white !important;
+    width: 210px;
 }
 
-.borW:hover{
-  background-color: #2c508b67 !important;
+.borW:hover {
+    background-color: #2c508b67 !important;
 }
 
 .doctors-section {
-  padding: 60px 30px;
-  text-align: center;
+    padding: 0px 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .doctor-cards {
-  display: flex;
-  justify-content: center;
-  gap: 30px;
-  flex-wrap: wrap;
-  
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
 }
 
 .doctor-card {
-  position: relative; 
-  width: 390px;
-  border-radius: 20px;
-  overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  height: 420px;
+    position: relative;
+    width: 390px;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    height: 420px;
 }
 
 .doctor-card img {
-  width: 100%;
-  height: 420px;
-  object-fit: cover;
-  border-radius: 20px;
+    width: 100%;
+    height: 420px;
+    object-fit: cover;
+    border-radius: 20px;
 }
 
 .doctor-info {
-  position: relative;
-  bottom: 100px;
-  width: 90%;
-  background-color: rgba(255, 255, 255, 0.8);
-  padding: 12px;
-  text-align: center;
-  border-radius: 20px;
-  margin: 0 auto;
+    position: relative;
+    bottom: 100px;
+    width: 90%;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 12px;
+    text-align: center;
+    border-radius: 20px;
+    margin: 0 auto;
+}
+
+.doctor-slider {
+    display: flex;
+    gap: 40px;
 }
 
 .doctor-info h4 {
-  margin: 0;
-  font-size: 20px;
-  font-weight: 600;
+    margin: 0;
+    font-size: 20px;
+    font-weight: 600;
 }
 
 .doctor-info p {
-  margin: 4px 0 0 0;
-  font-size: 17px;
-  font-weight: 500;
-  color: #757575;
+    margin: 4px 0 0 0;
+    font-size: 17px;
+    font-weight: 500;
+    color: #757575;
 }
 
-.btnAllSpe{
-  width: 85%;
+.btnAllSpe {
+    flex: 0 0 auto;
+    margin-top: 20px;
+    scroll-snap-align: start;
+    width: 82%;
+    margin-bottom: 40px;
+}
+
+.doctorsBtn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@media (min-width: 1024px) {
+    .slider-container {
+        flex-wrap: wrap;
+        justify-content: center;
+        overflow-x: hidden;
+        scroll-snap-type: none;
+    }
+
+    .slider-card,
+    .news-slider .news-card,
+    .doctor-slider .doctor-card,
+    .btnAllSpe {
+        scroll-snap-align: none;
+    }
+}
+
+@media (max-width: 770px) {
+    .hero-section {
+        gap: 20px;
+    }
+
+    .main-img {
+        width: 100% !important;
+    }
+
+    .main-btn {
+        width: 220px;
+        font-size: 15px;
+    }
+
+    .hero-content {
+        max-width: 780px;
+    }
+
+    .hero-title {
+        font-size: 25px;
+        font-weight: 600;
+        margin-bottom: 15px;
+    }
+
+    .hero-subtitle {
+        font-size: 15px;
+        margin-bottom: 25px;
+        font-weight: 500;
+        color: #757575;
+    }
+    .doctors-img {
+        width: 700px;
+        height: 230px;
+        border-radius: 20px;
+        object-fit: cover;
+        object-position: top;
+    }
+    .stat-box {
+        height: 150px;
+    }
+
+    .about-main-txt {
+        font-size: 30px;
+    }
+
+    .about-second-txt {
+        font-size: 15px;
+        color: #757575;
+        width: 590px;
+        font-weight: 500;
+    }
+
+    .stat-number {
+        font-size: 30px;
+        font-weight: 600;
+    }
+
+    .stat-label {
+        font-size: 15px;
+        font-weight: 500;
+    }
+    .section-title {
+        font-size: 30px;
+    }
+
+    .news-card {
+        width: 330px;
+        height: 520px;
+    }
+
+    .news-image {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+    }
+
+    .news-date {
+        font-size: 14px;
+    }
+
+    .news-title {
+        font-size: 18px;
+    }
+
+    .btnSendTo {
+        width: 348px;
+        font-size: 16px;
+    }
+
+    .news-description {
+        font-size: 14px;
+    }
+
+    .newsCards {
+        padding: 15px 80px;
+    }
+
+    .doctor-info h4 {
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 420px) {
+    .hero-image {
+        display: none;
+    }
+
+    .main-btn {
+        width: 100%;
+        font-size: 15px;
+    }
+
+    .hero-content {
+        width: 100% !important;
+        z-index: 100;
+    }
+
+    .hero-title {
+        font-size: 22px;
+        font-weight: 600;
+        margin-bottom: 15px;
+    }
+
+    .hero-subtitle {
+        font-size: 15px;
+        margin-bottom: 25px;
+        font-weight: 500;
+        color: #757575;
+    }
+    .doctors-img {
+        width: 700px;
+        height: 230px;
+        border-radius: 20px;
+        object-fit: cover;
+        object-position: top;
+    }
+    .stat-box {
+        height: 150px;
+        width: 158px;
+    }
+
+    .about-texts {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        text-align: start !important;
+    }
+
+    .about-main-txt {
+        font-size: 22px;
+        align-items: start !important;
+    }
+
+    .about-second-txt {
+        font-size: 15px;
+        width: 100%;
+    }
+
+    .stat-number {
+        font-size: 27px;
+        font-weight: 600;
+    }
+
+    .stat-label {
+        font-size: 14px;
+        font-weight: 500;
+    }
+    .section-title {
+        font-size: 25px;
+    }
+
+    .news-card {
+        width: 270px;
+        height: 460px;
+    }
+
+    .news-image {
+        width: 100%;
+        height: 150px;
+        object-fit: cover;
+    }
+
+    .news-date {
+        font-size: 14px;
+    }
+
+    .news-title {
+        font-size: 17px;
+    }
+
+    .link {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        position: relative;
+        bottom: 0px;
+        margin-top: auto;
+        padding: 0 20px 20px;
+    }
+
+    .news-date {
+        border-radius: 120px;
+        font-size: 14px;
+        width: 140px;
+        height: 35px;
+        font-weight: 500;
+    }
+
+    .white-bckg {
+        width: 160px;
+        height: 50px;
+        bottom: 20px;
+    }
+
+    .btnSendTo {
+        width: 348px;
+        font-size: 15px;
+        height: 45px;
+    }
+
+    .news-description {
+        font-size: 14px;
+    }
+
+    .newsCards {
+        padding: 15px 80px;
+    }
+
+    .doctor-info h4 {
+        font-size: 17px;
+    }
+
+    .doctor-card img {
+        width: 100%;
+        height: 390px;
+    }
+
+    .doctor-info {
+        width: 80%;
+    }
+
+    .doctor-card {
+        width: 350px;
+        height: 390px;
+    }
+
+    .doctor-info p {
+        font-size: 16px;
+    }
+
+    .service-card {
+        width: 100% !important;
+        height: 330px !important;
+    }
+
+    .service-card h3 {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.service-card p {
+    font-size: 17px;
+    font-weight: 500;
+}
 }

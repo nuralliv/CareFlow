@@ -189,7 +189,6 @@
    line-height: 1.4;
 }
 
-/* Документы */
 .documents-grid {
    display: grid;
    grid-template-columns: repeat(auto-fit, minmax(40%, 1fr));
@@ -235,7 +234,7 @@
    font-size: 0.9rem;
 }
 
-.review-form-h3 {
+.review-form-h1 {
    font-weight: 600;
    color: #003487;
    width: 400px;
@@ -283,7 +282,6 @@
    color: #94a3b8;
 }
 
-/* Согласие */
 .consent-label {
    display: flex;
    align-items: center;
@@ -402,6 +400,19 @@
    font-size: 0.75rem;
    color: #94a3b8;
 }
+
+.star {
+  font-size: 24px;
+  color: #ccc;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.star.active {
+  color: gold;
+}
+
 
 .review-form-section h3 {
    color: rgb(0, 52, 135);
