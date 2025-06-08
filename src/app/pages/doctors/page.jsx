@@ -34,6 +34,7 @@ export default function DoctorsPage() {
                     name: doc.fullName || "",
                     experience: doc.experience || "",
                     specialties: doc.speciality ? [doc.speciality] : [],
+                    // reviews: doc.reviews || 0,
                     reviews: doc.reviewsList
                         ? Object.keys(doc.reviewsList).length
                         : 0,
@@ -129,14 +130,6 @@ export default function DoctorsPage() {
     const handleSelectDoctor = (doctorId) => {
         router.push(`/pages/profile/Doctor?id=${doctorId}`);
     };
-
-    // Fix for layout issue after navigation
-    useEffect(() => {
-        window.onload = () => {
-            const doctorCards = document.querySelectorAll(".doctor-card");
-            doctorCards.forEach((card) => card.classList.add("loaded"));
-        };
-    }, []);
 
     return (
         <div className="flex flex-col">
@@ -365,10 +358,10 @@ function DoctorCard({ doctor, onSelect }) {
                 </div>
                 <div className="doctor-mid">
                     <div className="appointment-info">
-                        <div className="spec">{doctor.workDirection}</div>
-                        <div className="price-old">{doctor.priceOld}</div>
-                        <div className="price-new">{doctor.priceNew}₸</div>
-                    </div>
+                            <div className="spec">{doctor.workDirection}</div>
+                            <div className="price-old">{doctor.priceOld}</div>
+                            <div className="price-new">{doctor.priceNew}₸</div>
+                        </div>
                 </div>
                 <div className="doc-right">
                     <div className="schedule">
