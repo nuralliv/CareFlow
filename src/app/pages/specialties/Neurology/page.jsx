@@ -11,70 +11,70 @@ import BtnBorder from "@/app/components/atoms/btnBorder/btnBorder";
 export default function NeurologyPage() {
   return (
     <>
-    <Header className="header-bckg"/>
-    <section className="specialty-page">
-      <div className="specialty-header">
-        <h1>
-          <span className="emoji"><Image width={60} src={neurologySpecialty.emoji}/></span>{" "}
-          {neurologySpecialty.title}
-        </h1>
-        <div className="subtitle">{neurologySpecialty.subtitle}</div>
-        <p className="description">{neurologySpecialty.description}</p>
-        <Button className="bookAppointment" label="Записаться"/>
-      </div>
-
-      <div className="info-columns">
-        <div>
-          <h4 className="block-title">Когда стоит обратиться:</h4>
-          <ul>
-            {neurologySpecialty.whenToVisit.map((item, i) => (
-              <li className="what-lech" key={i}><span className="decoration-blue-700">•</span> {item}</li>
-            ))}
-          </ul>
+      <Header className="neo-header-bckg" />
+      <section className="neo-specialty-page">
+        <div className="neo-specialty-header">
+          <h1>
+            <span className="neo-emoji"><Image width={60} src={neurologySpecialty.emoji} /></span>{" "}
+            {neurologySpecialty.title}
+          </h1>
+          <div className="neo-subtitle">{neurologySpecialty.subtitle}</div>
+          <p className="neo-description">{neurologySpecialty.description}</p>
+          <Button className="neo-bookAppointment" label="Записаться" />
         </div>
-        <div>
-          <h4 className="block-title">Что мы лечим:</h4>
-          <ul>
-            {neurologySpecialty.whatWeTreat.map((item, i) => (
-              <li className="what-lech" key={i}><span className="decoration-blue-700">•</span> {item}</li>
-            ))}
-          </ul>
-        </div>
-      </div>
 
-      <h2 className="specialty-title">Наши специалисты</h2>
-      <div className="doctors-grid">
-        {neurologyDoctors.map((doc) => (
-          <div className="doctor-card" key={doc.id}>
-            <div className="doctor-info">
-              <Image
-              src={doc.image}
-              width={100}
-              height={100}
-              className="specialty-avatar"
-              alt={doc.name}
-            />
-              <p>⭐ {doc.rating}/5</p>
-              <p>На основе {doc.reviews} отзывов</p>
-            </div>
-            <div className="doctor-info">
-              <h3>{doc.name}</h3>
-              <div className="specialty-texts">
-                <p>Специализация: <span className="clrblck">{doc.specialization}</span> </p>
-                <p>Опыт работы: <span className="clrblck">{doc.experience} лет</span> </p>
-                <p>Первичный приём: <span className="clrblck">{doc.price} ₸</span> </p>
-              </div>
-              
-              <Button className="btnWid" label="Записаться"/>
-            </div>
+        <div className="neo-info-columns">
+          <div>
+            <h4 className="neo-block-title">Когда стоит обратиться:</h4>
+            <ul>
+              {neurologySpecialty.whenToVisit.map((item, i) => (
+                <li className="neo-what-lech" key={i}><span className="neo-decoration-blue-700">•</span> {item}</li>
+              ))}
+            </ul>
           </div>
-        ))}
-      </div>
-      <BtnBorder className="all-doctors-btn" label="Все специалисты"/>
+          <div>
+            <h4 className="neo-block-title">Что мы лечим:</h4>
+            <ul>
+              {neurologySpecialty.whatWeTreat.map((item, i) => (
+                <li className="neo-what-lech" key={i}><span className="neo-decoration-blue-700">•</span> {item}</li>
+              ))}
+            </ul>
+          </div>
+        </div>
 
-    </section>
-      <Footer/>
+        <h2 className="neo-specialty-title">Наши специалисты</h2>
+        <div className="neo-doctors-grid">
+          {neurologyDoctors.map((doc) => (
+            <div className="neo-doctor-card" key={doc.id}>
+              <div className="neo-doctor-info">
+                <Image
+                  src={doc.image}
+                  width={100}
+                  height={100}
+                  className="neo-specialty-avatar"
+                  alt={doc.name}
+                /><span className="flex flex-col items-center">
+                  <p>⭐ {doc.rating}/5</p>
+                  <p>На основе {doc.reviews} отзывов</p></span>
+
+              </div>
+              <div className="neo-doctor-info">
+                <h3>{doc.name}</h3>
+                <div className="neo-specialty-texts">
+                  <p>Специализация: <span className="neo-clrblck">{doc.specialization}</span> </p>
+                  <p>Опыт работы: <span className="neo-clrblck">{doc.experience} лет</span> </p>
+                  <p>Первичный приём: <span className="neo-clrblck">{doc.price} ₸</span> </p>
+                </div>
+
+                <Button className="neo-btnWid" label="Записаться" />
+              </div>
+            </div>
+          ))}
+        </div>
+        <BtnBorder className="neo-all-doctors-btn" label="Все специалисты" />
+
+      </section>
+      <Footer />
     </>
-    
   );
 }

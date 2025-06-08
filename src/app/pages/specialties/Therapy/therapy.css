@@ -1,8 +1,9 @@
-.specialty-page {
+/* Основные стили */
+.the-specialty-page {
     padding: 125px 30px 30px;
 }
 
-.specialty-header h1 {
+.the-specialty-header h1 {
     font-size: 40px;
     display: flex;
     align-items: center;
@@ -10,11 +11,11 @@
     font-weight: 600;
 }
 
-.header-bckg{
-    background-color: white !important;
+.the-header-bckg {
+    background-color: rgb(255, 255, 255) !important;
 }
 
-.subtitle {
+.the-subtitle {
     margin-top: 10px;
     background-color: #DBE9FF;
     color: #003487;
@@ -28,7 +29,7 @@
     justify-content: center;
 }
 
-.description {
+.the-description {
     margin: 20px 0px;
     border-left: 3px solid #236ADB;
     padding-left: 12px;
@@ -36,18 +37,18 @@
     font-size: 17px;
 }
 
-.bookAppointment{
+.the-bookAppointment {
     width: 250px;
 }
 
-.info-columns {
+.the-info-columns {
     margin-top: 40px;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 30px;
 }
 
-.block-title {
+.the-block-title {
     background-color: #DBE9FF;
     color: #003487;
     width: 230px;
@@ -61,37 +62,38 @@
     font-size: 17px;
 }
 
-.what-lech{
+.the-what-lech {
     font-size: 17px;
 }
 
-.specialty-title {
+.the-specialty-title {
     margin-top: 50px;
     font-weight: 600;
     font-size: 40px;
     text-align: center;
 }
 
-.doctors-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(590px, 1fr));
-    gap: 30px;
+.the-doctors-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
     margin: 25px 0px;
+    justify-content: center;
 }
 
-.doctor-card {
+.the-doctor-card {
     display: flex;
     background-color: #F0F6FF;
     border-radius: 24px;
     align-items: center;
     gap: 20px;
     height: 260px !important;
-    width: 660px !important;
+    width: 600px;
     justify-content: center;
-    margin: 0 auto;
+    margin: 0;
 }
 
-.doctor-info{
+.the-doctor-info {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -103,7 +105,7 @@
     gap: 10px;
 }
 
-.specialty-texts{
+.the-specialty-texts {
     display: flex;
     flex-direction: column;
     gap: 12px;
@@ -111,29 +113,99 @@
     width: 90%;
 }
 
-.doctor-info h3{
+.the-doctor-info h3 {
     font-size: 18px;
     text-align: start !important;
     width: 90%;
 }
 
-.doctor-info p {
+.the-doctor-info p {
     /* margin: 4px 0; */
 }
 
-.btnWid{
+.the-btnWid {
     width: 90%;
 }
 
-.clrblck{
+.the-clrblck {
     color: black;
 }
 
-.specialty-avatar {
+.the-specialty-avatar {
     border-radius: 50%;
     object-fit: cover;
 }
 
-.all-doctors-btn {
+.the-all-doctors-btn {
     width: 100%;
+}
+
+@media (max-width: 1025px) {
+    .the-doctors-grid {
+        align-items: center;
+        justify-content: center;
+    }
+
+    .the-doctor-card {
+        flex-direction: column;
+        width: 100%;
+        height: auto !important;
+        width: 400px;
+        margin: 0;
+        padding: 20px;
+    }
+
+    .the-doctor-info {
+        width: 100%;
+        align-items: center;
+        padding-top: 10px;
+        border-top: 1px solid #DBE9FF;
+    }
+
+    .the-doctor-info h3 {
+        width: fit-content;
+    }
+
+    .the-specialty-texts {
+        align-items: center;
+    }
+
+    .the-doctor-card .the-doctor-info:nth-of-type(1) {
+        display: flex;
+        flex-direction: row;
+        gap: 20px;
+        border: 0;
+    }
+}
+
+@media (max-width: 821px) {
+    .the-doctor-card {
+        width: 350px;
+    }
+}
+
+@media (max-width: 768px) {
+    .the-doctor-card {
+        width: 320px;
+    }
+}
+
+@media (max-width: 450px) {
+    .the-subtitle {
+        width: 100%;
+        font-size: 16px;
+        height: 70px;
+        padding: 0 20px;
+    }
+
+    .the-doctor-card {
+        width: 100%;
+    }
+
+    .the-custom-button {
+        width: 100%;
+    }
+        .the-bookAppointment {
+            width: 100%;
+        }
 }
