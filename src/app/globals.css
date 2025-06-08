@@ -35,3 +35,7 @@ input{
 textarea{
   outline: none !important;
 }
+
+::-webkit-scrollbar{
+  width: 0px;
+}

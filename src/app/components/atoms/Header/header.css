@@ -190,19 +190,3 @@
   display: none;
   cursor: pointer;
 }
-
-@media (max-width: 770px) {
-  .burgerMenu{
-    display: block;
-  }
-  .nav{
-      display: none;
-  }
-  .profile{
-    display: none;
-  }
-}
-
-@media (max-width: 420px) {
-
-}
