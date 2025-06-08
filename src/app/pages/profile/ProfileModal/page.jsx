@@ -32,7 +32,7 @@ export default function ProfileModal({
           <div className="left-side">
             <img src={doctor.avatarBase64} className="avatar" alt="doctor" />
             <h3>{doctor.fullName}</h3>
-            <p>⭐ {doctor.rating}/5</p>
+            <p>★ {doctor.rating}/5</p>
             <p><strong>Специализация:</strong> {doctor.speciality}</p>
             <p><strong>Опыт работы:</strong> {doctor.experience}</p>
             <p><strong>Первичный приём:</strong> {doctor.priceNew} ₸</p>
