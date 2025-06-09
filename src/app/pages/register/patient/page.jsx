@@ -57,57 +57,57 @@ export default function PatientRegisterPage() {
     <div className="container">
       <div className="left">
         <div className="left-top">
-        <h1 className="heading">Я ищу медицинскую помощь</h1>
-        <Image src={Patient} alt="Patient" width={300} className="image" />
+          <h1 className="heading">Я ищу медицинскую помощь</h1>
+          <Image src={Patient} alt="Patient" width={300} className="image" />
         </div>
         <div className="left-bottom">
-        <h1 className="heading">Добро пожаловать! Давайте начнём.</h1>
-        <form
-          className="form"
-          onSubmit={(e) => {
-            e.preventDefault();
-            onRegister();
-          }}
-        >
-          <label htmlFor="email">Email</label>
-          <input
-            className="input"
-            type="email"
-            id="email"
-            placeholder="Введите ваш email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-          <label htmlFor="password">Пароль</label>
-          <input
-            type="password"
-            id="password"
-            placeholder="Введите ваш пароль"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-          <label htmlFor="confirm">Подтверждение пароля</label>
-          <input
-            type="password"
-            id="confirm"
-            placeholder="Введите пароль повторно"
-            value={confirm}
-            onChange={(e) => setConfirm(e.target.value)}
-            required
-          />
-          <div className="flex w-full justify-center my-[25px] gap-5 align-middle">
-            <div className="iconDiv"><FaGoogle className="icon" /></div>
-            <div className="iconDiv"><FaFacebook className="icon" /></div>
-            <div className="iconDiv"><FaTwitter className="icon" /></div>
-          </div>
-          <div className="buttNs ">
-            <Button label={loading ? "Регистрация..." : "Зарегистрироваться"} className="btnRegister" disabled={loading} />
-            <BtnBorder  className="btnCancel" onClick={handleCancel} label="Отмена" />
-          </div>
-        </form>
-        <p className="loginText">Уже есть аккаунт? <a href="/pages/login/loginPatient">Войти</a></p>
+          <h1 className="heading">Добро пожаловать! Давайте начнём.</h1>
+          <form
+            className="form"
+            onSubmit={(e) => {
+              e.preventDefault();
+              onRegister();
+            }}
+          >
+            <label htmlFor="email">Email</label>
+            <input
+              className="input"
+              type="email"
+              id="email"
+              placeholder="Введите ваш email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+            <label htmlFor="password">Пароль</label>
+            <input
+              type="password"
+              id="password"
+              placeholder="Введите ваш пароль"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+            <label htmlFor="confirm">Подтверждение пароля</label>
+            <input
+              type="password"
+              id="confirm"
+              placeholder="Введите пароль повторно"
+              value={confirm}
+              onChange={(e) => setConfirm(e.target.value)}
+              required
+            />
+            <div className="flex w-full justify-center my-[25px] gap-5 align-middle">
+              <div className="iconDiv"><FaGoogle className="icon" /></div>
+              <div className="iconDiv"><FaFacebook className="icon" /></div>
+              <div className="iconDiv"><FaTwitter className="icon" /></div>
+            </div>
+            <div className="buttNs ">
+              <Button label={loading ? "Регистрация..." : "Зарегистрироваться"} className="btnRegister" disabled={loading} />
+              <BtnBorder className="btnCancel" onClick={handleCancel} label="Отмена" />
+            </div>
+          </form>
+          <p className="loginText">Уже есть аккаунт? <a href="/pages/login/loginPatient">Войти</a></p>
         </div>
       </div>
 

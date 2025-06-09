@@ -32,7 +32,6 @@ export default function LoginDoctor() {
         setLoading(true);
         try {
             await signInWithEmailAndPassword(auth, email, password);
-            // Можно добавить проверку роли в базе, если нужно
             router.push("/pages/main"); // или куда надо после логина
         } catch (error) {
             alert("Ошибка входа: " + error.message);
@@ -85,7 +84,7 @@ export default function LoginDoctor() {
                             <FaTwitter className="icon" />
                         </div>
                     </div>
-                    <div className="flex justify-between">
+                    <div className="butt">
                         <Button label={loading ? "Вход..." : "Войти"} className="btnLogin" disabled={loading} />
                         <BtnBorder onClick={handleCancel} label="Отмена" />
                     </div>
