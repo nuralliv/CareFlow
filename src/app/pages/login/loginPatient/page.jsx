@@ -1,80 +1,98 @@
 "use client";
 
+import Image from "next/image";
+import Patient from "@/app/images/Patient-login-img.png";
+import { FaFacebook, FaTwitter, FaGoogle } from "react-icons/fa";
+import "./loginPatient.css";
 import { useState } from "react";
-import { auth, db } from "@/app/firebaseConfig";
-import { ref, update } from "firebase/database";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "@/app/firebaseConfig";
 import { useRouter } from "next/navigation";
+
 import BtnBorder from "@/app/components/atoms/btnBorder/btnBorder";
 import Button from "@/app/components/atoms/Button/Button";
-import Options from "@/app/components/atoms/Options/Options";
-import Image from "next/image";
-import GroupImg from "@/app/images/GroupImg.png";
 
-const options = ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье"];
+export default function LoginPatient() {
 
-export default function WorkDaysPage() {
     const router = useRouter();
-    const [selected, setSelected] = useState([]);
-    const user = auth.currentUser;
 
-    const toggleOption = (label) => {
-        if (selected.includes(label)) {
-            setSelected(selected.filter(item => item !== label));
-        } else {
-            setSelected([...selected, label]);
-        }
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [loading, setLoading] = useState(false);
+    const handleCancel = () => {
+        router.push("/pages/login");
     };
+    const onLogin = async (e) => {
+        e.preventDefault();
 
-    const saveAndNext = async () => {
-        if (!user) {
-            alert("Ошибка: пользователь не авторизован");
+        if (!email || !password) {
             return;
         }
-        if (selected.length) {
-            await update(ref(db, `doctors/${user.uid}`), { workDays: selected });
+        setLoading(true);
+        try {
+            await signInWithEmailAndPassword(auth, email, password);
+            router.push("/pages/main"); // или куда нужно после входа
+        } catch (error) {
+            alert("Ошибка входа: " + error.message);
+        } finally {
+            setLoading(false);
         }
-        router.push("/pages/register/doctor/work-time");
-    };
+    }; return (
+        < div className="container" >
+            <div className="pleft">
+                <h1 className="heading">
+                    Пожалуйста, войдите в систему, <br /> чтобы продолжить.
+                </h1>
 
-    const skip = () => {
-        router.push("/pages/register/doctor/work-time");
-    };
+                <form className="form" onSubmit={onLogin}>
+                    <label htmlFor="email">Email</label>
+                    <input
+                        className="input"
+                        type="email"
+                        id="email"
+                        placeholder="Введите ваш email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        required
+                    />
 
-    return (
-        <section className="container">
-            <main className="left">
-                <Image src={GroupImg} width={130} height={130} className="group-img1" alt="group-img" />
+                    <label htmlFor="password">Пароль</label>
+                    <input
+                        type="password"
+                        id="password"
+                        placeholder="Введите ваш пароль"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        required
+                    />
+                    <div className="socialIcons">
+                        <div className="iconDiv">
+                            <FaGoogle className="icon" />
+                        </div>
+                        <div className="iconDiv">
+                            <FaFacebook className="icon" />
+                        </div>
+                        <div className="iconDiv">
+                            <FaTwitter className="icon" />
+                        </div>
+                    </div>
 
-                <div className="head-texts">
-                    <p>Поможем настроить ваш личный кабинет.</p>
-                    <h2>Рабочие дни:</h2>
-                </div>
+                    <div className="butt">
+                        <Button label={loading ? "Вход..." : "Войти"} className="btnLogin" disabled={loading} />
+                        <BtnBorder onClick={handleCancel} label="Отмена" />
+                    </div>
 
-                <div className="options-spe">
-                    {options.map(label => (
-                        <Options
-                            key={label}
-                            label={label}
-                            className={selected.includes(label) ? "selected" : ""}
-                            onClick={() => toggleOption(label)}
-                        />
-                    ))}
-                </div>
 
-                <div className="btns">
-                    <BtnBorder label="Пропустить" className="btn-skip" onClick={skip} />
-                    <Button label="Дальше" className="btn-next" onClick={saveAndNext} disabled={selected.length === 0} />
-                </div>
-
-                <Image src={GroupImg} width={130} height={130} className="group-img2" alt="group-img" />
-            </main>
-
-            <main className="right">
-                <h1 className="cf">CF</h1>
-                <p className="cf-text">
-                    CareFlow — медицинский веб-сайт и <br /> приложение, созданные для удобства клиник, <br /> врачей и пациентов.
+                </form>
+                <p className="loginText">
+                    Нет аккаунта? <a href="/patient/register">Зарегистрироваться</a>
                 </p>
-            </main>
-        </section>
+            </div>
+
+            <div className="pright">
+                <h1 className="heading">Я ищу медицинскую помощь</h1>
+                <Image src={Patient} alt="Patient" width={300} className="image" />
+            </div>
+        </div >
     );
 }

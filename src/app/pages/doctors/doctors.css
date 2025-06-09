@@ -172,7 +172,7 @@
 .doc-left {
    display: flex;
    gap: 50px;
-   align-items: top;
+   align-items: flex-start;
    flex-grow: 1;
 }
 
@@ -184,7 +184,7 @@
    display: flex;
    width: 100%;
    justify-content: space-between;
-   align-items: top;
+   align-items: center;
 
 }
 

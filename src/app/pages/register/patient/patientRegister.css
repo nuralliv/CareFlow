@@ -74,7 +74,7 @@
     width: 283px;
 }
 
-.buttNs{
+.buttNs {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -129,7 +129,8 @@
         align-items: center;
         justify-content: center;
     }
-    .buttNs{
+
+    .buttNs {
         width: 100%;
     }
 
@@ -170,35 +171,41 @@
 }
 
 @media (max-width: 768px) {
-    
+
     .form {
         width: 70%;
     }
 
-   
-    
+
+
 }
+
 @media (max-width: 450px) {
-    .left{
+    .left {
         width: 100%;
     }
+
     .left-bottom {
         width: 100%;
     }
+
     .buttNs {
         flex-direction: column;
         align-items: center;
-    } 
+    }
 
     .btnRegister {
         width: 90%;
     }
+
     .btnCancel {
         width: 90%;
     }
+
     .form input {
         width: 90%;
     }
+
     .left-top {
         display: none;
     }

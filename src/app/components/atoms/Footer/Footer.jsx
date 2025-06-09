@@ -15,6 +15,18 @@ export default function Footer() {
     return (
         <footer className="footer">
             <div className="footer-top">
+                <div className="footer-column-mob">
+                    <h2>Подписка на новости</h2>
+                    <p>
+                        Подпишитесь на рассылку, чтобы получать последние
+                        новости и обновления. Мы не рассылаем спам.
+                    </p>
+                    <div className="newsletter-input-mob">
+                        <input type="email" placeholder="Введите ваш email" />
+                        <Image className="foot-icon" src={footer} />
+                    </div>
+                </div>
+
                 <div className="footer-column">
                     <h2>Подписка на новости</h2>
                     <p>
