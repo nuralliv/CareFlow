@@ -596,6 +596,8 @@
 
    .doctor-mid .appointment-info {
       display: block;
+
+      width: 300PX;
    }
 
    .infos {
