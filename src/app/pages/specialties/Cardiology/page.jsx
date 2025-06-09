@@ -34,37 +34,39 @@ export default function CardiologyPage() {
     const [doctors, setDoctors] = useState([]);
 
     useEffect(() => {
-        const doctorsRef = ref(db, "doctors");
-        const unsubscribe = onValue(doctorsRef, (snapshot) => {
-            const data = snapshot.val();
-            if (data) {
-                const filtered = Object.entries(data)
-                    .map(([id, doc]) => ({
-                        id,
-                        name: doc.fullName || "Без имени",
-                        specialization: doc.speciality || "-",
-                        experience: doc.experience || "-",
-                        price: doc.priceNew || "-",
-                        image: doc.avatarBase64 || "/default-avatar.png",
-                        rating: doc.rating || 0,
-                        reviews: doc.reviewsList
-                            ? Object.keys(doc.reviewsList).length
-                            : 0,
-                    }))
-                    .filter((doc) =>
-                        (doc.specialization || "")
-                            .toLowerCase()
-                            .includes("кардио")
-                    );
+    const doctorsRef = ref(db, "doctors");
+    const unsubscribe = onValue(doctorsRef, (snapshot) => {
+        const data = snapshot.val();
+        if (data) {
+            const filtered = Object.entries(data)
+                .map(([id, doc]) => ({
+                    id,
+                    name: doc.fullName || "Без имени",
+                    specialization: doc.speciality || "-",
+                    experience: doc.experience || "-",
+                    price: doc.priceNew || "-",
+                    image: doc.avatarBase64 || "/default-avatar.png",
+                    rating: doc.rating || 0,
+                    reviews: doc.reviewsList
+                        ? Object.keys(doc.reviewsList).length
+                        : 0,
+                }))
+                .filter((doc) =>
+                    (doc.specialization || "")
+                        .toLowerCase()
+                        .includes("")
+                )
+                .slice(0, 4);
 
-                setDoctors(filtered);
-            } else {
-                setDoctors([]);
-            }
-        });
+            setDoctors(filtered);
+        } else {
+            setDoctors([]);
+        }
+    });
 
-        return () => unsubscribe();
-    }, []);
+    return () => unsubscribe();
+}, []);
+
 
     return (
         <>
