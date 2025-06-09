@@ -335,12 +335,11 @@
                                 )}
                             </div>
                             <div className="reviews-rating">
-                                <span>
-                                    {doctor.reviews} {getReviewWord(doctor.reviews)}
+                                <span className="doctors-star">
+                                    <span className="gold-star">★</span> {Number(doctor.rating || 0).toFixed(1)}
                                 </span>
-
-                                <span>
-                                    ★ {Number(doctor.rating || 0).toFixed(1)}
+                                <span className="doctors-rating">
+                                    {doctor.reviews} {getReviewWord(doctor.reviews)}
                                 </span>
                             </div>
                         </div>

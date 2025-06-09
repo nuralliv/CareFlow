@@ -193,6 +193,19 @@
    flex-direction: column;
 }
 
+.doctors-rating{
+   font-size: 16px;
+}
+
+.doctors-star{
+   font-size: 16px;
+}
+
+.gold-star{
+   font-size: 20px;
+   color: gold;
+}
+
 .doctor-bottom {
    display: flex;
    width: 100%;
@@ -228,12 +241,11 @@
 }
 
 .reviews-rating {
-   font-size: 13px;
    color: #475569;
    margin-bottom: 14px;
    display: flex;
    flex-direction: column;
-   gap: 10px;
+   gap: 5px;
    align-items: center;
 }
 

@@ -46,17 +46,19 @@ export default function NeurologyPage() {
                     .filter((doc) =>
                         (doc.specialization || "")
                             .toLowerCase()
-                            .includes("кардио")
-                    );
-
+                            .includes("")
+                    )
+                    .slice(0, 4);
+    
                 setDoctors(filtered);
             } else {
                 setDoctors([]);
             }
         });
-
+    
         return () => unsubscribe();
     }, []);
+    
     return (
         <>
             <Header className="neo-header-bckg" />
