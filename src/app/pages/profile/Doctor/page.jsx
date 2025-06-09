@@ -30,6 +30,10 @@ export default function DoctorProfile() {
 
     const [currentUserInfo, setCurrentUserInfo] = useState(null);
 
+    const dateParam = searchParams.get("date");
+const timeParam = searchParams.get("time");
+
+
     useEffect(() => {
         if (!doctorId) return;
 
@@ -38,13 +42,19 @@ export default function DoctorProfile() {
             const data = snapshot.val();
             if (data) {
                 setDoctor(data);
+                if (dateParam && timeParam) {
+                setSelectedDate(dateParam);
+                setSelectedTime(timeParam);
+                setIsModalOpen(true);
+            }
+
             } else {
                 setDoctor(null);
             }
         });
 
         return () => unsubscribe();
-    }, [doctorId]);
+    }, [doctorId, dateParam, timeParam]);
 
     if (!doctorId) {
         return <p>Доктор не выбран.</p>;

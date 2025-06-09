@@ -313,8 +313,8 @@
   .input-field::after {
     content: url("../../images/Edit.svg");
     position: absolute;
-    right: 60px;
-    top:59px;
+    right: 30px;
+    top:46px;
     width: 18px;
     height: 18px;
   }

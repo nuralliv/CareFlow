@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { gynecologySpecialty, gynecologyDoctors } from "@/app/pages/Data/gynecologyData.js";
 import Image from "next/image";
 import "./gynecology.css";
@@ -7,8 +7,53 @@ import Header from "@/app/components/atoms/Header/Header";
 import Footer from "@/app/components/atoms/Footer/Footer";
 import Button from "@/app/components/atoms/Button/Button";
 import BtnBorder from "@/app/components/atoms/btnBorder/btnBorder";
+import { ref, onValue } from "firebase/database";
+import { db } from "@/app/firebaseConfig";
+import AppointmentModal from "../../Appointment/page";
+
 
 export default function GynecologyPage() {
+  const [selectedDoctor, setSelectedDoctor] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const handleOpenModal = (doctor) => {
+        setSelectedDoctor(doctor);
+        setIsModalOpen(true);
+    };
+
+  const [doctors, setDoctors] = useState([]);
+  
+      useEffect(() => {
+          const doctorsRef = ref(db, "doctors");
+          const unsubscribe = onValue(doctorsRef, (snapshot) => {
+              const data = snapshot.val();
+              if (data) {
+                  const filtered = Object.entries(data)
+                      .map(([id, doc]) => ({
+                          id,
+                          name: doc.fullName || "Без имени",
+                          specialization: doc.speciality || "-",
+                          experience: doc.experience || "-",
+                          price: doc.priceNew || "-",
+                          image: doc.avatarBase64 || "/default-avatar.png",
+                          rating: doc.rating || 0,
+                          reviews: doc.reviewsList
+                              ? Object.keys(doc.reviewsList).length
+                              : 0,
+                      }))
+                      .filter((doc) =>
+                          (doc.specialization || "")
+                              .toLowerCase()
+                              .includes("кардио")
+                      );
+  
+                  setDoctors(filtered);
+              } else {
+                  setDoctors([]);
+              }
+          });
+  
+          return () => unsubscribe();
+      }, []);
   return (
     <>
       <Header className="gyn-header-bckg" />
@@ -20,7 +65,12 @@ export default function GynecologyPage() {
           </h1>
           <div className="gyn-subtitle">{gynecologySpecialty.subtitle}</div>
           <p className="gyn-description">{gynecologySpecialty.description}</p>
-          <Button className="gyn-bookAppointment" label="Записаться" />
+          <Button className="gyn-bookAppointment" label="Записаться" onClick={() => setIsModalOpen(true)}/>
+            {isModalOpen && (
+                <AppointmentModal
+                    onClose={() => setIsModalOpen(false)}
+                />
+            )}
         </div>
 
         <div className="gyn-info-columns">
@@ -44,7 +94,7 @@ export default function GynecologyPage() {
 
         <h2 className="gyn-specialty-title">Наши специалисты</h2>
         <div className="gyn-doctors-grid">
-          {gynecologyDoctors.map((doc) => (
+          {doctors.map((doc) => (
             <div className="gyn-doctor-card" key={doc.id}>
               <div className="gyn-doctor-info">
                 <Image
@@ -71,8 +121,12 @@ export default function GynecologyPage() {
             </div>
           ))}
         </div>
-        <BtnBorder className="gyn-all-doctors-btn" label="Все специалисты" />
-
+        <BtnBorder className="gyn-all-doctors-btn" label="Все специалисты" onClick={() => setIsModalOpen(true)}/>
+        {isModalOpen && (
+                <AppointmentModal
+                    onClose={() => setIsModalOpen(false)}
+                />
+            )}
       </section>
       <Footer />
     </>

@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { therapySpecialty, therapyDoctors } from "@/app/pages/Data/therapyData.js";
 import Image from "next/image";
 import "./therapy.css";
@@ -7,8 +7,54 @@ import Header from "@/app/components/atoms/Header/Header";
 import Footer from "@/app/components/atoms/Footer/Footer";
 import Button from "@/app/components/atoms/Button/Button";
 import BtnBorder from "@/app/components/atoms/btnBorder/btnBorder";
+import { ref, onValue } from "firebase/database";
+import { db } from "@/app/firebaseConfig";
+import AppointmentModal from "../../Appointment/page";
 
 export default function TherapyPage() {
+  const [selectedDoctor, setSelectedDoctor] = useState(null);
+      const [isModalOpen, setIsModalOpen] = useState(false);
+
+      const handleOpenModal = (doctor) => {
+        setSelectedDoctor(doctor);
+        setIsModalOpen(true);
+    };
+
+
+  const [doctors, setDoctors] = useState([]);
+  
+      useEffect(() => {
+          const doctorsRef = ref(db, "doctors");
+          const unsubscribe = onValue(doctorsRef, (snapshot) => {
+              const data = snapshot.val();
+              if (data) {
+                  const filtered = Object.entries(data)
+                      .map(([id, doc]) => ({
+                          id,
+                          name: doc.fullName || "Без имени",
+                          specialization: doc.speciality || "-",
+                          experience: doc.experience || "-",
+                          price: doc.priceNew || "-",
+                          image: doc.avatarBase64 || "/default-avatar.png",
+                          rating: doc.rating || 0,
+                          reviews: doc.reviewsList
+                              ? Object.keys(doc.reviewsList).length
+                              : 0,
+                      }))
+                      .filter((doc) =>
+                          (doc.specialization || "")
+                              .toLowerCase()
+                              .includes("кардио")
+                      );
+  
+                  setDoctors(filtered);
+              } else {
+                  setDoctors([]);
+              }
+          });
+  
+          return () => unsubscribe();
+      }, []);
   return (
     <>
       <Header className="the-header-bckg" />
@@ -20,7 +66,12 @@ export default function TherapyPage() {
           </h1>
           <div className="the-subtitle">{therapySpecialty.subtitle}</div>
           <p className="the-description">{therapySpecialty.description}</p>
-          <Button className="the-bookAppointment" label="Записаться" />
+          <Button className="the-bookAppointment" label="Записаться" onClick={() => setIsModalOpen(true)} />
+            {isModalOpen && (
+                                    <AppointmentModal
+                                        onClose={() => setIsModalOpen(false)}
+                                    />
+                                )}
         </div>
 
         <div className="the-info-columns">
@@ -44,7 +95,7 @@ export default function TherapyPage() {
 
         <h2 className="the-specialty-title">Наши специалисты</h2>
         <div className="the-doctors-grid">
-          {therapyDoctors.map((doc) => (
+          {doctors.map((doc) => (
             <div className="the-doctor-card" key={doc.id}>
               <div className="the-doctor-info">
                 <Image
@@ -67,7 +118,7 @@ export default function TherapyPage() {
                   <p>Первичный приём: <span className="the-clrblck">{doc.price} ₸</span> </p>
                 </div>
 
-                <Button className="the-btnWid" label="Записаться" />
+                <Button className="the-btnWid" label="Записаться" onClick={() => handleOpenModal(doc)}/>
               </div>
             </div>
           ))}
